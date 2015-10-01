@@ -12,6 +12,10 @@ void gui_print_page(Menuitem* menu){
 
 }
 
+void gui_print_inticator(){
+	
+}
+
 void gui_print_menu(Menuitem* m){
 	oled_printf(m.menu_name());
 	for(int n = 0; n < m->num_submenus; n++){
@@ -35,9 +39,8 @@ void gui_navigate(){
 		SELECTED_MENUITEM = menu_next(SELECTED_MENUITEM);
 	}
 	else if(joystick_button_read()){
-		// if(SELECTED_MENUITEM has function){
-		SELECTED_MENUITEM->fn();
-
+		if(SELECTED_MENUITEM != NULL){
+			SELECTED_MENUITEM->fn();
 	}
 }
 

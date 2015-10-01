@@ -89,7 +89,12 @@ Menuitem* menu_prev(Menuitem* m){
 
 
 int menu_submenu_number(Menuitem* m){
-
+	Menuitem* parent = menu_parent(m);
+	for(int i = 0; i < parent->num_submenus; i++){
+		if(parent->submenus[i] == m)
+			return i;
+	}
+	return 0; 		//make safeguarding form this?
 }
 
 char* menu_name(){
