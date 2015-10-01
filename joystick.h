@@ -7,8 +7,8 @@ void JOY_calibrate();
 //JOY_position_t YOU_getPosition();
 //JOY_direction_t JOY_getDirection();
 
-unsigned int joystick_read_x();
-unsigned int joystick_read_y();
+unsigned int joystick_read_x(); //unsinged, wtf?
+unsigned int joystick_read_y();	//unsinged, wtf?
 signed int joystick_y_value();
 signed int joystick_x_value();
 int joystick_button_read();

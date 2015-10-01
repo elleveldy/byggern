@@ -1,8 +1,10 @@
 #pragma once
-typedef struct Menuitem Menuitem;
 #include <stdint.h>
 
 
+
+
+typedef struct Menuitem Menuitem;
 struct Menuitem {
 	uint8_t			num_submenus;
 	Menuitem**		submenus;
@@ -11,11 +13,13 @@ struct Menuitem {
 	void (*fn)(void);
 };
 
+Menuitem* SELECTED_MENUITEM;
 
-
-
-
-typedef struct Menuitem Menuitem;
+Menuitem* new_Menuitem(
+char* name,
+void (fn*)(void),
+uint8_t num_submenus,
+);
 
 void assign_parents(Menuitem* menu);
 
@@ -26,4 +30,7 @@ Menuitem* menu_parent(Menuitem* m);
 Menuitem* menu_next(Menuitem* m);
 Menuitem* menu_prev(Menuitem* m);
 
+int menu_submenu_number(Menuitem* m);
+
+char* menu_name();
 char* menu_name(Menuitem* m);

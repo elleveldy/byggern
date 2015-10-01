@@ -13,7 +13,7 @@
 #include <stdlib.h>
 
 #include "uart_driver.h"
-#include "Joystick.h"
+#include "joystick.h"
 #include "oled.h"
 #include "gui.h"
 #include "menu.h"

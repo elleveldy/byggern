@@ -4,10 +4,6 @@
 
 
 
-char* menu_name(Menuitem* m){
-	return m->name;
-}
-
 Menuitem* new_Menuitem(
 char* name,
 void (fn*)(void),
@@ -91,3 +87,15 @@ Menuitem* menu_prev(Menuitem* m){
 	return m;
 }
 
+
+int menu_submenu_number(Menuitem* m){
+
+}
+
+char* menu_name(){
+	return this->name;
+}
+
+char* menu_name(Menuitem* m){
+	return m->name;
+}
