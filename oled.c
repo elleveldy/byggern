@@ -52,15 +52,20 @@ void oled_init()
 	//oled_command_write(0xa4);    //Entire display on
 	
 	//oled_clear_screen();
-	
+	oled_home();
 }
 
 
 
 
-void oled_goto_col(int col){
-	oled_command_write(0x0f + col);
-	
+//void oled_goto_col(int col){
+	//oled_command_write(0x0f + col);
+	//
+//}
+
+void oled_goto_col(int column){
+	oled_command_write(column & 0x0f);
+	oled_command_write(((column & 0xf0) >> 4) | (0x10));
 }
 
 void oled_goto_page(int page){
@@ -82,6 +87,15 @@ void oled_clear_page(int page){
 	oled_goto_page(page);
 	for(int col; col < 128; col++){
 		oled_data_write(0x00);
+	}
+}
+
+void oled_clear_col(int col){
+	int col_nr = col*8;
+	oled_goto_col(col_nr);
+	for(int page; page < 8; page++){
+		oled_goto_pos(col_nr, page);
+		oled_print_char(' ');
 	}
 }
 

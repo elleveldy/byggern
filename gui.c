@@ -1,7 +1,12 @@
+#define F_CPU 4915200
+
+#include <stdlib.h>
+#include <util/delay.h>
 
 #include "menu.h"
 #include "joystick.h"
 #include "oled.h"
+#include "timer.h"
 
 
 
@@ -12,52 +17,89 @@ void gui_print_page(Menuitem* menu){
 
 }
 
-void gui_print_inticator(){
 
+//works
+void gui_print_indicator(Menuitem* m){
+	
+	oled_clear_col(0);
+	
+	int number = menu_submenu_number(m);
+	
+	oled_goto_pos(0, number);
+	oled_printf("-");
+	
 }
+
+
 
 void gui_print_menu(Menuitem* m){
-	oled_printf(m.menu_name());
+	oled_clear_screen();
+	oled_goto_pos(8, 0);
+	oled_printf(menu_name(m));
+	
 	for(int n = 0; n < m->num_submenus; n++){
-		oled_printf("\t%d\n", m->submenus[n].menu_name());
+		oled_goto_pos(8, n+1);
+		oled_printf(menu_name(m->submenus[n]));
 	}
+	oled_goto_pos(8,5);
+	oled_printf(menu_name(selected_menuitem));
+
 }
 
-//uses SELECTED_MENUITEM and changes it according to joystick movement
+//uses selected_menuitem and changes it according to joystick movement
+//w
 void gui_navigate(){
-
+	
+	
 	//Needed to avoid navigation spamming (moving through menu faster than you can react to)
-	// if(timer_running){
-	// 	return;
-	// }
-
+	//if(timer_isTimeout()){}
+	//else{
+		//return;
+	//}
 	int threshold = 70;
-	if(joystick_read_x() > threshold){
-		SELECTED_MENUITEM = menu_submenu(SELECTED_MENUITEM);
+	
+	if(joystick_x_value() > threshold){
+		oled_printf("x");
+		selected_menuitem = menu_submenu(selected_menuitem);
+		_delay_ms(200);
 	}
-	else if(joystick_read_x() < - threshold){
-		SELECTED_MENUITEM = menu_parent(SELECTED_MENUITEM);
+	else if(joystick_x_value() < - threshold){
+		oled_printf("-x");
+		selected_menuitem = menu_parent(selected_menuitem);
+		_delay_ms(200);
+		
+		
 	}
-	else if(joystick_read_y() > threshold){
-		SELECTED_MENUITEM = menu_prev(SELECTED_MENUITEM);
+	else if(joystick_y_value() > threshold){
+		oled_printf("y");
+		selected_menuitem = menu_prev(selected_menuitem);
+		_delay_ms(200);
+
+		
 	}
-	else if(joystick_read_y() < - threshold){
-		SELECTED_MENUITEM = menu_next(SELECTED_MENUITEM);
+	else if(joystick_y_value() < - threshold){
+		oled_printf("-y");
+		//if there is a next item:
+		if(
+		selected_menuitem = menu_next(selected_menuitem);
+		_delay_ms(200);
+
 	}
 	else if(joystick_button_read()){
-		if(SELECTED_MENUITEM != NULL){
-			SELECTED_MENUITEM->fn();
+		oled_printf("button");
+		if(selected_menuitem->fn != NULL )	//if the function pointer points to a function, call it
+			selected_menuitem->fn();	
+			_delay_ms(200);
+		
 	}
-	else
-		return;
-
-	// timer_start();
-
+	
+	
 }
 
-void gui_init(){
 
-}
+//void gui_init(){
+//
+//}
 
 //void gui_logic(){
 	//

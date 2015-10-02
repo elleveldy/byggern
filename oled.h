@@ -32,6 +32,7 @@ void oled_home();
 
 
 void oled_clear_page(int page);
+void oled_clear_col(int col);
 void oled_clear_screen();
 
 

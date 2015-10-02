@@ -12,7 +12,7 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
-#include "uart_driver.h"
+#include "uart.h"
 #include "joystick.h"
 #include "oled.h"
 #include "gui.h"
@@ -36,22 +36,56 @@ int main(void){
 	
 	
 	buttons_init(); // useless thus far
-	oled_init();
-	oled_clear_screen();
+	oled_init();	
+	oled_clear_screen();	
+	oled_home();
 	
-	
-	//oled_goto_page(0);
-	//oled_printf("Erlend er dust");
-	//
 	
 	Menuitem* menu = create_menu();
+	selected_menuitem = menu;
+	menu_line_nr = 0; 
 	
-	gui_print_page(menu);
-	SRAM_test();
+	//gui_print_page(menu);
+	
+	//oled_printf( menu_name(menu));
+	//oled_goto_pos(16,1);
+	//oled_printf(menu_name(menu));
+	
+
+	
     while(1){
 		
-		
 		joystick_print_input();
+		
+		gui_print_menu(selected_menuitem);
+		gui_navigate();
+		
+		//selected_menuitem = menu_submenu(selected_menuitem);
+		//selected_menuitem = menu_next(selected_menuitem);
+		//selected_menuitem = menu_next(selected_menuitem);
+		
+		gui_print_indicator(selected_menuitem);
+		
+		//selected_menuitem = menu_next(selected_menuitem);
+		//_delay_ms(200);
+		//oled_clear_screen();
+		
+		
+		
+		
+		
+		
+		////selected_menuitem = menu_next(selected_menuitem);
+		//oled_goto_pos(0, 5);
+		//oled_printf(selected_menuitem);
+		//
+		//
+		//int numb = menu_submenu_number(selected_menuitem);
+		////int neg = -1;
+		//oled_goto_pos(0, numb + 2);
+		//oled_printf(numb);
+		
+		
 
     }
 	

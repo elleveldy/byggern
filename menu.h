@@ -13,12 +13,13 @@ struct Menuitem {
 	void (*fn)(void);
 };
 
-Menuitem* SELECTED_MENUITEM;
+Menuitem* selected_menuitem;
+int menu_line_nr;
 
 Menuitem* new_Menuitem(
 char* name,
-void (fn*)(void),
-uint8_t num_submenus,
+void (*fn)(void),
+uint8_t num_submenus
 );
 
 void assign_parents(Menuitem* menu);
@@ -32,5 +33,5 @@ Menuitem* menu_prev(Menuitem* m);
 
 int menu_submenu_number(Menuitem* m);
 
-char* menu_name();
+//char* menu_name();
 char* menu_name(Menuitem* m);

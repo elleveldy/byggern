@@ -1,7 +1,11 @@
 #pragma once
 
 
-void JOY_init();
+int joystick_initial_x_value;
+int joystick_initial_y_value;
+
+
+void JOY_initialize();
 void JOY_calibrate();
 //bool JOY_button(int button);
 //JOY_position_t YOU_getPosition();

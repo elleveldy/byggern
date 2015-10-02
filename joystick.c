@@ -5,11 +5,14 @@
 #include <util/delay.h>
 #include <avr/io.h>
 
-void joystick_init(){
-	
-	
-	
-	
+
+
+
+void joystick_initialize(){
+	volatile char *ext_joy = (char *) 0x1400;
+	ext_joy[0] = 0x04;
+	_delay_us(40);
+	joystick_initial_x_value = (uint8_t)ext_joy[0];
 }
 
 unsigned int joystick_read_x(){
@@ -111,4 +114,13 @@ void joystick_print_input(){
 	printf("\n\nX:\t%d\tLeft Slide:\t%d\tLeft Button:\t%d\tJoyButton:\t%d\nY:\t%d\tRight Slide:\t%d\tRight Button:\t%d"
 	, joystick_x_value(), slider_left_value(), button_left_read(), joystick_button_read(),joystick_y_value(),  slider_right_value(), button_right_read());
 	
+}
+
+void laurits_print(){
+	
+
+	printf("X:%4i Left Slide:%4i Left Button:%2i JoyButton:%2i Y:%4i Right Slide:%2i Right Button: %2i \r"
+	, joystick_x_value(), slider_left_value(), button_left_read(), joystick_button_read(),joystick_y_value(),  slider_right_value(), button_right_read());
+		
+
 }
