@@ -13,7 +13,7 @@ void gui_print_page(Menuitem* menu){
 }
 
 void gui_print_inticator(){
-	
+
 }
 
 void gui_print_menu(Menuitem* m){
@@ -25,6 +25,12 @@ void gui_print_menu(Menuitem* m){
 
 //uses SELECTED_MENUITEM and changes it according to joystick movement
 void gui_navigate(){
+
+	//Needed to avoid navigation spamming (moving through menu faster than you can react to)
+	// if(timer_running){
+	// 	return;
+	// }
+
 	int threshold = 70;
 	if(joystick_read_x() > threshold){
 		SELECTED_MENUITEM = menu_submenu(SELECTED_MENUITEM);
@@ -42,6 +48,11 @@ void gui_navigate(){
 		if(SELECTED_MENUITEM != NULL){
 			SELECTED_MENUITEM->fn();
 	}
+	else
+		return;
+
+	// timer_start();
+
 }
 
 void gui_init(){
