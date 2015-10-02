@@ -3,7 +3,6 @@
 #ifndef FONT_H_
 #define FONT_H_
 
-
 #define font_width 8
 #define FONT_OFFSET 32
 
