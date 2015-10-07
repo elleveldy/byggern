@@ -16,6 +16,7 @@ unsigned int joystick_read_y();	//unsinged, wtf?
 signed int joystick_y_value();
 signed int joystick_x_value();
 int joystick_button_read();
+int joystick_is_moved();
 
 
 
@@ -27,7 +28,6 @@ signed int slider_right_value();
 void buttons_init();
 int button_left_read();
 int button_right_read();
-int joystick_is_moved();
 
 void joystick_print_input();
 
