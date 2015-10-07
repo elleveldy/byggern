@@ -36,8 +36,10 @@ Menuitem* create_menu(){
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
 	base->submenus[0] = new_Menuitem("Snake", menu_snake_fn, 0);
 	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
-	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", NULL, 0);
-	base->submenus[1]->submenus[1] = new_Menuitem("Inverse", menu_toggle_negative, 0);
+	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_change_contrast, 0);
+	base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", NULL, 2);
+	base->submenus[1]->submenus[1]->submenus[0] = new_Menuitem("Negative", oled_mode_negative, 0);
+	base->submenus[1]->submenus[1]->submenus[1] = new_Menuitem("Normal", oled_mode_normal, 0);
 	base->submenus[2] = new_Menuitem("Ping Pong", NULL, 0);
 	
 	assign_parents(base);
@@ -128,8 +130,5 @@ volatile char *oled_data = (char *) 0x1200; //dirty fix
 
 
 void menu_toggle_negative(){
-	//A6 / A7
-	*oled_data = 0xa7;
-	oled_home();
-	oled_printf("toggle neg");
+	
 }

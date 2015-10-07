@@ -143,6 +143,45 @@ void oled_printf2(char* str){
 	
 }
 
+void oled_mode_negative(){
+	oled_command_write(0xa7);
+}
+
+void oled_mode_normal(){
+	oled_command_write(0xa6);
+}
+
+
+void oled_change_contrast(){
+
+	int contrast;
+	oled_clear_screen();
+	oled_home();
+	oled_printf("Contrast");
+	oled_goto_page(3);
+	oled_printf("Touch left slider");
+	oled_goto_page(7);
+	oled_printf("Quit");
+	oled_goto_pos(8,7);
+	oled_printf("Default");
+
+
+	while(1){
+		if(button_left_read()){
+			return;
+		}
+		else if(button_right_read()){
+			oled_command_write(0x81);    
+			oled_data_write(0x50);
+		}
+
+		contrast = slider_left_read();
+
+		oled_command_write(0x81);    
+		oled_data_write(contrast);
+
+	}
+}
 
 //void oled_draw_line(int x0, int y0, int x1, int y1){
 //
