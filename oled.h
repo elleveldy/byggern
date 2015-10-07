@@ -14,9 +14,7 @@
 
 static inline void oled_command_write(char command);
 static inline void oled_data_write(char data);
-
-
-
+static inline void oled_testo(char command);
 
 void oled_init();
 void oled_print_char(char character);
@@ -33,6 +31,7 @@ void oled_home();
 
 void oled_clear_page(int page);
 void oled_clear_col(int col);
+void oled_clear_col_interval(int col, int a, int b);
 void oled_clear_screen();
 
 

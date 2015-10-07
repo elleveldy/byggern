@@ -13,7 +13,7 @@ struct Menuitem {
 	void (*fn)(void);
 };
 
-Menuitem* selected_menuitem;
+Menuitem* menu_selector;
 int menu_line_nr;
 
 Menuitem* new_Menuitem(
@@ -35,3 +35,10 @@ int menu_submenu_number(Menuitem* m);
 
 //char* menu_name();
 char* menu_name(Menuitem* m);
+
+//submenu functions
+//snake function
+void menu_snake_fn();
+
+//settings functions
+void menu_toggle_negative();

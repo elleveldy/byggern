@@ -1,8 +1,8 @@
-#include "oled.h"
-#include "menu.h"
+
 #include <stdint.h>
 #include <stdlib.h>
-
+#include "oled.h"
+#include "menu.h"
 
 
 Menuitem* new_Menuitem(
@@ -34,11 +34,11 @@ void assign_parents(Menuitem* menu){
 Menuitem* create_menu(){
 	
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
-	base->submenus[0] = new_Menuitem("Sub 1", NULL, 0);
-	base->submenus[1] = new_Menuitem("Sub 2", NULL, 2);
-	base->submenus[1]->submenus[0] = new_Menuitem("Sub 2-1", NULL, 0);
-	base->submenus[1]->submenus[1] = new_Menuitem("Sub 2-2", NULL, 0);
-	base->submenus[2] = new_Menuitem("Sub 3", NULL, 0);
+	base->submenus[0] = new_Menuitem("Snake", menu_snake_fn, 0);
+	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
+	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", NULL, 0);
+	base->submenus[1]->submenus[1] = new_Menuitem("Inverse", menu_toggle_negative, 0);
+	base->submenus[2] = new_Menuitem("Ping Pong", NULL, 0);
 	
 	assign_parents(base);
 	
@@ -49,7 +49,7 @@ Menuitem* create_menu(){
 
 //works
 Menuitem* menu_submenu(Menuitem* m){
-	if (m->submenus){
+	if (m->num_submenus != 0){
 		return m->submenus[0];
 	}
 	else{
@@ -108,4 +108,28 @@ int menu_submenu_number(Menuitem* m){
 
 char* menu_name(Menuitem* m){
 	return m->name;
+}
+
+
+void menu_snake_fn(){
+	oled_clear_screen();
+	while(1){
+		oled_home();
+		oled_printf("snake funk");
+	}
+	
+}
+
+void menu_change_contrast(){
+	
+}
+
+volatile char *oled_data = (char *) 0x1200; //dirty fix
+
+
+void menu_toggle_negative(){
+	//A6 / A7
+	*oled_data = 0xa7;
+	oled_home();
+	oled_printf("toggle neg");
 }

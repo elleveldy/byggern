@@ -10,23 +10,27 @@
 
 static FILE oled_stdout = FDEV_SETUP_STREAM(oled_print_char, NULL, _FDEV_SETUP_WRITE); 
 
-
 volatile char *oled_data_adr = (char *) 0x1200;
 volatile char *oled_command_adr = (char *) 0x1000;
+
 
 
 static inline void oled_command_write(char command){
 	*oled_command_adr = command; 
 }
 
+static inline void oled_testo(char command){
+	*oled_command_adr = command;	
+}
+
+
 static inline void oled_data_write(char data){
-	//volatile char *ext_oled_data = (char *) 0x1200;
-	//*ext_oled_data = data;
 	*oled_data_adr = data;
 }
 
 void oled_init()
 {
+	
 	oled_command_write(0xae);    // display off
 	oled_command_write(0xa1);    //segment remap
 	oled_command_write(0xda);    //common pads hardware: alternative
@@ -85,7 +89,7 @@ void oled_home(){
 
 void oled_clear_page(int page){
 	oled_goto_page(page);
-	for(int col; col < 128; col++){
+	for(int col = 0; col < 128; col++){
 		oled_data_write(0x00);
 	}
 }
@@ -93,7 +97,16 @@ void oled_clear_page(int page){
 void oled_clear_col(int col){
 	int col_nr = col*8;
 	oled_goto_col(col_nr);
-	for(int page; page < 8; page++){
+	for(int page = 0; page < 8; page++){
+		oled_goto_pos(col_nr, page);
+		oled_print_char(' ');
+	}
+}
+
+void oled_clear_col_interval(int col, int a, int b){
+	int col_nr = col*8;
+	oled_goto_col(col_nr);
+	for(int page = a; page < b; page++){
 		oled_goto_pos(col_nr, page);
 		oled_print_char(' ');
 	}

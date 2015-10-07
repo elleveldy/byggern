@@ -4,16 +4,17 @@
 #define F_CPU 4915200
 #include <util/delay.h>
 #include <avr/io.h>
+#include <stdlib.h> //for abs()
 
 
 
 
-void joystick_initialize(){
-	volatile char *ext_joy = (char *) 0x1400;
-	ext_joy[0] = 0x04;
-	_delay_us(40);
-	joystick_initial_x_value = (uint8_t)ext_joy[0];
-}
+//void joystick_initialize(){
+	//volatile char *ext_joy = (char *) 0x1400;
+	//ext_joy[0] = 0x04;
+	//_delay_us(40);
+	//joystick_initial_x_value = (uint8_t)ext_joy[0];
+//}
 
 unsigned int joystick_read_x(){
 	
@@ -67,15 +68,19 @@ signed int slider_right_value(){
 }
 
 void buttons_init(){
-	DDRB &= ~(1 << DDB1);
+	DDRB &= ~(1 << DDB1);	// ????
 	
+	//left & right
+	DDRB &= (1<< PINB0); //right
+	DDRB &= (1<< PINB1); //left
+
 	//joystick button activate
-	DDRB &= (1 << PINB6);
-	PORTB |= (1 << PINB6);
+	DDRB &= (1 << PINB2);
+	PORTB |= (1 << PINB2);
 }
 
 int joystick_button_read(){
-	int button = (PINB & (1 << PINB6));
+	int button = (PINB & (1 << PINB3));
 	if (button > 0){
 		return 0;
 	}
@@ -87,7 +92,7 @@ int joystick_button_read(){
 }
 
 int button_left_read(){
-	int button = (PINB & (1 << PINB2));
+	int button = (PINB & (1 << PINB1));
 	if (button > 0){
 		return 1;
 	}
@@ -97,7 +102,7 @@ int button_left_read(){
 }
 
 int button_right_read(){
-	int button = (PINB & (1 << PINB1));
+	int button = (PINB & (1 << PINB0));
 	if (button > 0){
 		return 1;
 	}
@@ -108,6 +113,18 @@ int button_right_read(){
 }
 
 
+int joystick_is_moved(){
+	int threshold = 10;
+	
+	if(abs(joystick_read_x()) > threshold)
+		return 1;
+	else if(abs(joystick_read_y()) > threshold)
+		return 1;
+	else if(joystick_button_read())
+		return 1;
+	else
+		return 0;
+}
 
 void joystick_print_input(){
 

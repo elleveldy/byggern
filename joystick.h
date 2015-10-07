@@ -27,7 +27,7 @@ signed int slider_right_value();
 void buttons_init();
 int button_left_read();
 int button_right_read();
-
+int joystick_is_moved();
 
 void joystick_print_input();
 

@@ -24,10 +24,10 @@ void SRAM_test(void);
 
 
 
-
 int main(void){
 	fdevopen(uart_Transmit, uart_Receive);
 	
+//switch case that only rewrites menu when joystick is moved
 	
 	
 	MCUCR |= (1 << SRE);
@@ -42,53 +42,18 @@ int main(void){
 	
 	
 	Menuitem* menu = create_menu();
-	selected_menuitem = menu;
+	menu_selector = menu;
 	menu_line_nr = 0; 
 	
-	//gui_print_page(menu);
-	
-	//oled_printf( menu_name(menu));
-	//oled_goto_pos(16,1);
-	//oled_printf(menu_name(menu));
-	
+
 
 	
     while(1){
 		
 		joystick_print_input();
 		
-		gui_print_menu(selected_menuitem);
-		gui_navigate();
-		
-		//selected_menuitem = menu_submenu(selected_menuitem);
-		//selected_menuitem = menu_next(selected_menuitem);
-		//selected_menuitem = menu_next(selected_menuitem);
-		
-		gui_print_indicator(selected_menuitem);
-		
-		//selected_menuitem = menu_next(selected_menuitem);
-		//_delay_ms(200);
-		//oled_clear_screen();
-		
-		
-		
-		
-		
-		
-		////selected_menuitem = menu_next(selected_menuitem);
-		//oled_goto_pos(0, 5);
-		//oled_printf(selected_menuitem);
-		//
-		//
-		//int numb = menu_submenu_number(selected_menuitem);
-		////int neg = -1;
-		//oled_goto_pos(0, numb + 2);
-		//oled_printf(numb);
-		
-		
-
-    }
-	
+		gui_run();
+	}
 }
 
 
