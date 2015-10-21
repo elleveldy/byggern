@@ -38,7 +38,9 @@ Menuitem* create_menu(){
 	base->submenus[0] = new_Menuitem("Snake", menu_snake_fn, 0);
 	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
 	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_change_contrast, 0);
-	base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_toggle_negatice, 0);
+	base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_toggle_negative, 0);
+	//base->submenus[1]->submenus[1]->submenus[0] = new_Menuitem("Negative", oled_mode_negative, 0);
+	//base->submenus[1]->submenus[1]->submenus[1] = new_Menuitem("Normal", oled_mode_normal, 0);
 	base->submenus[2] = new_Menuitem("Ping Pong", menu_toggle_negative, 0);
 	
 	assign_parents(base);
@@ -117,6 +119,9 @@ void menu_snake_fn(){
 	while(1){
 		oled_home();
 		oled_printf("snake funk");
+		if(button_left_read()){
+			return;
+		}
 	}
 	
 }
