@@ -14,7 +14,7 @@ static FILE oled_stdout = FDEV_SETUP_STREAM(oled_print_char, NULL, _FDEV_SETUP_W
 volatile char *oled_data_adr = (char *) 0x1200;
 volatile char *oled_command_adr = (char *) 0x1000;
 
-int screen_negative = 0;
+
 
 static inline void oled_command_write(char command){
 	*oled_command_adr = command; 
@@ -31,7 +31,6 @@ static inline void oled_data_write(char data){
 
 void oled_init()
 {
-
 	
 	oled_command_write(0xae);    // display off
 	oled_command_write(0xa1);    //segment remap
@@ -54,7 +53,6 @@ void oled_init()
 	oled_command_write(0x00);
 	oled_command_write(0xa4);    //out follows RAM content
 	oled_command_write(0xa6);    //set normal display
-	screen_negative = 0;
 	oled_command_write(0xaf);    // display on
 	//oled_command_write(0xa4);    //Entire display on
 	
@@ -96,7 +94,6 @@ void oled_clear_page(int page){
 		oled_data_write(0x00);
 	}
 }
-
 
 void oled_clear_col(int col){
 	int col_nr = col*8;
@@ -157,6 +154,7 @@ void oled_mode_normal(){
 	oled_command_write(0xa6);
 }
 
+int screen_negative = 0;
 
 void oled_toggle_negative(){
 	if(screen_negative){
@@ -168,6 +166,7 @@ void oled_toggle_negative(){
 		screen_negative = 1;
 	}
 }
+
 
 //badly modularised
 void oled_change_contrast(){
@@ -201,8 +200,6 @@ void oled_change_contrast(){
 
 	}
 }
-
-
 
 //void oled_draw_line(int x0, int y0, int x1, int y1){
 //

@@ -34,11 +34,11 @@ void oled_clear_col(int col);
 void oled_clear_col_interval(int col, int a, int b);
 void oled_clear_screen();
 
-//screen settings
 void oled_mode_negative();
 void oled_mode_normal();
-void oled_change_contrast();
 void oled_toggle_negative();
+
+void oled_change_contrast();
 
 
 
