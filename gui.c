@@ -21,6 +21,65 @@ void gui_run(){
 	gui_print_indicator(menu_selector);
 }
 
+void alt_gui_run(){
+	
+	gui_print_menu(menu_selector);
+	//gui_print_indicator(menu_selector);
+	
+	int print = 0;
+	while(1){
+	//
+	if(strcmp(menu_selector->name, "Main") == 0){
+		menu_selector = menu_submenu(menu_selector);
+	}
+
+	int threshold = 70;
+	
+	if(joystick_x_value() > threshold){
+		menu_selector = menu_submenu(menu_selector);
+		print = 1;
+		_delay_ms(200);
+	}
+	else if(joystick_x_value() < - threshold){
+		menu_selector = menu_parent(menu_selector);
+		print = 1;
+		_delay_ms(200);
+		
+		
+	}
+	else if(joystick_y_value() > threshold){
+		menu_selector = menu_prev(menu_selector);
+		print = 1;
+		_delay_ms(200);
+
+		
+	}
+	else if(joystick_y_value() < - threshold){
+		//if there is a next item:
+		if(menu_next(menu_selector) != NULL){
+			menu_selector = menu_next(menu_selector);
+			print = 1;
+			_delay_ms(200);
+		}
+	}
+	else if(joystick_button_read()){
+		print = 1;
+		if(menu_selector->fn != NULL ){	//if the function pointer points to a function, call it
+			menu_selector->fn();
+			_delay_ms(200);
+		}
+		else{
+			
+		}
+	}
+	if(print){
+		gui_print_menu(menu_selector);
+		gui_print_indicator(menu_selector);
+	}
+	print = 0;
+	}
+}
+
 
 void gui_print_page(Menuitem* menu){
 	oled_home();
