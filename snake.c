@@ -1,214 +1,177 @@
+#include <iostream>
+using namespace std;
+
 #include "oled.h"
-#include "joystick.h"
 #include <stdlib.h>
-#include <time.h>
-#include <util/delay.h>
+//#include <util/delay.h>
+
 #include "snake.h"
 
 
-typedef enum{left = -1, right = 1, down = -2, up = 2, none = 0} dir;
-typedef enum{x_left = -1, x_no_dir = 0, x_right = 1} x_dir;
-typedef enum{y_down = -1, y_no_dir = 0, y_up = 1} y_dir;
-typedef enum{pos_x= 0, pos_y, pos_bool}
+typedef enum{ left = -1, right = 1, down = -2, up = 2, none = 0 } dir;
 
+typedef enum{ x_left = -1, x_no_dir = 0, x_right = 1 } x_dir;
+typedef enum{ y_down = -1, y_no_dir = 0, y_up = 1 } y_dir;
+typedef enum{ pos_x = 0, pos_y, pos_bool }s_position;
 
-//devide by four, and print 4x4pixel squares?
-int WIDTH = 16;
-int HEIGHT = 8;
-int MAX_LENGTH = 8;
-
-
-//head
-int snake_x;
-int snake_y;
-
-
-
+const int SCREEN_WIDTH = 128;
+const int SCREEN_HEIGHT = 64;
+const int MAX_LENGTH = 8;
 int slength;
 
-//{(x,y, bool), (x,y, bool),(x,y, bool)} coordinates and bool
-int snake[max_length][3] = {{0,2,1}, {0,1,1}, {0,0,1}}; 
+int direction = up;
+int snake[MAX_LENGTH][3];
 
 
-//make arrays for apples?
-int apple; //true or false
-int apple_x;
-int apple_y;
 
+void snake_tests(){
 
-void snake_start_game(){
-	int direction = up;
+	snake_init(snake);
 
-	oled_clear_screen();
-	srand(time(NULL));
+	snake_print(snake);
 
-	snake_make_apple();
+	snake_move(dir::up, snake);
+	cout << endl;
+	snake_print(snake);
 
-	while(1){
-		
-		snake_move();
+	snake_move(dir::right, snake);
+	cout << endl;
+	snake_print(snake);
 
-		direction = snake_direction();
-		
-		if(snake_apple_eaten){
-			apple = 0;
-			snake_add_size();
-			snake_make_apple();
-		}
+	snake_move(dir::right, snake);
+	cout << endl;
+	snake_print(snake);
 
+	snake_move(dir::down, snake);
+	cout << endl;
+	snake_print(snake);
+}
 
-		snake_print_snake();
-		snake_print_snake();
+void snake_init(int snake[][3]){
+	slength = 3;
+	snake[0][pos_x] = 0;
+	snake[0][pos_y] = 3;
+	snake[1][pos_x] = 0;
+	snake[1][pos_y] = 2;
+	snake[2][pos_x] = 0;
+	snake[2][pos_y] = 1;
 
-		if(snake_boarder_reached())
-			break;
-		if(snake_self_collide())
-			break,
-		if(button_left_read())
+}
+
+void snake_run(int snake[][3]){
+	//controls move speed
+
+	//_delay_ms(200);
+
+	while (1){
+		snake_print(snake);
+		snake_move(direction, snake);
+
+		if (snake_self_collide(snake)){
 			return;
-
-		_delay_ms(200);
-
+		}
+		if (snake_boarder_reached(snake)){
+			return;
+		}
 	}
+	
 
 }
 
-void snake_game_over(){
-
-}
 
 void snake_print_part(int x, int y){
-
+	cout << x << " " << y << endl;
 }
 
-void snake_print_apple(){
-	snake_print_part(apple_x,apple_y);
+void snake_print_part(int snake[][3], int index){
+	cout << snake[index][pos_x] << " " << snake[index][pos_y] << endl;
 }
 
+void snake_print(int snake[][3]){
 
-void snake_print_snake(){ //should only erases the pervious last point
-	oled_clear_screen();
-	for(int i = 0; i < slength; i++){
-		snake_print_part(snake[slength][0], snake[slength][1]);
+	//oled_clear_screen();
+	//remove clear screen, and clear previously last snake part instead?
+	for (int i = 0; i < slength; i++){
+		//snake_print_part(snake[slength][pos_x], snake[slength][pos_y]);
+		snake_print_part(snake, i);
 	}
+
 }
 
-int snake_self_collide(){
+int snake_self_collide(int snake[][3]){
 
-	for(int i = 0; i < max_length; i ++){
-		if(snake[i][0] == snake_x && snake[i][1] == snake_y)
+	for (int i = 0; i < MAX_LENGTH; i++){
+		if (snake[i][pos_x] == snake[0][pos_x] && snake[i][1] == snake[i][pos_y])
 			return 1;
 	}
 	return 0;
 }
 
-void snake_add_size(){
-//increases slength, sets correct initial position and bool = 1
+
+void snake_move(int dir, int snake[][3]){
+
+	int x = x_no_dir;
+	int y = y_no_dir;
+
+	switch (dir){
+	case dir::up:
+		cout << "switch: " << "up";
+		y = y_up;
+	case dir::down:
+		cout << "switch: " << "down";
+		y = y_down;
+	}
+	switch (dir){
+	case dir::left:
+		cout << "switch: " << "left";
+		x = x_left;
+	case dir::right:
+		cout << "switch: " << "right";
+		x = x_right;
+	}
+
+
+	for (int point = slength -1; point > 0; point--){
+		snake[point][pos_x] = snake[point - 1][pos_x];
+		snake[point][pos_y] = snake[point - 1][pos_y];
+	}
+	cout  << endl << "dir: "<< dir << " x: " << x << " y: " << y;
+	snake[0][pos_x] = snake[0][pos_x] + x;
+	snake[0][pos_y] = snake[0][pos_y] + y;
+}
+
+int snake_boarder_reached(int snake[8][3]){
+	if (snake[0][pos_x] >= SCREEN_WIDTH || snake[0][pos_y] >= SCREEN_HEIGHT)
+		return 1;
+	else
+		return 0;
+}
+
+void snake_add_size(int snake[8][3]){
+	//increases slength, sets correct initial position and bool = 1
+
 	int x;
 	int y;
 
-	if(snake[slength - 1][x_pos] < snake[slength - 2][x_pos]){		//tail going right
-		
+	if (snake[slength - 1][pos_x] < snake[slength - 2][pos_x])		//tail moving right
 		x = x_left;
-	else if(snake[slength - 1][x_pos] > snake[slength - 2][x_pos]){	//tail going left
+	else if (snake[slength - 1][pos_x] > snake[slength - 2][pos_x])	//tail movingleft
 		x = x_right;
 	else													//not moving in x-direction
 		x = x_no_dir;
 
 
-	if(snake[slength - 1][y_pos] < snake[slength - 2][y_pos])		//tail going up
+	if (snake[slength - 1][pos_y] < snake[slength - 2][pos_y])		//tail moving up
 		y = y_down;
-	if(snake[slength - 1][y_pos] > snake[slength - 2][y_pos])		//tail going down
-		y = y_up;												
+	if (snake[slength - 1][pos_y] > snake[slength - 2][pos_y])		//tail moving down
+		y = y_up;
 	else													//not moving in y-direction													
 		y = y_no_dir;
 
-	snake[slength][x_pos] = snake[slength - 1][x_pos] + x;
-	snake[slength][y_pos] = snake[slength - 1][y_pos] + y;
+	snake[slength][pos_x] = snake[slength - 1][pos_x] + x;
+	snake[slength][pos_y] = snake[slength - 1][pos_y] + y;
 	snake[slength][pos_bool] = 1;
 
+
 	slength++;
-}
-
-void snake_move(int dir){
-
-	int x;
-	int y;
-
-	switch(dir){
-		case up;:
-			y = y_up;
-		case down:
-			y = y_down;
-		case left:
-			x = x_left;
-		case right:
-			x = x_right;
-	}
-
-
-	for(int point = slength - 1; point > 0; point--){
-		snake[point][x_pos] = snake[point + 1][x_pos];
-		snake[point][y_pos] = snake[point + 1][y_pos];
-	}
-	snake[0][x_pos] = snake[0][x_pos] + x; 
-	snake[0][y_pos] = snake[0][y_pos] + y; 
-	
-
-}
-
-//direction (one axis at a time)
-int snake_direction(){
-
-	//add delay?
-	int direction;
-	int threshold = 10;
-	//too little push on joystick
-	if( !(abs(joystick_x_value()) > threshold || abs(joystick_y_value()) > threshold))
-		return 0;
-
-	//picks dominant axis
-	if(abs(joystick_x_value()) > abs(joystick_y_value())){
-
-		if(joystick_x_value() > 0)
-			return right;
-
-		else
-			return left;
-	}
-	else{
-		if(joystick_y_value() > 0)
-			return up;
-		else
-			return down;
-	}
-}
-
-int snake_boarder_reached(){
-	if(snake_x >= snake_screen_width || snake_y >= snake_screen_width)
-		return 1;
-	else
-		return 0;
-}
-
-int snake_apple_eaten(){
-	if((snake[0][x_pos] == apple_x) && (snake[0][y_pos] == apple_y))
-		return 1;
-	else
-		return 0;
-}
-
-void snake_make_apple(){
-	if(apple)
-		return;
-
-	//randomise x between 0 and 128
-	apple = 1;
-	int x = rand() % snake_screen_width;
-	int y = rand() % snake_screen_height;
-	//randomise y between 0 and 64
-	//set the global variables apple_x and apple_y
-
-	//print apple to oled, which size?                                                                                                                                                                                                       
-
 }
