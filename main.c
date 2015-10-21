@@ -5,7 +5,6 @@
  *  Author: marteil
  */ 
 
-
 #define F_CPU 4915200
 
 #include <avr/io.h>
@@ -17,6 +16,10 @@
 #include "oled.h"
 #include "gui.h"
 #include "menu.h"
+#include "mcp2515.h"
+#include "SPI.h"
+#include "snake.h"
+#include "mcp2515_define.h"
 
 
 
@@ -45,14 +48,21 @@ int main(void){
 	menu_selector = menu;
 	menu_line_nr = 0; 
 	
-
-
+	
+	
+	mcp2515_init();
+	
+	snake_print_snake();
 	
     while(1){
+		//mcp2515_write(MCP_CANINTE, 120);
+		//svar = mcp2515_read(MCP_CANINTE);
+		//
+		//printf("Svar: %d\n", svar);
+		//
+		//_delay_ms(500);
 		
-		joystick_print_input();
-		
-		gui_run();
+		//alt_gui_run();
 	}
 }
 
