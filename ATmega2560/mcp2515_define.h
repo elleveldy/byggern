@@ -22,6 +22,8 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP2515_IDL_OFFSET 2
 #define MCP2515_DLC_OFFSET 5
 #define MCP2515_RXB_OFFSET 6
+#define MCP2515_TXB_OFFSET 6
+
 
 #define MCP_TXREQ 0x03
 
@@ -29,6 +31,10 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP2515_MASK_DLC 0x0F
 #define MCP2515_MASK_IDH 0xFF
 #define MCP2515_MASK_IDL 0xE0
+#define MCP_MASK_FILTER	0x60
+//modes
+
+
 
 
 

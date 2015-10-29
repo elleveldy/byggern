@@ -20,6 +20,7 @@
 #include "SPI.h"
 #include "snake.h"
 #include "mcp2515_define.h"
+#include "can.h"
 
 
 
@@ -48,21 +49,32 @@ int main(void){
 	menu_selector = menu;
 	menu_line_nr = 0; 
 	
+	//msg.id = 0b1111000011110000;
+	//msg.length = 0b1000;
+	//for(int i = 0; i < msg.length; i++){
+		//msg.data[i] = i;	
+	//}
+	
+
+	can_init(MODE_LOOPBACK);
+	can_message msg;
+	
+	msg.id = 3;
+	msg.length = 1;
+	msg.data[0] = 4;
+	
+	can_transmit(&msg, MCP_TXB0CTRL);
+
+	can_message stuff = can_recieve();
 	
 	
-	mcp2515_init();
-	
-	snake_print_snake();
 	
     while(1){
-		//mcp2515_write(MCP_CANINTE, 120);
-		//svar = mcp2515_read(MCP_CANINTE);
-		//
-		//printf("Svar: %d\n", svar);
-		//
-		//_delay_ms(500);
+		;
+		printf("id: %d\t\tlength: %d\tdata: %d\n",stuff.id, stuff.length, stuff.data[0]);
+		_delay_ms(200);
 		
-		//alt_gui_run();
+		
 	}
 }
 

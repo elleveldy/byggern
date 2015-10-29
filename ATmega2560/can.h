@@ -10,6 +10,12 @@ struct can_message{
 	uint8_t data[8]; //8*8bit
 };
 
+void can_init(int mode);
+void can_transmit(can_message* msg, int buffer_select);
+can_message can_recieve();
+uint8_t can_poll_interrupt();
+
+
 
 
 

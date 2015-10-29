@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ByggernGruppe48H2015", "ByggernGruppe48H2015\ByggernGruppe48H2015.cproj", "{D8EC31A9-697F-4679-8988-00386C032023}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega2560", "ATmega2560\ATmega2560.cproj", "{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8EC31A9-697F-4679-8988-00386C032023}.Debug|AVR.ActiveCfg = Debug|AVR
+		{D8EC31A9-697F-4679-8988-00386C032023}.Debug|AVR.Build.0 = Debug|AVR
+		{D8EC31A9-697F-4679-8988-00386C032023}.Release|AVR.ActiveCfg = Release|AVR
+		{D8EC31A9-697F-4679-8988-00386C032023}.Release|AVR.Build.0 = Release|AVR
+		{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}.Debug|AVR.ActiveCfg = Debug|AVR
+		{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}.Debug|AVR.Build.0 = Debug|AVR
+		{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}.Release|AVR.ActiveCfg = Release|AVR
+		{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

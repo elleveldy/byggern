@@ -8,6 +8,14 @@
 int mcp2515_init(){
 	spi_init();
 	mcp2515_reset();
+	
+	//self test
+	uint8_t value = mcp2515_read(MCP_CANSTAT);
+	if((value & MODE_MASK) != MODE_CONFIG){
+		printf("ERROR: MCP2515 is NOT in config mode after reset!\n");
+		return 1;
+	}
+	return 0;
 }
 
 
@@ -27,6 +35,7 @@ int mcp2515_read(int address){
 }
 
 void mcp2515_write(int address, int data){
+	
 	PORTB &= ~(1 << MCP2515_CS);
 	
 	spi_write(MCP_WRITE);
