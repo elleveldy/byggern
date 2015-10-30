@@ -16,8 +16,4 @@ can_message can_recieve();
 uint8_t can_poll_interrupt();
 
 
-
-
-
-
 #endif /* CAN_H_ */

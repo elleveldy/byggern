@@ -8,6 +8,8 @@ ByggernGruppe48H2015.c
 
 can.c
 
+canjoy.c
+
 font.c
 
 gui.c

@@ -37,8 +37,12 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../../ByggernGruppe48H2015/can.c \
-../ATmega2560.c
+../ATmega2560.c \
+../can.c \
+../canjoy.c \
+../mcp2515.c \
+../spi.c \
+../uart.c
 
 
 PREPROCESSING_SRCS += 
@@ -48,20 +52,36 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+ATmega2560.o \
 can.o \
-ATmega2560.o
+canjoy.o \
+mcp2515.o \
+spi.o \
+uart.o
 
 OBJS_AS_ARGS +=  \
+ATmega2560.o \
 can.o \
-ATmega2560.o
+canjoy.o \
+mcp2515.o \
+spi.o \
+uart.o
 
 C_DEPS +=  \
+ATmega2560.d \
 can.d \
-ATmega2560.d
+canjoy.d \
+mcp2515.d \
+spi.d \
+uart.d
 
 C_DEPS_AS_ARGS +=  \
+ATmega2560.d \
 can.d \
-ATmega2560.d
+canjoy.d \
+mcp2515.d \
+spi.d \
+uart.d
 
 OUTPUT_FILE_PATH +=ATmega2560.elf
 
@@ -82,12 +102,13 @@ LINKER_SCRIPT_DEP+=
 
 
 
-./%.o: ../../ByggernGruppe48H2015/%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
+
+
+
+
+
+
+
 
 ./%.o: .././%.c
 	@echo Building file: $<

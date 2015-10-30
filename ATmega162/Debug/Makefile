@@ -40,6 +40,7 @@ C_SRCS +=  \
 ../ADC.c \
 ../ByggernGruppe48H2015.c \
 ../can.c \
+../canjoy.c \
 ../font.c \
 ../gui.c \
 ../joystick.c \
@@ -63,6 +64,7 @@ OBJS +=  \
 ADC.o \
 ByggernGruppe48H2015.o \
 can.o \
+canjoy.o \
 font.o \
 gui.o \
 joystick.o \
@@ -79,6 +81,7 @@ OBJS_AS_ARGS +=  \
 ADC.o \
 ByggernGruppe48H2015.o \
 can.o \
+canjoy.o \
 font.o \
 gui.o \
 joystick.o \
@@ -95,6 +98,7 @@ C_DEPS +=  \
 ADC.d \
 ByggernGruppe48H2015.d \
 can.d \
+canjoy.d \
 font.d \
 gui.d \
 joystick.d \
@@ -111,6 +115,7 @@ C_DEPS_AS_ARGS +=  \
 ADC.d \
 ByggernGruppe48H2015.d \
 can.d \
+canjoy.d \
 font.d \
 gui.d \
 joystick.d \
@@ -137,6 +142,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

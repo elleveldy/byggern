@@ -16,7 +16,7 @@ Copyright 2003 Kimberly Otten Software Consulting
 // Define MCP2515 register addresses
 
 //custom
-#define MCP2515_CS 4	//ss on atmega162 PB4
+#define MCP2515_CS 0	//SS on ATmega2560
 
 #define MCP2515_IDH_OFFSET 1
 #define MCP2515_IDL_OFFSET 2

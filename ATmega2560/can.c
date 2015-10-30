@@ -12,7 +12,7 @@ void can_init(int mode){
 	mcp2515_bit_modify(MCP_RXB0CTRL, MCP_MASK_FILTER, 0xff);
 	mcp2515_bit_modify(MCP_RXB1CTRL, MCP_MASK_FILTER, 0xff);
 	mcp2515_bit_modify(MCP_CANCTRL, MODE_MASK, mode);
-	DDRA &= ~(1 << PA0);
+	DDRB &= ~(1 << PB4);
 }
 
 void can_transmit(can_message* msg, int buffer_select){
@@ -22,7 +22,7 @@ void can_transmit(can_message* msg, int buffer_select){
 	while(mcp2515_read(buffer_select) & (1 << MCP_TXREQ));
 	
 	volatile uint8_t idl = MCP2515_MASK_IDL & (msg->id << 5);
-	volatile uint8_t idh = MCP2515_MASK_IDH & (msg->id >> 3;)
+	volatile uint8_t idh = MCP2515_MASK_IDH & (msg->id >> 3);
 	
 	mcp2515_write(buffer_select + MCP2515_IDL_OFFSET, idl); //3 LSB
 	mcp2515_write(buffer_select + MCP2515_IDH_OFFSET, idh); //8 MSB
@@ -47,10 +47,10 @@ void can_transmit(can_message* msg, int buffer_select){
 		buffer_control=MCP_RTS_TX2;
 	}
 	else{
-		return; 
+		return;
 	}
 	
-	printf("Buffer =\n\tID = %02x\n\tDLC = %02x\n\tD0 = %02x\n", mcp2515_read(buffer_select + MCP2515_IDH_OFFSET) | (mcp2515_read(buffer_select + MCP2515_IDL_OFFSET) >> 5), mcp2515_read(buffer_select + MCP2515_DLC_OFFSET),  mcp2515_read((buffer_select + MCP2515_TXB_OFFSET)));
+	//printf("Buffer =\n\tID = %02x\n\tDLC = %02x\n\tD0 = %02x\n", mcp2515_read(buffer_select + MCP2515_IDH_OFFSET) | (mcp2515_read(buffer_select + MCP2515_IDL_OFFSET) >> 5), mcp2515_read(buffer_select + MCP2515_DLC_OFFSET),  mcp2515_read((buffer_select + MCP2515_TXB_OFFSET)));
 	
 	mcp2515_request_to_send(buffer_control);
 }
@@ -67,7 +67,7 @@ can_message can_recieve(can_message* msg){
 		m.data[i] = mcp2515_read(buffer_select + MCP2515_RXB_OFFSET + i);// + i, msg->data[i]);
 	}
 	
-	printf("Buffer =\n\tID = %02x\n\tDLC = %02x\n\tD0 = %02x\n", mcp2515_read(buffer_select + MCP2515_IDH_OFFSET) << 3 | (mcp2515_read(buffer_select + MCP2515_IDL_OFFSET) >> 5), mcp2515_read(buffer_select + MCP2515_DLC_OFFSET),  mcp2515_read((buffer_select + MCP2515_TXB_OFFSET)));
+	//printf("Buffer =\n\tID = %02x\n\tDLC = %02x\n\tD0 = %02x\n", mcp2515_read(buffer_select + MCP2515_IDH_OFFSET) << 3 | (mcp2515_read(buffer_select + MCP2515_IDL_OFFSET) >> 5), mcp2515_read(buffer_select + MCP2515_DLC_OFFSET),  mcp2515_read((buffer_select + MCP2515_TXB_OFFSET)));
 	
 	
 	switch(buffer_select){
@@ -85,7 +85,7 @@ can_message can_recieve(can_message* msg){
 
 uint8_t can_poll_interrupt(){
 	
-	while(!(PINA & (1 << PA0))){}
+	while(!(PINB & (1 << PB4))){}
 	
 	if(mcp2515_read(MCP_CANINTF) & MCP_RX0IF){
 		//mcp2515_bit_modify(MCP_CANINTF, MCP_RX0IF, 0x00);

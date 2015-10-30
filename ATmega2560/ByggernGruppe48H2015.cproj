@@ -4,17 +4,17 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{0c82b7b3-8e5f-48c7-9574-d2e96bc007c8}</ProjectGuid>
-    <avrdevice>ATmega2560</avrdevice>
+    <ProjectGuid>{d8ec31a9-697f-4679-8988-00386c032023}</ProjectGuid>
+    <avrdevice>ATmega162</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>ATmega2560</AssemblyName>
-    <Name>ATmega2560</Name>
-    <RootNamespace>ATmega2560</RootNamespace>
+    <AssemblyName>ByggernGruppe48H2015</AssemblyName>
+    <Name>ByggernGruppe48H2015</Name>
+    <RootNamespace>ByggernGruppe48H2015</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -27,7 +27,7 @@
     <BootSegment>2</BootSegment>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
-      <framework-data xmlns="">
+      <framework-data>
         <options />
         <configurations />
         <files />
@@ -55,7 +55,6 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
         <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -83,7 +82,6 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
         <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -111,7 +109,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ATmega2560.c">
+    <Compile Include="ADC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ByggernGruppe48H2015.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="can.c">
@@ -120,10 +124,28 @@
     <Compile Include="can.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="canjoy.c">
+    <Compile Include="font.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="canjoy.h">
+    <Compile Include="font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="gui.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="gui.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="joystick.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="joystick.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mcp2515.c">
@@ -135,10 +157,34 @@
     <Compile Include="mcp2515_define.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="spi.c">
+    <Compile Include="menu.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="spi.h">
+    <Compile Include="menu.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="oled.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="oled.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="snake.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="snake.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.c">
@@ -147,6 +193,14 @@
     <Compile Include="uart.h">
       <SubType>compile</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="Readme.txt">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

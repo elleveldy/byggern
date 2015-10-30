@@ -124,6 +124,12 @@
     <Compile Include="can.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="canjoy.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="canjoy.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="font.c">
       <SubType>compile</SubType>
     </Compile>

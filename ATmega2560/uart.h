@@ -17,9 +17,9 @@
 	////Set baud rate
 	//UBRR0H = (unsigned char)(ubrr>>8);
 	//UBRR0L = (unsigned char)ubrr;
-#define FOSC 4915200
+#define FOSC 16000000
 #define BAUD 9600
-#define MYUBRR 31//FOSC/16/BAUD-1
+#define MYUBRR FOSC/16/BAUD-1
 
 
 

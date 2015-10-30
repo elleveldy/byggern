@@ -21,6 +21,8 @@
 #include "snake.h"
 #include "mcp2515_define.h"
 #include "can.h"
+#include "canjoy.h"
+
 
 
 
@@ -30,9 +32,6 @@ void SRAM_test(void);
 
 int main(void){
 	fdevopen(uart_Transmit, uart_Receive);
-	
-//switch case that only rewrites menu when joystick is moved
-	
 	
 	MCUCR |= (1 << SRE);
 	
@@ -49,33 +48,25 @@ int main(void){
 	menu_selector = menu;
 	menu_line_nr = 0; 
 	
-	//msg.id = 0b1111000011110000;
-	//msg.length = 0b1000;
-	//for(int i = 0; i < msg.length; i++){
-		//msg.data[i] = i;	
-	//}
-	
-
-	can_init(MODE_LOOPBACK);
-	can_message msg;
-	
-	msg.id = 3;
-	msg.length = 1;
-	msg.data[0] = 4;
-	
-	can_transmit(&msg, MCP_TXB0CTRL);
-
-	can_message stuff = can_recieve();
+	can_init(MODE_NORMAL);
 	
 	
+	can_message joy;
+	joy.id = 3;
+	joy.length = 2;
 	
-    while(1){
-		;
-		printf("id: %d\t\tlength: %d\tdata: %d\n",stuff.id, stuff.length, stuff.data[0]);
-		_delay_ms(200);
+	while(1){
+		//alt_gui_run();
 		
+		/*joy.data[0] = joystick_read_x();
+		joy.data[1] = joystick_read_y();
+		
+		can_transmit(&joy, MCP_TXB0CTRL);*/
+		_delay_ms(100);
+		canjoy_transmit();
 		
 	}
+	
 }
 
 
