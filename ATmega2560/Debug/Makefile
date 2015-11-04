@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../can.c \
 ../canjoy.c \
 ../mcp2515.c \
+../pwm.c \
 ../spi.c \
 ../uart.c
 
@@ -56,6 +57,7 @@ ATmega2560.o \
 can.o \
 canjoy.o \
 mcp2515.o \
+pwm.o \
 spi.o \
 uart.o
 
@@ -64,6 +66,7 @@ ATmega2560.o \
 can.o \
 canjoy.o \
 mcp2515.o \
+pwm.o \
 spi.o \
 uart.o
 
@@ -72,6 +75,7 @@ ATmega2560.d \
 can.d \
 canjoy.d \
 mcp2515.d \
+pwm.d \
 spi.d \
 uart.d
 
@@ -80,6 +84,7 @@ ATmega2560.d \
 can.d \
 canjoy.d \
 mcp2515.d \
+pwm.d \
 spi.d \
 uart.d
 
@@ -97,6 +102,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -4,6 +4,7 @@
 #include <avr/io.h>
 #include <stdlib.h>
 #include <string.h>
+#include <util/delay.h>
 
 
 void can_init(int mode){
@@ -100,3 +101,47 @@ uint8_t can_poll_interrupt(){
 }
 
 
+void can_test_loopback(){
+	can_init(MODE_LOOPBACK);
+	
+	can_message msg;
+	msg.id = 10;
+	msg.length = 1;
+	msg.data[0] = 'T';
+	
+	can_transmit(&msg, MCP_TXB0CTRL);
+	
+	can_message recieved;
+	can_message done = can_recieve(&recieved);
+	
+	printf("\n\nSend ID = 10\tRecieved ID = %d\nSend Length = 1\tRecieved Length = %d\nSend Data = 'T'\tRecieved Data = %c\n\n", done.id, done.length, done.data[0]);
+	
+}
+
+void can_test_transmit(){
+	can_init(MODE_NORMAL);
+	while(1){
+	_delay_ms(100);
+	
+	can_message msg;
+	msg.id = 10;
+	msg.length = 1;
+	msg.data[0] = 'T';
+	
+	can_transmit(&msg, MCP_TXB0CTRL);
+	printf("\n\nSend ID = %d\nSend Length = %dnSend Data = %c\n\n", msg.id, msg.length, msg.data[0]);
+	}
+}
+
+void can_test_recieve(){
+	can_init(MODE_NORMAL);
+	
+	while(1){
+		_delay_ms(200);
+		
+		can_message recieved;
+		can_message done = can_recieve(&recieved);
+		
+		printf("\n\nRecieved ID = %d\nRecieved Length = %d\nRecieved Data = %c\n\n", done.id, done.length, done.data[0]);
+	}
+}

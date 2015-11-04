@@ -1,11 +1,15 @@
+
+#include <stdio.h>
 #include "can.h"
 //#include "joystick.h"
+
+
 
 
 uint16_t CANJOY_ID = 7;
 can_message canjoy_msg;
 void canjoy_transmit(){
-	/*can_message joy;
+	can_message joy;
 	joy.id = CANJOY_ID;
 	joy.length = 7;
 	
@@ -17,8 +21,7 @@ void canjoy_transmit(){
 	joy.data[5] = button_left_read();
 	joy.data[6] = button_right_read();
 	
-	
-	can_transmit(&joy, MCP_TXB0CTRL);*/
+	can_transmit(&joy, 0x30);
 }
 
 
@@ -27,7 +30,7 @@ can_message canjoy_recieve(){
 	can_message joy = can_recieve();
 	
 	if(joy.id == CANJOY_ID){
-		printf("CORRECT ID\n");		
+		//printf("CORRECT ID\n");		
 		canjoy_msg = joy;
 		return joy;
 	}
@@ -67,3 +70,10 @@ int canjoy_button_left(){
 int canjoy_button_right(){
 	return canjoy_msg.data[6];
 }
+
+/*
+void canjoy_test(){
+	can_init(MODE_NORMAL);
+	
+	
+}*/

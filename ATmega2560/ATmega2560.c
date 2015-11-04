@@ -13,28 +13,48 @@
 #include "mcp2515_define.h"
 #include "uart.h"
 #include "canjoy.h"
+#include "pwm.h"
+
+/*
+check if header files are included in their respective c files, and if they should be
+to avoid "implicit declaration of function*/
+
 
 
 int main(void){
 	
-	fdevopen(uart_Transmit, uart_Receive);
+	/*DDRB = 0xff;
+	while(1){
+		PORTB = 0xff;
+		_delay_ms(500);
+		PORTB = 0;
+		_delay_ms(500);
+	}*/
+	
+	
 	MCUCR |= (1 << SRE);
 	uart_Init(MYUBRR);
-	
+	//
 	
 	
 	can_init(MODE_NORMAL);
+	pwm_init();
+
+	DDRE |= (1 << 3);
+
+	//uint16_t count = 0;
 
 	while(1){
-		/*_delay_ms(200);
 		
-		can_message stuff = can_recieve();
-		printf("id: %d\t\tlength: %d\tdata: %d\n", stuff.id, stuff.length, stuff.data[0]);*/
+		/*can_test_recieve();
+		printf("\nin main while\n");*/
+		
+		
+		
 		canjoy_recieve();
-		_delay_ms(100);
-		/*can_message joy = can_recieve();
-		printf("X: %d\tY: %d\n", joy.data[0], joy.data[1]);*/
-		printf("X: %d\n", canjoy_joystick_x());
+		pwm_joystick_pulse(canjoy_joystick_x());
+		
+		
 	}
 	
 	

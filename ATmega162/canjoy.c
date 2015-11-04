@@ -3,12 +3,15 @@
 #include "canjoy.h"
 #include "mcp2515_define.h"
 
+
+uint16_t CANJOY_ID = 7;
+
 void canjoy_transmit()
 {
 	can_message joy;
 	joy.id = CANJOY_ID;
 	joy.length = 7;
-	printf("ID set to 7");
+	//printf("ID set to 7\n");
 	
 	joy.data[0] = joystick_read_x();
 	joy.data[1] = joystick_read_y();
@@ -24,7 +27,9 @@ void canjoy_transmit()
 
 can_message canjoy_recieve(){
 	
-	can_message joy = can_recieve();
+	can_message unused;
+	
+	can_message joy = can_recieve(&unused);
 	
 	if(joy.id == CANJOY_ID){
 		printf("Correct ID\n");

@@ -16,4 +16,9 @@ can_message can_recieve();
 uint8_t can_poll_interrupt();
 
 
+void can_test_loopback();
+void can_test_transmit();
+void can_test_recieve();
+
+
 #endif /* CAN_H_ */

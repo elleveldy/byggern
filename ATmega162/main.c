@@ -23,7 +23,17 @@
 #include "can.h"
 #include "canjoy.h"
 
+/*
+FIX BEFORE EVALUATION
 
+
+check if header files are included in their respective c files, and if they should be
+to avoid "implicit declaration of function
+
+can recieve has pointer parameter which is not used.
+
+
+*/
 
 
 void SRAM_test(void);
@@ -51,18 +61,16 @@ int main(void){
 	can_init(MODE_NORMAL);
 	
 	
-	can_message joy;
+	/*can_message joy;
 	joy.id = 3;
-	joy.length = 2;
+	joy.length = 2;*/
 	
 	while(1){
-		//alt_gui_run();
 		
-		/*joy.data[0] = joystick_read_x();
-		joy.data[1] = joystick_read_y();
+		/*can_test_transmit();
+		printf("\nin main while\n");*/
 		
-		can_transmit(&joy, MCP_TXB0CTRL);*/
-		_delay_ms(100);
+		printf("X: %d\n", joystick_read_x());
 		canjoy_transmit();
 		
 	}

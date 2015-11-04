@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include <stdio.h>
 #include "uart.h"
 #include "mcp2515.h"
 #include "SPI.h"
@@ -9,9 +10,8 @@ int mcp2515_init(){
 	spi_init();
 	mcp2515_reset();
 	
-	//self test
-	uint8_t value = mcp2515_read(MCP_CANSTAT);
-	if((value & MODE_MASK) != MODE_CONFIG){
+	uint8_t val = mcp2515_read(MCP_CANSTAT);
+	if((val & MODE_MASK) != MODE_CONFIG){
 		printf("ERROR: MCP2515 is NOT in config mode after reset!\n");
 		return 1;
 	}

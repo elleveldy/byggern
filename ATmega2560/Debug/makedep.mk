@@ -10,6 +10,8 @@ canjoy.c
 
 mcp2515.c
 
+pwm.c
+
 spi.c
 
 uart.c
