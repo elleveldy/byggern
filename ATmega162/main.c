@@ -32,6 +32,10 @@ to avoid "implicit declaration of function
 
 can recieve has pointer parameter which is not used.
 
+Try to remove all warnings
+
+Add drawing functions
+
 
 */
 

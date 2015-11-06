@@ -52,7 +52,7 @@ void pwm_init(){
 	
 	OCR3A = ICR3/2;
 	
-	printf("PWM init done:\n\tTCCRA: %02X\n\tTCCRB: %02X\n\tICR: %02X\n\tOCR: %02X\n", TCCR3A, TCCR3B, ICR3, OCR3A);
+	//printf("PWM init done:\n\tTCCRA: %02X\n\tTCCRB: %02X\n\tICR: %02X\n\tOCR: %02X\n", TCCR3A, TCCR3B, ICR3, OCR3A);
 }
 
 
@@ -88,7 +88,7 @@ void pwm_joystick_pulse(int16_t val){
 		
 		uint16_t pulse_width = (val * (300/255.0)) + P_MIN;
 		
-		printf("\nPulse converted from %d to %d\t P_RESOLUTION = %d\n", val, pulse_width, P_RESOLUTION);
+		//printf("\nPulse converted from %d to %d\t P_RESOLUTION = %d\n", val, pulse_width, P_RESOLUTION);
 		pwm_set_pulse(pulse_width);
 	}
 	return;

@@ -14,6 +14,8 @@
 #include "uart.h"
 #include "canjoy.h"
 #include "pwm.h"
+#include "adc.h"
+#include "ir.h"
 
 /*
 check if header files are included in their respective c files, and if they should be
@@ -39,23 +41,33 @@ int main(void){
 	
 	can_init(MODE_NORMAL);
 	pwm_init();
+	adc_init();
 
-	DDRE |= (1 << 3);
+	DDRE |= (1 << 3); //studass PWM bandaid that can be removed? 
 
 	//uint16_t count = 0;
+	
+	
+	int high = adc_read(0x00);
+	int low = adc_read(0x00);
+	
 
+	
+	
 	while(1){
-		
-		/*can_test_recieve();
-		printf("\nin main while\n");*/
-		
-		
 		
 		canjoy_recieve();
 		pwm_joystick_pulse(canjoy_joystick_x());
+		int adc = adc_read(ADC0D);
 		
+		if(adc > high)
+			high = adc;
+		if(adc < low)
+			low = adc;
+		printf("\nIR VALUE: %d\tHighest: %d\tLowest: %d\tUnblocked: %d\n", adc, high, low, ir_unblocked());
 		
 	}
+	
 	
 	
 	

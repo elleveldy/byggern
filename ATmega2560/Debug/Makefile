@@ -37,9 +37,11 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../adc.c \
 ../ATmega2560.c \
 ../can.c \
 ../canjoy.c \
+../ir.c \
 ../mcp2515.c \
 ../pwm.c \
 ../spi.c \
@@ -53,36 +55,44 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+adc.o \
 ATmega2560.o \
 can.o \
 canjoy.o \
+ir.o \
 mcp2515.o \
 pwm.o \
 spi.o \
 uart.o
 
 OBJS_AS_ARGS +=  \
+adc.o \
 ATmega2560.o \
 can.o \
 canjoy.o \
+ir.o \
 mcp2515.o \
 pwm.o \
 spi.o \
 uart.o
 
 C_DEPS +=  \
+adc.d \
 ATmega2560.d \
 can.d \
 canjoy.d \
+ir.d \
 mcp2515.d \
 pwm.d \
 spi.d \
 uart.d
 
 C_DEPS_AS_ARGS +=  \
+adc.d \
 ATmega2560.d \
 can.d \
 canjoy.d \
+ir.d \
 mcp2515.d \
 pwm.d \
 spi.d \
@@ -102,6 +112,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

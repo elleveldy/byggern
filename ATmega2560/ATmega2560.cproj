@@ -111,6 +111,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ATmega2560.c">
       <SubType>compile</SubType>
     </Compile>
@@ -124,6 +130,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="canjoy.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ir.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ir.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mcp2515.c">
