@@ -13,7 +13,7 @@ void can_init(int mode){
 	mcp2515_bit_modify(MCP_RXB0CTRL, MCP_MASK_FILTER, 0xff);
 	mcp2515_bit_modify(MCP_RXB1CTRL, MCP_MASK_FILTER, 0xff);
 	mcp2515_bit_modify(MCP_CANCTRL, MODE_MASK, mode);
-	DDRB &= ~(1 << PB4);
+	DDRE &= ~(1 << PE1);
 }
 
 void can_transmit(can_message* msg, int buffer_select){
@@ -86,7 +86,7 @@ can_message can_recieve(can_message* msg){
 
 uint8_t can_poll_interrupt(){
 	
-	while(!(PINB & (1 << PB4))){}
+	while(!(PINE & (1 << PE1))){}
 	
 	if(mcp2515_read(MCP_CANINTF) & MCP_RX0IF){
 		//mcp2515_bit_modify(MCP_CANINTF, MCP_RX0IF, 0x00);
