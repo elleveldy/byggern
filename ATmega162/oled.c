@@ -172,7 +172,7 @@ void oled_toggle_negative(){
 }
 
 
-//badly modularised
+//untested but might work
 void oled_change_contrast(){
 
 	int contrast;
@@ -193,14 +193,14 @@ void oled_change_contrast(){
 		}
 		else if(button_right_read()){
 			oled_command_write(0x81);    
-			oled_data_write(0x50);
+			oled_command_write(0x50);
 			return;
 		}
 
 		contrast = slider_left_read();
 
 		oled_command_write(0x81);    
-		oled_data_write(contrast);
+		oled_command_write(contrast);
 
 	}
 }*/
