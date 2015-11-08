@@ -50,7 +50,7 @@ void pwm_init(){
 	//20 ms
 	ICR3 = 5000;
 	
-	OCR3A = ICR3/2;
+	OCR3A = 375;
 	
 	//printf("PWM init done:\n\tTCCRA: %02X\n\tTCCRB: %02X\n\tICR: %02X\n\tOCR: %02X\n", TCCR3A, TCCR3B, ICR3, OCR3A);
 }

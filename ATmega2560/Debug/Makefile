@@ -45,6 +45,7 @@ C_SRCS +=  \
 ../mcp2515.c \
 ../pwm.c \
 ../spi.c \
+../timer.c \
 ../uart.c
 
 
@@ -63,6 +64,7 @@ ir.o \
 mcp2515.o \
 pwm.o \
 spi.o \
+timer.o \
 uart.o
 
 OBJS_AS_ARGS +=  \
@@ -74,6 +76,7 @@ ir.o \
 mcp2515.o \
 pwm.o \
 spi.o \
+timer.o \
 uart.o
 
 C_DEPS +=  \
@@ -85,6 +88,7 @@ ir.d \
 mcp2515.d \
 pwm.d \
 spi.d \
+timer.d \
 uart.d
 
 C_DEPS_AS_ARGS +=  \
@@ -96,6 +100,7 @@ ir.d \
 mcp2515.d \
 pwm.d \
 spi.d \
+timer.d \
 uart.d
 
 OUTPUT_FILE_PATH +=ATmega2560.elf
@@ -112,6 +117,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

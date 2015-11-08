@@ -1,8 +1,11 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include "oled.h"
+//#include "oled.h"
+#include "oled_alt.h"
+#include "joystick.h"
 #include "menu.h"
+//#include "canjoy.h"
 
 Menuitem* new_Menuitem(
 char* name,
@@ -32,15 +35,15 @@ void assign_parents(Menuitem* menu){
 
 Menuitem* create_menu(){
 	
-	//Store these strings in progmem
+	//Store these strings in progmem maybe
 	
+	
+	//for some reason, MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat in sub menus, so wtf
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
 	base->submenus[0] = new_Menuitem("Snake", menu_snake_fn, 0);
 	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
-	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_change_contrast, 0);
-	base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_toggle_negative, 0);
-	//base->submenus[1]->submenus[1]->submenus[0] = new_Menuitem("Negative", oled_mode_negative, 0);
-	//base->submenus[1]->submenus[1]->submenus[1] = new_Menuitem("Normal", oled_mode_normal, 0);
+	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_alt_change_contrast, 0);
+	base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_alt_toggle_negative, 0);
 	base->submenus[2] = new_Menuitem("Ping Pong", menu_toggle_negative, 0);
 	
 	assign_parents(base);
@@ -95,7 +98,7 @@ Menuitem* menu_prev(Menuitem* m){
 
 //works
 int menu_submenu_number(Menuitem* m){
-	oled_goto_pos(0,5);
+	//oled_goto_pos(0,5); removed in conjunction with oled_alt/gui_alt
 	Menuitem* parent = menu_parent(m);
 	for(int i = 0; i < parent->num_submenus; i++){
 		if(parent->submenus[i] == m)
@@ -115,10 +118,20 @@ char* menu_name(Menuitem* m){
 
 
 void menu_snake_fn(){
-	oled_clear_screen();
+	
+	//printf("Entered menu_snake_fn\n");
+	
 	while(1){
-		oled_home();
-		oled_printf("snake funk");
+	
+/*		
+		printf("X: %d\n", joystick_read_x());
+		canjoy_transmit();
+*/		
+		oled_alt_clear_screen();
+		oled_store_string("no snake yet", 1*8, 3);
+		oled_store_string("return", 0, 7);
+		oled_write_screen();
+		
 		if(button_left_read()){
 			return;
 		}
@@ -130,7 +143,7 @@ void menu_change_contrast(){
 	
 }
 
-volatile char *oled_data = (char *) 0x1200; //dirty fix
+//volatile char *oled_data = (char *) 0x1200; //dirty fix
 
 
 void menu_toggle_negative(){

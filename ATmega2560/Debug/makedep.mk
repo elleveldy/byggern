@@ -18,5 +18,7 @@ pwm.c
 
 spi.c
 
+timer.c
+
 uart.c
 

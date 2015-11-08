@@ -1,3 +1,4 @@
+/*
 #include <stdint.h>
 #include <stdio.h>
 #include <avr/io.h>
@@ -45,8 +46,10 @@ void oled_init()
 	oled_command_write(0x50);
 	oled_command_write(0xd9);    //set pre-charge period
 	oled_command_write(0x21);
+	
 	oled_command_write(0x20);    //Set Memory Addressing Mode
 	oled_command_write(0x02);
+	
 	oled_command_write(0xdb);    //VCOM deselect level mode
 	oled_command_write(0x30);
 	oled_command_write(0xad);    //master configuration
@@ -71,6 +74,7 @@ void oled_init()
 void oled_goto_col(int column){
 	oled_command_write(column & 0x0f);
 	oled_command_write(((column & 0xf0) >> 4) | (0x10));
+
 }
 
 void oled_goto_page(int page){
@@ -199,7 +203,7 @@ void oled_change_contrast(){
 		oled_data_write(contrast);
 
 	}
-}
+}*/
 
 //void oled_draw_line(int x0, int y0, int x1, int y1){
 //

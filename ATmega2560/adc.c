@@ -28,12 +28,14 @@ void adc_init(){
 	Internal 1.1 V Voltage Reference with external capacitor at AREF pin  ->  REFS1 = 1 REFS0 = 0 
 	*/  
 	ADMUX |= (1 << REFS0);
-	ADMUX &= ~(1 << REFS1);
+	//ADMUX &= ~(1 << REFS1);
+	ADMUX |= (1 << REFS1);
+	
 	
 }
 
 uint16_t adc_read(uint8_t ch){ //IR set to ADC0 = PF0
-	//ADMUX |= ((1 << ch) & 0x03);
+	ADMUX |= (ch & 0x03);
 	ADCSRA |= (1 << ADSC);
 	
 	while((ADCSRA & (1 << ADSC))){}

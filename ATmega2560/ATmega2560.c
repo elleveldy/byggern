@@ -16,6 +16,7 @@
 #include "pwm.h"
 #include "adc.h"
 #include "ir.h"
+#include "timer.h"
 
 /*
 check if header files are included in their respective c files, and if they should be
@@ -52,19 +53,20 @@ int main(void){
 	int low = adc_read(0x00);
 	
 
-	
+	timer_init();
 	
 	while(1){
 		
+		
 		canjoy_recieve();
 		pwm_joystick_pulse(canjoy_joystick_x());
-		int adc = adc_read(ADC0D);
+		int adc = adc_read(PF1);
 		
 		if(adc > high)
 			high = adc;
 		if(adc < low)
 			low = adc;
-		printf("\nIR VALUE: %d\tHighest: %d\tLowest: %d\tUnblocked: %d\n", adc, high, low, ir_unblocked());
+		printf("\nIR VALUE: %d\tHighest: %d\tLowest: %d\tUnblocked: %d\talt_blocked: %d\n", adc, high, low, ir_unblocked(), ir_alt_unblocked());
 		
 	}
 	

@@ -43,11 +43,13 @@ C_SRCS +=  \
 ../canjoy.c \
 ../font.c \
 ../gui.c \
+../gui_alt.c \
 ../joystick.c \
 ../main.c \
 ../mcp2515.c \
 ../menu.c \
 ../oled.c \
+../oled_alt.c \
 ../snake.c \
 ../SPI.c \
 ../timer.c \
@@ -67,11 +69,13 @@ can.o \
 canjoy.o \
 font.o \
 gui.o \
+gui_alt.o \
 joystick.o \
 main.o \
 mcp2515.o \
 menu.o \
 oled.o \
+oled_alt.o \
 snake.o \
 SPI.o \
 timer.o \
@@ -84,11 +88,13 @@ can.o \
 canjoy.o \
 font.o \
 gui.o \
+gui_alt.o \
 joystick.o \
 main.o \
 mcp2515.o \
 menu.o \
 oled.o \
+oled_alt.o \
 snake.o \
 SPI.o \
 timer.o \
@@ -101,11 +107,13 @@ can.d \
 canjoy.d \
 font.d \
 gui.d \
+gui_alt.d \
 joystick.d \
 main.d \
 mcp2515.d \
 menu.d \
 oled.d \
+oled_alt.d \
 snake.d \
 SPI.d \
 timer.d \
@@ -118,11 +126,13 @@ can.d \
 canjoy.d \
 font.d \
 gui.d \
+gui_alt.d \
 joystick.d \
 main.d \
 mcp2515.d \
 menu.d \
 oled.d \
+oled_alt.d \
 snake.d \
 SPI.d \
 timer.d \
@@ -142,6 +152,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

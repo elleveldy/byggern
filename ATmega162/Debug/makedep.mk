@@ -14,6 +14,8 @@ font.c
 
 gui.c
 
+gui_alt.c
+
 joystick.c
 
 main.c
@@ -23,6 +25,8 @@ mcp2515.c
 menu.c
 
 oled.c
+
+oled_alt.c
 
 snake.c
 
