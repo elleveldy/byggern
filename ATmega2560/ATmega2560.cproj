@@ -138,6 +138,12 @@
     <Compile Include="ir.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="max520.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="max520.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="mcp2515.c">
       <SubType>compile</SubType>
     </Compile>
@@ -147,10 +153,22 @@
     <Compile Include="mcp2515_define.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="pwm.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="pwm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="solenoid.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="solenoid.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="spi.c">

@@ -42,10 +42,14 @@ C_SRCS +=  \
 ../can.c \
 ../canjoy.c \
 ../ir.c \
+../max520.c \
 ../mcp2515.c \
+../motor.c \
 ../pwm.c \
+../solenoid.c \
 ../spi.c \
 ../timer.c \
+../TWI_Master.c \
 ../uart.c
 
 
@@ -61,10 +65,14 @@ ATmega2560.o \
 can.o \
 canjoy.o \
 ir.o \
+max520.o \
 mcp2515.o \
+motor.o \
 pwm.o \
+solenoid.o \
 spi.o \
 timer.o \
+TWI_Master.o \
 uart.o
 
 OBJS_AS_ARGS +=  \
@@ -73,10 +81,14 @@ ATmega2560.o \
 can.o \
 canjoy.o \
 ir.o \
+max520.o \
 mcp2515.o \
+motor.o \
 pwm.o \
+solenoid.o \
 spi.o \
 timer.o \
+TWI_Master.o \
 uart.o
 
 C_DEPS +=  \
@@ -85,10 +97,14 @@ ATmega2560.d \
 can.d \
 canjoy.d \
 ir.d \
+max520.d \
 mcp2515.d \
+motor.d \
 pwm.d \
+solenoid.d \
 spi.d \
 timer.d \
+TWI_Master.d \
 uart.d
 
 C_DEPS_AS_ARGS +=  \
@@ -97,10 +113,14 @@ ATmega2560.d \
 can.d \
 canjoy.d \
 ir.d \
+max520.d \
 mcp2515.d \
+motor.d \
 pwm.d \
+solenoid.d \
 spi.d \
 timer.d \
+TWI_Master.d \
 uart.d
 
 OUTPUT_FILE_PATH +=ATmega2560.elf
@@ -117,6 +137,14 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
+
+
 
 
 

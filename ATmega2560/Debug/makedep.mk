@@ -12,13 +12,21 @@ canjoy.c
 
 ir.c
 
+max520.c
+
 mcp2515.c
 
+motor.c
+
 pwm.c
+
+solenoid.c
 
 spi.c
 
 timer.c
+
+TWI_Master.c
 
 uart.c
 

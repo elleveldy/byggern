@@ -44,7 +44,11 @@ can recieve has pointer parameter which is not used.
 
 Try to remove all warnings
 
-Add drawing functions
+Write highscore to EEROM? In atmega162 datasheet
+
+Settings -> difficulty ->change speed of motor
+
+Add drawing functions?
 
 
 
@@ -101,10 +105,13 @@ int main(void){
 	
 	
 	while(1){
-		gui_alt_run();
 		
-		oled_write_screen();	
+		//can_test_transmit();
+		//gui_alt_run();
 		
+		oled_write_screen();
+			
+		canjoy_transmit();
 		
 		//printf("menu_line_nr: %d\n", menu_line_nr);
 		

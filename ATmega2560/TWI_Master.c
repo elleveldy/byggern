@@ -43,7 +43,7 @@ void TWI_Master_Initialise(void)
 	// TWSR = TWI_TWPS;                                  // Not used. Driver presumes prescaler to be 00.
 	TWDR = 0xFF;                                      // Default content = SDA released.
 	TWCR = (1<<TWEN)|                                 // Enable TWI-interface and release TWI pins.
-	(0<<TWIE)|(0<<TWINT)|                      // Disable Interupt.
+	(0<<TWIE)|(0<<TWINT)|                      // Disable Interrupt.
 	(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|           // No Signal requests.
 	(0<<TWWC);                                 //
 }
