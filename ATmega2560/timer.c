@@ -2,7 +2,7 @@
 
 
 #include <avr/io.h>
-
+#include "timer.h"
 
 //with prescaler = 1024 and COUNT = 65535, one full count cycle = 4.1 s    (ish)
 #define COUNT 65535
@@ -42,6 +42,7 @@ int timer_done(){
 	}
 }
 
+/*
 void timer_simple_test(){
 	int ticktock;
 	timer_start();
@@ -51,6 +52,7 @@ void timer_simple_test(){
 		}
 	}
 }
+*/
 
 
 int timer_cycle_start(int time_max){

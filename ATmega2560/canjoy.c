@@ -8,6 +8,10 @@
 
 uint16_t CANJOY_ID = 7;
 can_message canjoy_msg;
+
+
+//Not needed in node 2
+/*
 void canjoy_transmit(){
 	can_message joy;
 	joy.id = CANJOY_ID;
@@ -23,8 +27,10 @@ void canjoy_transmit(){
 	
 	can_transmit(&joy, 0x30);
 }
+*/
 
 
+//must be run in while(1)
 can_message canjoy_recieve(){
 	
 	can_message joy = can_recieve();

@@ -1,7 +1,7 @@
 #include "pwm.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h>//abs()
 #include <avr/io.h>
 
 /*
@@ -94,5 +94,10 @@ void pwm_joystick_pulse(int16_t val){
 	return;
 }
 
+void pwm_alt_joystick_pulse(int16_t val){
+	
+	pwm_joystick_pulse(abs(val - 255));
+	
+}
 
 

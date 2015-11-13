@@ -10,18 +10,16 @@
 #include "gui_alt.h"
 
 
-void gui_alt_run(){
-	
+void gui_alt_run()
+{
 	gui_alt_print_menu(menu_selector);
 	gui_alt_navigate();
 	gui_alt_print_indicator(menu_selector);
-	
 }
 
 
 //Prints the menu you're in and it's submenues
 void gui_alt_print_menu(Menuitem* menu){
-	
 	Menuitem* parent = menu_parent(menu);
 	
 	oled_alt_clear_screen();
@@ -30,9 +28,6 @@ void gui_alt_print_menu(Menuitem* menu){
 	for(int n = 0; n < parent->num_submenus; n++){
 		oled_store_string(menu_name(parent->submenus[n] ), 8, n+1);
 	}
-
-
-	
 }
 
 //uses menu_selector and changes it according to joystick movement

@@ -109,7 +109,7 @@ int main(void){
 		//can_test_transmit();
 		//gui_alt_run();
 		
-		oled_write_screen();
+		//oled_write_screen();
 			
 		canjoy_transmit();
 		

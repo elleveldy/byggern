@@ -9,6 +9,7 @@
 #include <avr/io.h>
 #define F_CPU 16000000
 #include <util/delay.h>
+#include <stdlib.h>
 #include "can.h"
 #include "mcp2515_define.h"
 #include "uart.h"
@@ -18,10 +19,21 @@
 #include "ir.h"
 #include "timer.h"
 #include "solenoid.h"
+#include "motor.h"
 
 /*
 check if header files are included in their respective c files, and if they should be
-to avoid "implicit declaration of function*/
+to avoid "implicit declaration of function
+
+check if all neccessary _init() functions are called
+
+Add calibration to joystick on NODE1
+
+avoid using int, use uint8_t / uint16_t when possible
+
+make functions static, if they shouldn't be called outside the .c file
+
+*/
 
 
 
@@ -42,7 +54,7 @@ int main(void){
 	
 	
 	can_init(MODE_NORMAL);
-	pwm_init();
+	pwm_init();//servo
 	adc_init();
 	
 	DDRE |= (1 << 3); //studass PWM bandaid that can be removed? 
@@ -59,15 +71,30 @@ int main(void){
 	solenoid_init();
 	motor_init();
 	
+	int16_t speed;
 	
 	
 	
 	while(1){
-		printf("Node2 entering main while(1)\n");
+		
+		motor_solenoid_test();
+		canjoy_recieve();
+		speed = 2 * abs(canjoy_joystick_x() - 127);
+		
+		motor_speed(speed);
+		if(canjoy_joystick_x() > 128){
+			motor_direction(right);
+		}
+		else
+			motor_direction(left);
+		
+		printf("x: %d\tspeed: %d\n",canjoy_joystick_x(), speed);
+		
+		/*printf("Node2 entering main while(1)\n");
 		canjoy_recieve();
 		pwm_joystick_pulse(canjoy_joystick_x());
 		
-		motor_test();
+		//motor_test();
 
 		
 		
@@ -82,9 +109,7 @@ int main(void){
 		}
 		else{
 			PORTH |= (1 << PH3);
-		}
-		
-	
+		}*/
 	
 		/*int adc = adc_read(PF1);
 		

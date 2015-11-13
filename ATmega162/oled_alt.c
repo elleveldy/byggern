@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #include <avr/pgmspace.h>
 #include "oled_alt.h"
 #include "font.h"
@@ -182,6 +182,9 @@ void oled_alt_change_contrast(){
 
 	}*/
 }
+
+
+/*
 =======
 #include <avr/pgmspace.h>
 
@@ -274,3 +277,4 @@ void oled_write_data(){
 
 }
 >>>>>>> 0b3084deabfd686557c832ee4ef821653ad5b1f8
+*/
