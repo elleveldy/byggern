@@ -32,6 +32,8 @@ snake.c
 
 SPI.c
 
+sram.c
+
 timer.c
 
 uart.c

@@ -45,6 +45,7 @@ C_SRCS +=  \
 ../max520.c \
 ../mcp2515.c \
 ../motor.c \
+../PI_controller.c \
 ../pwm.c \
 ../solenoid.c \
 ../spi.c \
@@ -68,6 +69,7 @@ ir.o \
 max520.o \
 mcp2515.o \
 motor.o \
+PI_controller.o \
 pwm.o \
 solenoid.o \
 spi.o \
@@ -84,6 +86,7 @@ ir.o \
 max520.o \
 mcp2515.o \
 motor.o \
+PI_controller.o \
 pwm.o \
 solenoid.o \
 spi.o \
@@ -100,6 +103,7 @@ ir.d \
 max520.d \
 mcp2515.d \
 motor.d \
+PI_controller.d \
 pwm.d \
 solenoid.d \
 spi.d \
@@ -116,6 +120,7 @@ ir.d \
 max520.d \
 mcp2515.d \
 motor.d \
+PI_controller.d \
 pwm.d \
 solenoid.d \
 spi.d \
@@ -137,6 +142,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

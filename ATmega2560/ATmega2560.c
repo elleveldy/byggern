@@ -74,10 +74,18 @@ int main(void){
 	int16_t speed;
 	
 	
+	motor_controller_calibrate_by_reset();
+	
 	
 	while(1){
 		
 		motor_solenoid_test();
+		
+		canjoy_recieve();
+		
+		//motor_crude_controller_slider(motor_encoder_read(), canjoy_slider_right());
+		//motor_crude_controller(motor_encoder_read(), 4500);
+/*
 		canjoy_recieve();
 		speed = 2 * abs(canjoy_joystick_x() - 127);
 		
@@ -88,7 +96,9 @@ int main(void){
 		else
 			motor_direction(left);
 		
-		printf("x: %d\tspeed: %d\n",canjoy_joystick_x(), speed);
+		printf("x: %d\tspeed: %d\n",canjoy_joystick_x(), speed);*/
+		
+		//can_test_recieve();
 		
 		/*printf("Node2 entering main while(1)\n");
 		canjoy_recieve();

@@ -12,6 +12,17 @@
 #include "pwm.h"
 #include "solenoid.h"
 
+
+
+static uint16_t max_left;
+
+
+static uint16_t max_right = 0;
+
+
+static uint16_t position_offset = 0;
+
+
 void motor_init(){
 	max520_init();
 	
@@ -46,6 +57,7 @@ void motor_encoder_select_byte(uint8_t val){
 		MOTOR_PORT &= ~(1 << MOTOR_SEL);
 	}
 }
+
 
 void motor_encoder_output_enable(uint8_t enable){
 
@@ -121,13 +133,9 @@ void motor_test(){
 void motor_solenoid_test(){
 	pwm_init(); //for servo
 	solenoid_init();
-	motor_init();
+	//motor_init();
 	
-	
-/*
-	motor_encoder_output_enable();
-	motor_encoder_select_byte(0);*/
-	
+
 	int16_t speed;
 	uint8_t ir;
 	while(1){
@@ -145,6 +153,10 @@ void motor_solenoid_test(){
 		if(canjoy_button_right()){
 			solenoid_extend();
 		}
+		/*if(canjoy_button_left()){
+			motor_encoder_reset();
+		}*/
+		
 		else{
 			solenoid_retract();
 		}
@@ -153,11 +165,134 @@ void motor_solenoid_test(){
 		
 		ir = ir_alt_blocked();
 		
-		printf("Ir blocked: %d\t\tEncoder: %d\n", ir, motor_encoder_read());
+		printf("Ir blocked: %d\t\tEncoder: %d\n", ir, motor_encoder_read(), position_offset);
 		
 		
 	}
 }
+
+
+//0 is to the right, and position increases leftward
+void motor_crude_controller(uint16_t current_position, uint16_t reference){
+	
+	
+	//if requested position is out of reach
+	if(reference > max_left){
+		motor_crude_controller(max_left, reference);
+	}
+	
+	
+	//if we're close to ref
+	if(abs(current_position - reference) < 500){
+		motor_speed(0);
+		return;
+	}
+	
+	//too far left
+	if(current_position > reference){
+		motor_direction(right);
+		motor_speed(100);
+	}
+	//too far right
+	else{
+		motor_direction(left);
+		motor_speed(100);
+	}
+}
+
+//converts slider: 0-255 to 9100 - 0
+void motor_crude_controller_slider(uint16_t current_position, uint8_t reference){
+		
+	uint16_t  pos_multiplier = max_left / 255.0;
+	
+	uint16_t ref = reference * pos_multiplier;
+	printf("Slider: %d\tRef: %d", reference, ref);
+	
+	motor_crude_controller(current_position, abs(reference - 255) * pos_multiplier);
+	
+	
+}
+
+
+
+void motor_controller_calibrate_by_reset(){
+	printf("start calibration\n");
+	
+	motor_init();
+	
+	
+	uint16_t position;
+	uint16_t prev_position;
+	
+	motor_speed(70);
+	motor_direction(right);
+	_delay_ms(150);
+	position =  motor_encoder_read();
+	
+	//go right until stopped, then set encoder to zero
+	while(position != prev_position){
+		
+		
+		position =  motor_encoder_read();
+		_delay_ms(100);
+		prev_position = position;
+		position = motor_encoder_read();
+		printf("position: %d\n", position);
+
+		
+	}
+	motor_encoder_reset();
+	
+	motor_speed(70);
+	motor_direction(left);
+	_delay_ms(150);
+	
+	//go left until stopped, set max left to current position
+	do{
+		
+		
+		position =  motor_encoder_read();
+		_delay_ms(100);
+		prev_position = position;
+		position = motor_encoder_read();
+		printf("position: %d\n", position);
+		
+		
+	} while(position != prev_position);
+	max_left = position;
+	motor_speed(0);
+
+
+	printf("end calibration\n");
+	
+}
+
+void motor_controller_calibrate_by_offset(){
+	uint16_t position;
+	uint16_t prev_position;
+	
+	motor_speed(100);
+	
+	motor_direction(right);
+	position =  motor_encoder_read();
+	
+	//go right until stopped
+	while(position != prev_position){
+		
+		
+		motor_direction(right);
+		position =  motor_encoder_read();
+		_delay_ms(100);
+		prev_position = position;
+		position = motor_encoder_read();
+
+		
+	}
+	motor_speed(0);
+	position_offset = position;	
+	
+}
+
 
 void motor_encoder_reset(){
 	MOTOR_PORT &= ~(1 << MOTOR_ENCODER_RESET);
@@ -182,12 +317,6 @@ uint8_t motor_encoder_byte_read(){
 }
 
 
-uint8_t motor_encoder_byte_reversed(){
-	uint8_t byte = reverse_bits(PINK);
-	
-	
-}
-
 
 uint16_t motor_encoder_read(){
 
@@ -208,7 +337,8 @@ uint16_t motor_encoder_read(){
 	_delay_us(20);
 	lsb = reverse_bits(motor_encoder_byte_read());
 	
-	//motor_encoder_reset();
+	//motor_encoder_reset(); 
+	//NO?
 	
 	//disable output
 	motor_encoder_output_enable(0);

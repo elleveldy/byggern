@@ -121,15 +121,15 @@ void can_test_loopback(){
 void can_test_transmit(){
 	can_init(MODE_NORMAL);
 	while(1){
-	_delay_ms(100);
+		_delay_ms(100);
 	
-	can_message msg;
-	msg.id = 10;
-	msg.length = 1;
-	msg.data[0] = 'T';
+		can_message msg;
+		msg.id = 10;
+		msg.length = 1;
+		msg.data[0] = 'T';
 	
-	can_transmit(&msg, MCP_TXB0CTRL);
-	printf("\n\nSend ID = %d\nSend Length = %dnSend Data = %c\n\n", msg.id, msg.length, msg.data[0]);
+		can_transmit(&msg, MCP_TXB0CTRL);
+		printf("\n\nSend ID = %d\nSend Length = %dnSend Data = %c\n\n", msg.id, msg.length, msg.data[0]);
 	}
 }
 

@@ -1,6 +1,8 @@
 #include "can.h"
 #include "mcp2515.h"
 #include "mcp2515_define.h"
+#include "uart.h"
+
 #include <avr/io.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,18 +122,21 @@ void can_test_loopback(){
 }
 
 void can_test_transmit(){
+	printf("entering test\n");
 	can_init(MODE_NORMAL);
+	can_message msg;
 	
 	while(1){
-	_delay_ms(100);
+		_delay_ms(100);
 		
-	can_message msg;
-	msg.id = 10;
-	msg.length = 1;
-	msg.data[0] = 'T';
+		
+		msg.id = 10;
+		msg.length = 1;
+		msg.data[0] = 'T';
 	
-	can_transmit(&msg, MCP_TXB0CTRL);
-	printf("\n\nSend ID = %d\nSend Length = %d\nSend Data = %c\n\n", msg.id, msg.length, msg.data[0]);
+		can_transmit(&msg, MCP_TXB0CTRL);
+		
+		printf("\n\nSend ID = %d\nSend Length = %d\nSend Data = %c\n\n", msg.id, msg.length, msg.data[0]);
 	}
 }
 

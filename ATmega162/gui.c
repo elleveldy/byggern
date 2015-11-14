@@ -1,4 +1,4 @@
-#define F_CPU 4915200
+//#define F_CPU 4915200
 
 
 #include <string.h> //for strcmp( str1, str2)

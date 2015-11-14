@@ -1,3 +1,8 @@
+/****************************************************
+
+Put some of the functions in menu.c to other more suitable files
+
+*****************************************************/
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -5,6 +10,7 @@
 #include "oled_alt.h"
 #include "joystick.h"
 #include "menu.h"
+#include "sram.h"
 //#include "canjoy.h"
 
 Menuitem* new_Menuitem(
@@ -41,10 +47,20 @@ Menuitem* create_menu(){
 	//for some reason, MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat in sub menus, so wtf
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
 	base->submenus[0] = new_Menuitem("Snake", menu_snake_fn, 0);
+	
 	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
-	base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_alt_change_contrast, 0);
-	base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_alt_toggle_negative, 0);
-	base->submenus[2] = new_Menuitem("Ping Pong", menu_toggle_negative, 0);
+		base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_alt_change_contrast, 0);
+		base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_alt_toggle_negative, 0);
+		
+	base->submenus[2] = new_Menuitem("Tests", NULL, 2);
+		base->submenus[2]->submenus[0] = new_Menuitem("Can", NULL, 2);
+			base->submenus[2]->submenus[0]->submenus[0] = new_Menuitem("Loopback", NULL, 0);
+			base->submenus[2]->submenus[0]->submenus[1] = new_Menuitem("Node1 to Node2", NULL, 0);
+		base->submenus[2]->submenus[1] = new_Menuitem("SRAM", SRAM_test, 0);
+		
+			
+			
+		
 	
 	assign_parents(base);
 	
@@ -138,6 +154,8 @@ void menu_snake_fn(){
 	}
 	
 }
+
+
 
 void menu_change_contrast(){
 	
