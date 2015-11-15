@@ -1,16 +1,22 @@
-
+#pragma once
 
 
 
 
 #include <avr/io.h>
+#include <stdio.h>
 
+#define MAX_TIME 65525
+#define PRESCALER 1024
 
 //time[sec] = 65535  / 16Mhz = 0.0040959375
 
 void timer_init();
 
 void timer_start();
+
+uint16_t timer_read();
+void timer_reset();
 
 int timer_done();
 

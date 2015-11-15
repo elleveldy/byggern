@@ -1,4 +1,7 @@
 
+//set refresh rate to 60Hz?
+
+
 #include <avr/pgmspace.h>
 #include "oled_alt.h"
 #include "font.h"

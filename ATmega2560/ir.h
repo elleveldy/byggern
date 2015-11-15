@@ -2,11 +2,12 @@
 
 #include <stdint.h>
 
+
 #ifndef IR_H_
 #define IR_H_
 #define IR_PIN 0x01
 
-
+uint16_t max_left;//rename this mofo
 
 /*
 typedef struct can_message IR;

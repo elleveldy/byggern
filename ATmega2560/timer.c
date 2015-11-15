@@ -3,6 +3,8 @@
 
 #include <avr/io.h>
 #include "timer.h"
+#include <stdio.h>
+
 
 //with prescaler = 1024 and COUNT = 65535, one full count cycle = 4.1 s    (ish)
 #define COUNT 65535
@@ -13,6 +15,7 @@ int time_tick = 0;
 int time_tick_max = 0;
 void timer_init() {
 	
+	//Normal mode, zero prescaler
 	TCCR4A = 0;
 	TCCR4B = 0;
 	
@@ -20,18 +23,31 @@ void timer_init() {
 	TCCR4B |=  (1<<CS42) | (1<<CS40);
 	TCCR4B &= ~(1<<CS41);
 	
+	
 	//0100 -> Mode CTC -> TOP = OCRnA
+/*
 	TCCR4A &= ~(1<<WGM40);
 	TCCR4A &= ~(1<<WGM41);
 	TCCR4B |=  (1<<WGM42);
 	TCCR4B &= ~(1<<WGM43);
+	
+	OCR4A = 0x7FFF;*/
 
+}
+
+uint16_t timer_read(){
+	return TCNT4;
+}
+
+void timer_reset(){
+	TCNT4 = 0;
 }
 
 void timer_start(){
 	OCR4A = COUNT;
 	TCNT4 = 0;
 }
+
 
 int timer_done(){
 	if(TCNT4 >= COUNT){

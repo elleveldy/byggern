@@ -41,7 +41,7 @@ void assign_parents(Menuitem* menu){
 
 Menuitem* create_menu(){
 	
-	//Store these strings in progmem maybe
+	//Store these strings in progmem maybe naaah
 	
 	
 	//for some reason, MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat in sub menus, so wtf
@@ -58,10 +58,8 @@ Menuitem* create_menu(){
 			base->submenus[2]->submenus[0]->submenus[1] = new_Menuitem("Node1 to Node2", NULL, 0);
 		base->submenus[2]->submenus[1] = new_Menuitem("SRAM", SRAM_test, 0);
 		
-			
-			
 		
-	
+		
 	assign_parents(base);
 	
 	return base;

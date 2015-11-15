@@ -103,7 +103,7 @@ int main(void){
 	
 	
 	while(1){
-		
+		//printf("entering main while\n");
 		//can_test_transmit();
 		
 

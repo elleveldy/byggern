@@ -1381,7 +1381,7 @@ Menuitem* create_menu(){
      7ce:	cf 93       	push	r28
      7d0:	df 93       	push	r29
 	
-	//Store these strings in progmem maybe
+	//Store these strings in progmem maybe naaah
 	
 	
 	//for some reason, MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat in sub menus, so wtf
@@ -1546,10 +1546,8 @@ Menuitem* create_menu(){
      90a:	93 83       	std	Z+3, r25	; 0x03
      90c:	82 83       	std	Z+2, r24	; 0x02
 		
-			
-			
 		
-	
+		
 	assign_parents(base);
      90e:	ce 01       	movw	r24, r28
      910:	0e 94 ba 03 	call	0x774	; 0x774 <assign_parents>

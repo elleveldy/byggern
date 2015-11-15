@@ -13,7 +13,7 @@
 #define MOTOR_ENCODER_RESET 6
 #define MOTOR_OUTPUT_EN 7
 
-
+uint16_t max_left;
 
 typedef enum motor_dir motor_dir;
 enum motor_dir {right,left};
@@ -23,7 +23,7 @@ void motor_init();
 void motor_encoder_reset();
 void motor_encoder_select_byte(uint8_t val);
 void motor_encoder_output_enable(uint8_t enable);
-static uint8_t reverse_bits(uint8_t byte);
+static uint8_t reverse_bits(uint8_t byte);//remove static fn from .h file?
 
 
 
@@ -36,7 +36,13 @@ uint16_t motor_encoder_read();
 
 
 void motor_direction(motor_dir direction);
-void motor_speed(uint16_t speed);//uint8_t might give overflow with accidental speed >= 256
+
+//uint8_t might give overflow with accidental speed >= 256
+void motor_speed(uint16_t speed);
+
+//negative speed to the right to make transition to encoder values easier
+void motor_speed_direction(int16_t speed);
+void motor_speed_direction_cap(int16_t speed, uint8_t cap);
 
 void motor_test();
 void motor_solenoid_test();

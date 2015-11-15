@@ -20,7 +20,7 @@
 #include "timer.h"
 #include "solenoid.h"
 #include "motor.h"
-
+#include "PI_controller.h"
 /*
 check if header files are included in their respective c files, and if they should be
 to avoid "implicit declaration of function
@@ -74,17 +74,69 @@ int main(void){
 	int16_t speed;
 	
 	
-	motor_controller_calibrate_by_reset();
+	/*motor_controller_calibrate_by_reset();
+	P_controller_init(0.03);*/
 	
+	PI_controller* sliders = PI_controller_new(0.02, 0.05);
+	
+	uint16_t y;
+	uint16_t x;
+	float output;
+	
+	//P_controller_init(0.1);
+	
+	motor_controller_calibrate_by_reset();
 	
 	while(1){
 		
-		motor_solenoid_test();
+		//can_test_recieve();
 		
 		canjoy_recieve();
 		
-		//motor_crude_controller_slider(motor_encoder_read(), canjoy_slider_right());
-		//motor_crude_controller(motor_encoder_read(), 4500);
+		x = abs(canjoy_slider_right() - 255) * (float)(max_left) / 255.0;		
+		y = motor_encoder_read();
+		
+		
+		
+		output = -PI_controller_set_output(sliders, x, y);
+		
+		if(y > max_left | y < 0){
+			output = 0;
+		}
+		if(y > 60000){
+			motor_encoder_reset();
+		}
+		
+		//motor_speed_direction_cap(output, 150);
+		motor_speed_direction(output);
+	
+		/*x = canjoy_slider_right();
+		y = canjoy_slider_left();
+		output = PI_controller_set_output(sliders, x, y);*/
+		
+		
+		printf("Pos: %u\tRef: %u\toutput: %f\n", y, x, output);
+		
+		//output = -100.1;
+		
+		//printf("Pos: %i\tRef: %i\tOutput: %f\n", y, x, output);
+		
+		//printf("Clock: %u\n", timer_read());
+		
+		
+		
+		/*motor_solenoid_test();*/
+		
+		/*canjoy_recieve();
+		P_controller_actuate_slider(motor_encoder_read(), canjoy_slider_right());
+		
+		if(canjoy_button_right()){
+			solenoid_shoot();
+		}
+		*/
+		
+		
+		
 /*
 		canjoy_recieve();
 		speed = 2 * abs(canjoy_joystick_x() - 127);

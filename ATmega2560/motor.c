@@ -14,7 +14,7 @@
 
 
 
-static uint16_t max_left;
+
 
 
 static uint16_t max_right = 0;
@@ -105,6 +105,30 @@ void motor_speed(uint16_t speed){ //uint8_t might give overflow with accidental 
 	
 }
 
+//negative speed to the right to make transition to encoder values easier
+void motor_speed_direction(int16_t speed){
+	if(speed < 0){
+		motor_direction(right);
+	}
+	else{
+		motor_direction(left);
+	}
+	
+	motor_speed(abs(speed));
+}
+
+void motor_speed_direction_cap(int16_t speed, uint8_t cap){
+	if(speed < 0){
+		motor_direction(right);
+	}
+	else{
+		motor_direction(left);
+	}
+	if(abs(speed) > cap){
+		motor_speed(abs(cap));
+	}
+	
+}
 
 void motor_test(){
 	motor_init();
@@ -165,7 +189,7 @@ void motor_solenoid_test(){
 		
 		ir = ir_alt_blocked();
 		
-		printf("Ir blocked: %d\t\tEncoder: %d\n", ir, motor_encoder_read(), position_offset);
+		printf("Ir blocked: %d\t\tEncoder: %d\n", ir, motor_encoder_read());
 		
 		
 	}
@@ -183,7 +207,7 @@ void motor_crude_controller(uint16_t current_position, uint16_t reference){
 	
 	
 	//if we're close to ref
-	if(abs(current_position - reference) < 500){
+	if(abs(current_position - reference) < 300){
 		motor_speed(0);
 		return;
 	}
@@ -224,7 +248,7 @@ void motor_controller_calibrate_by_reset(){
 	uint16_t position;
 	uint16_t prev_position;
 	
-	motor_speed(70);
+	motor_speed(100);
 	motor_direction(right);
 	_delay_ms(150);
 	position =  motor_encoder_read();
@@ -243,7 +267,7 @@ void motor_controller_calibrate_by_reset(){
 	}
 	motor_encoder_reset();
 	
-	motor_speed(70);
+	motor_speed(100);
 	motor_direction(left);
 	_delay_ms(150);
 	
