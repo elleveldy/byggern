@@ -11,7 +11,7 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-t
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(rand.o)
                               sram.o (rand)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(strcmp.o)
-                              gui.o (strcmp)
+                              gui_alt.o (strcmp)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
                               main.o (fdevopen)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(iob.o)
@@ -58,11 +58,11 @@ canjoy_msg          0xb               canjoy.o
 joystick_initial_x_value
                     0x2               canjoy.o
 __brkval            0x2               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(malloc.o)
-menu_line_nr        0x2               gui.o
+menu_line_nr        0x2               gui_alt.o
 joystick_initial_y_value
                     0x2               canjoy.o
-menu_selector       0x2               gui.o
-gui_line_nr         0x2               gui.o
+menu_selector       0x2               gui_alt.o
+gui_line_nr         0x2               gui_alt.o
 __flp               0x2               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(malloc.o)
 __iob               0x6               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(iob.o)
 
@@ -125,19 +125,9 @@ Discarded input sections
  .text          0x00000000        0x0 gui.o
  .data          0x00000000        0x0 gui.o
  .bss           0x00000000        0x0 gui.o
- .text.gui_print_page
-                0x00000000       0x18 gui.o
- .rodata.str1.1
-                0x00000000       0x18 gui.o
- .text.gui_print_indicator
-                0x00000000       0x34 gui.o
- .text.gui_print_menu
-                0x00000000       0x94 gui.o
- .text.alt_gui_run
-                0x00000000      0x156 gui.o
- .text.gui_navigate
-                0x00000000      0x15e gui.o
- .text.gui_run  0x00000000       0x1e gui.o
+ .debug_line    0x00000000        0x0 gui.o
+ .debug_str     0x00000000        0x0 gui.o
+ .comment       0x00000000       0x31 gui.o
  .text          0x00000000        0x0 gui_alt.o
  .data          0x00000000        0x0 gui_alt.o
  .bss           0x00000000        0x0 gui_alt.o
@@ -151,16 +141,6 @@ Discarded input sections
                 0x00000000       0x14 gui_alt.o
  .text.gui_alt_run
                 0x00000000       0x1e gui_alt.o
- .debug_info    0x00000000      0x5fa gui_alt.o
- .debug_abbrev  0x00000000      0x24a gui_alt.o
- .debug_loc     0x00000000      0x2c7 gui_alt.o
- .debug_aranges
-                0x00000000       0x38 gui_alt.o
- .debug_ranges  0x00000000       0x28 gui_alt.o
- .debug_line    0x00000000      0x1e9 gui_alt.o
- .debug_str     0x00000000      0x323 gui_alt.o
- .comment       0x00000000       0x31 gui_alt.o
- .debug_frame   0x00000000       0x80 gui_alt.o
  .text          0x00000000        0x0 joystick.o
  .data          0x00000000        0x0 joystick.o
  .bss           0x00000000        0x0 joystick.o
@@ -909,7 +889,7 @@ END GROUP
                 0x00800216        0x2 oled_alt.o
                 0x00800216                screen_negative
  *(COMMON)
- COMMON         0x00800218        0x6 gui.o
+ COMMON         0x00800218        0x6 gui_alt.o
                 0x00800218                menu_line_nr
                 0x0080021a                menu_selector
                 0x0080021c                gui_line_nr
@@ -972,7 +952,7 @@ END GROUP
                                  0x31 (size before relaxing)
  .comment       0x00000000       0x31 canjoy.o
  .comment       0x00000000       0x31 font.o
- .comment       0x00000000       0x31 gui.o
+ .comment       0x00000000       0x31 gui_alt.o
  .comment       0x00000000       0x31 joystick.o
  .comment       0x00000000       0x31 main.o
  .comment       0x00000000       0x31 mcp2515.o
@@ -1007,7 +987,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x388
+.debug_aranges  0x00000000      0x378
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x50 can.o
@@ -1016,126 +996,126 @@ END GROUP
  .debug_aranges
                 0x000000b0       0x18 font.o
  .debug_aranges
-                0x000000c8       0x48 gui.o
+                0x000000c8       0x38 gui_alt.o
  .debug_aranges
-                0x00000110       0x90 joystick.o
+                0x00000100       0x90 joystick.o
  .debug_aranges
-                0x000001a0       0x20 main.o
+                0x00000190       0x20 main.o
  .debug_aranges
-                0x000001c0       0x50 mcp2515.o
+                0x000001b0       0x50 mcp2515.o
  .debug_aranges
-                0x00000210       0x78 menu.o
+                0x00000200       0x78 menu.o
  .debug_aranges
-                0x00000288       0x78 oled_alt.o
+                0x00000278       0x78 oled_alt.o
  .debug_aranges
-                0x00000300       0x38 SPI.o
+                0x000002f0       0x38 SPI.o
  .debug_aranges
-                0x00000338       0x20 sram.o
+                0x00000328       0x20 sram.o
  .debug_aranges
-                0x00000358       0x30 uart.o
+                0x00000348       0x30 uart.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x35e4
+.debug_info     0x00000000     0x310b
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x7bc can.o
  .debug_info    0x000007bc      0x3ce canjoy.o
  .debug_info    0x00000b8a       0x8a font.o
- .debug_info    0x00000c14      0xad3 gui.o
- .debug_info    0x000016e7      0x4cd joystick.o
- .debug_info    0x00001bb4      0x394 main.o
- .debug_info    0x00001f48      0x386 mcp2515.o
- .debug_info    0x000022ce      0x6d3 menu.o
- .debug_info    0x000029a1      0x7a3 oled_alt.o
- .debug_info    0x00003144       0xfa SPI.o
- .debug_info    0x0000323e      0x285 sram.o
- .debug_info    0x000034c3      0x121 uart.o
+ .debug_info    0x00000c14      0x5fa gui_alt.o
+ .debug_info    0x0000120e      0x4cd joystick.o
+ .debug_info    0x000016db      0x394 main.o
+ .debug_info    0x00001a6f      0x386 mcp2515.o
+ .debug_info    0x00001df5      0x6d3 menu.o
+ .debug_info    0x000024c8      0x7a3 oled_alt.o
+ .debug_info    0x00002c6b       0xfa SPI.o
+ .debug_info    0x00002d65      0x285 sram.o
+ .debug_info    0x00002fea      0x121 uart.o
 
-.debug_abbrev   0x00000000     0x11c6
+.debug_abbrev   0x00000000     0x11ee
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x259 can.o
  .debug_abbrev  0x00000259      0x1af canjoy.o
  .debug_abbrev  0x00000408       0x50 font.o
- .debug_abbrev  0x00000458      0x222 gui.o
- .debug_abbrev  0x0000067a      0x164 joystick.o
- .debug_abbrev  0x000007de      0x17f main.o
- .debug_abbrev  0x0000095d      0x18d mcp2515.o
- .debug_abbrev  0x00000aea      0x256 menu.o
- .debug_abbrev  0x00000d40      0x1e1 oled_alt.o
- .debug_abbrev  0x00000f21       0xac SPI.o
- .debug_abbrev  0x00000fcd      0x12e sram.o
- .debug_abbrev  0x000010fb       0xcb uart.o
+ .debug_abbrev  0x00000458      0x24a gui_alt.o
+ .debug_abbrev  0x000006a2      0x164 joystick.o
+ .debug_abbrev  0x00000806      0x17f main.o
+ .debug_abbrev  0x00000985      0x18d mcp2515.o
+ .debug_abbrev  0x00000b12      0x256 menu.o
+ .debug_abbrev  0x00000d68      0x1e1 oled_alt.o
+ .debug_abbrev  0x00000f49       0xac SPI.o
+ .debug_abbrev  0x00000ff5      0x12e sram.o
+ .debug_abbrev  0x00001123       0xcb uart.o
 
-.debug_line     0x00000000     0x119b
+.debug_line     0x00000000     0x1144
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x236 can.o
  .debug_line    0x00000236      0x17a canjoy.o
  .debug_line    0x000003b0       0x29 font.o
- .debug_line    0x000003d9      0x23e gui.o
- .debug_line    0x00000617      0x263 joystick.o
- .debug_line    0x0000087a      0x118 main.o
- .debug_line    0x00000992      0x143 mcp2515.o
- .debug_line    0x00000ad5      0x264 menu.o
- .debug_line    0x00000d39      0x1d1 oled_alt.o
- .debug_line    0x00000f0a       0xe6 SPI.o
- .debug_line    0x00000ff0       0xd4 sram.o
- .debug_line    0x000010c4       0xd7 uart.o
+ .debug_line    0x000003d9      0x1e9 gui_alt.o
+ .debug_line    0x000005c2      0x263 joystick.o
+ .debug_line    0x00000825      0x116 main.o
+ .debug_line    0x0000093b      0x143 mcp2515.o
+ .debug_line    0x00000a7e      0x264 menu.o
+ .debug_line    0x00000ce2      0x1d1 oled_alt.o
+ .debug_line    0x00000eb3       0xe6 SPI.o
+ .debug_line    0x00000f99       0xd4 sram.o
+ .debug_line    0x0000106d       0xd7 uart.o
 
-.debug_frame    0x00000000      0x91c
+.debug_frame    0x00000000      0x8e4
  *(.debug_frame)
  .debug_frame   0x00000000      0x14c can.o
  .debug_frame   0x0000014c       0xf8 canjoy.o
- .debug_frame   0x00000244       0xb8 gui.o
- .debug_frame   0x000002fc      0x1e4 joystick.o
- .debug_frame   0x000004e0       0x24 main.o
- .debug_frame   0x00000504       0xa8 mcp2515.o
- .debug_frame   0x000005ac      0x12c menu.o
- .debug_frame   0x000006d8      0x154 oled_alt.o
- .debug_frame   0x0000082c       0x54 SPI.o
- .debug_frame   0x00000880       0x58 sram.o
- .debug_frame   0x000008d8       0x44 uart.o
+ .debug_frame   0x00000244       0x80 gui_alt.o
+ .debug_frame   0x000002c4      0x1e4 joystick.o
+ .debug_frame   0x000004a8       0x24 main.o
+ .debug_frame   0x000004cc       0xa8 mcp2515.o
+ .debug_frame   0x00000574      0x12c menu.o
+ .debug_frame   0x000006a0      0x154 oled_alt.o
+ .debug_frame   0x000007f4       0x54 SPI.o
+ .debug_frame   0x00000848       0x58 sram.o
+ .debug_frame   0x000008a0       0x44 uart.o
 
-.debug_str      0x00000000      0x923
+.debug_str      0x00000000      0x8dd
  *(.debug_str)
- .debug_str     0x00000000      0x274 can.o
+ .debug_str     0x00000000      0x27b can.o
                                 0x2be (size before relaxing)
- .debug_str     0x00000274      0x17f canjoy.o
+ .debug_str     0x0000027b      0x17f canjoy.o
                                 0x313 (size before relaxing)
- .debug_str     0x000003f3       0x11 font.o
+ .debug_str     0x000003fa       0x11 font.o
                                 0x143 (size before relaxing)
- .debug_str     0x00000404      0x156 gui.o
-                                0x356 (size before relaxing)
- .debug_str     0x0000055a       0x98 joystick.o
+ .debug_str     0x0000040b      0x131 gui_alt.o
+                                0x323 (size before relaxing)
+ .debug_str     0x0000053c       0x98 joystick.o
                                 0x2bf (size before relaxing)
- .debug_str     0x000005f2       0x57 main.o
+ .debug_str     0x000005d4       0x57 main.o
                                 0x280 (size before relaxing)
- .debug_str     0x00000649       0x5a mcp2515.o
+ .debug_str     0x0000062b       0x5a mcp2515.o
                                 0x21e (size before relaxing)
- .debug_str     0x000006a3       0xb2 menu.o
+ .debug_str     0x00000685       0x8a menu.o
                                 0x2cd (size before relaxing)
- .debug_str     0x00000755      0x11b oled_alt.o
+ .debug_str     0x0000070f      0x11b oled_alt.o
                                 0x2cc (size before relaxing)
- .debug_str     0x00000870       0x18 SPI.o
+ .debug_str     0x0000082a       0x18 SPI.o
                                 0x16f (size before relaxing)
- .debug_str     0x00000888       0x6f sram.o
+ .debug_str     0x00000842       0x6f sram.o
                                 0x1ce (size before relaxing)
- .debug_str     0x000008f7       0x2c uart.o
+ .debug_str     0x000008b1       0x2c uart.o
                                 0x175 (size before relaxing)
 
-.debug_loc      0x00000000     0x1ca9
+.debug_loc      0x00000000     0x1a1d
  *(.debug_loc)
  .debug_loc     0x00000000      0x430 can.o
  .debug_loc     0x00000430      0x13c canjoy.o
- .debug_loc     0x0000056c      0x553 gui.o
- .debug_loc     0x00000abf      0x31c joystick.o
- .debug_loc     0x00000ddb       0x27 main.o
- .debug_loc     0x00000e02      0x1aa mcp2515.o
- .debug_loc     0x00000fac      0x5c6 menu.o
- .debug_loc     0x00001572      0x4df oled_alt.o
- .debug_loc     0x00001a51       0x40 SPI.o
- .debug_loc     0x00001a91      0x1f2 sram.o
- .debug_loc     0x00001c83       0x26 uart.o
+ .debug_loc     0x0000056c      0x2c7 gui_alt.o
+ .debug_loc     0x00000833      0x31c joystick.o
+ .debug_loc     0x00000b4f       0x27 main.o
+ .debug_loc     0x00000b76      0x1aa mcp2515.o
+ .debug_loc     0x00000d20      0x5c6 menu.o
+ .debug_loc     0x000012e6      0x4df oled_alt.o
+ .debug_loc     0x000017c5       0x40 SPI.o
+ .debug_loc     0x00001805      0x1f2 sram.o
+ .debug_loc     0x000019f7       0x26 uart.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1155,19 +1135,19 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x2f0
+.debug_ranges   0x00000000      0x2e0
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x40 can.o
  .debug_ranges  0x00000040       0x50 canjoy.o
- .debug_ranges  0x00000090       0x38 gui.o
- .debug_ranges  0x000000c8       0x80 joystick.o
- .debug_ranges  0x00000148       0x10 main.o
- .debug_ranges  0x00000158       0x40 mcp2515.o
- .debug_ranges  0x00000198       0x80 menu.o
- .debug_ranges  0x00000218       0x80 oled_alt.o
- .debug_ranges  0x00000298       0x28 SPI.o
- .debug_ranges  0x000002c0       0x10 sram.o
- .debug_ranges  0x000002d0       0x20 uart.o
+ .debug_ranges  0x00000090       0x28 gui_alt.o
+ .debug_ranges  0x000000b8       0x80 joystick.o
+ .debug_ranges  0x00000138       0x10 main.o
+ .debug_ranges  0x00000148       0x40 mcp2515.o
+ .debug_ranges  0x00000188       0x80 menu.o
+ .debug_ranges  0x00000208       0x80 oled_alt.o
+ .debug_ranges  0x00000288       0x28 SPI.o
+ .debug_ranges  0x000002b0       0x10 sram.o
+ .debug_ranges  0x000002c0       0x20 uart.o
 
 .debug_macro
  *(.debug_macro)

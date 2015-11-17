@@ -1,3 +1,4 @@
+/*
 //#define F_CPU 4915200
 
 
@@ -171,3 +172,4 @@ void gui_navigate(){
 	
 	
 }
+*/

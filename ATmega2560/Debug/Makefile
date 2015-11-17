@@ -47,6 +47,7 @@ C_SRCS +=  \
 ../motor.c \
 ../PI_controller.c \
 ../pwm.c \
+../servo.c \
 ../solenoid.c \
 ../spi.c \
 ../timer.c \
@@ -71,6 +72,7 @@ mcp2515.o \
 motor.o \
 PI_controller.o \
 pwm.o \
+servo.o \
 solenoid.o \
 spi.o \
 timer.o \
@@ -88,6 +90,7 @@ mcp2515.o \
 motor.o \
 PI_controller.o \
 pwm.o \
+servo.o \
 solenoid.o \
 spi.o \
 timer.o \
@@ -105,6 +108,7 @@ mcp2515.d \
 motor.d \
 PI_controller.d \
 pwm.d \
+servo.d \
 solenoid.d \
 spi.d \
 timer.d \
@@ -122,6 +126,7 @@ mcp2515.d \
 motor.d \
 PI_controller.d \
 pwm.d \
+servo.d \
 solenoid.d \
 spi.d \
 timer.d \
@@ -142,6 +147,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -155,7 +155,7 @@ void motor_test(){
 
 
 void motor_solenoid_test(){
-	pwm_init(); //for servo
+	servo_init(); //for servo
 	solenoid_init();
 	//motor_init();
 	

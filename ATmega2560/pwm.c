@@ -10,13 +10,7 @@
 #define SERVO_MID (SERVO_MAX + SERVO_MIN)/2*/
 
 
-/*
-	val = 250 gir 1 ms pulse
-	val = 225 gir 0.9 ms pulse
-	val = 525 gir 2.1 ms pulse
-	vi vil ha verdier mellom 225 og 525
-	
-*/
+
 //P for pulse
 #define P_MAX 525
 #define P_MIN 225
@@ -25,7 +19,7 @@
 
 
 
-void pwm_init(){
+void pwm_init(uint16_t pulse_period, uint16_t initial_pulse_width){
 	DDRE |= (1<<PE3);
 	PORTE |= (1<<PE3);
 	
@@ -48,22 +42,19 @@ void pwm_init(){
 	TCCR3B &= ~(1<<CS32);
 	
 	//20 ms
-	ICR3 = 5000;
+	ICR3 = pulse_period;
 	
-	OCR3A = 375;
+	OCR3A = initial_pulse_width; //should be P_MID
 	
 	//printf("PWM init done:\n\tTCCRA: %02X\n\tTCCRB: %02X\n\tICR: %02X\n\tOCR: %02X\n", TCCR3A, TCCR3B, ICR3, OCR3A);
 }
 
 
-void pwm_set_value(uint16_t val){
-	OCR3A = val;
+void pwm_set_pulse_width(uint16_t pulse){
+	OCR3A = pulse;
 }
 
-void pwm_set_servo(int16_t val){
-	//delete and remove from header
-}
-
+/*
 void pwm_set_pulse(int16_t val){
 	
 	if(val >= P_MAX)
@@ -99,5 +90,6 @@ void pwm_alt_joystick_pulse(int16_t val){
 	pwm_joystick_pulse(abs(val - 255));
 	
 }
+*/
 
 

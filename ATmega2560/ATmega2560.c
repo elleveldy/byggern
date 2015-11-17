@@ -21,6 +21,7 @@
 #include "solenoid.h"
 #include "motor.h"
 #include "PI_controller.h"
+#include "servo.h"
 /*
 check if header files are included in their respective c files, and if they should be
 to avoid "implicit declaration of function
@@ -54,46 +55,35 @@ int main(void){
 	
 	
 	can_init(MODE_NORMAL);
-	pwm_init();//servo
+	servo_init();
 	adc_init();
 	
 	DDRE |= (1 << 3); //studass PWM bandaid that can be removed? 
 
 
-	
-	/*
-	int high = adc_read(0x00);
-	int low = adc_read(0x00);
-	*/
 
 	timer_init();
 	
 	solenoid_init();
 	motor_init();
 	
-	int16_t speed;
-	
-	
-	/*motor_controller_calibrate_by_reset();
-	P_controller_init(0.03);*/
-	
+
 	PI_controller* sliders = PI_controller_new(0.02, 0.05);
 	
 	uint16_t y;
 	uint16_t x;
 	float output;
 	
-	//P_controller_init(0.1);
-	
 	motor_controller_calibrate_by_reset();
+
 	
 	while(1){
-		
-		//can_test_recieve();
+
+
 		
 		canjoy_recieve();
 		
-		x = abs(canjoy_slider_right() - 255) * (float)(max_left) / 255.0;		
+		x = abs(canjoy_joystick_x() - 255) * (float)(max_left) / 255.0;		
 		y = motor_encoder_read();
 		
 		
@@ -103,83 +93,30 @@ int main(void){
 		if(y > max_left | y < 0){
 			output = 0;
 		}
-		if(y > 60000){
+		if(y > 65000){
 			motor_encoder_reset();
 		}
 		
+		
+		//allows shooting solonoid, with 50ms pulse, without "burst mode"
+		if(canjoy_button_right() && solenoid_is_shooting_allowed()){
+			solenoid_shoot();
+			solenoid_disallow_shooting();
+		}
+		else if(canjoy_button_right()){}
+		else{
+			solenoid_allow_shooting();			
+		}
+		
+		servo_set_pulse_by_input(canjoy_slider_right());
+		
 		//motor_speed_direction_cap(output, 150);
 		motor_speed_direction(output);
-	
-		/*x = canjoy_slider_right();
-		y = canjoy_slider_left();
-		output = PI_controller_set_output(sliders, x, y);*/
-		
-		
-		printf("Pos: %u\tRef: %u\toutput: %f\n", y, x, output);
-		
-		//output = -100.1;
-		
-		//printf("Pos: %i\tRef: %i\tOutput: %f\n", y, x, output);
-		
-		//printf("Clock: %u\n", timer_read());
-		
-		
-		
-		/*motor_solenoid_test();*/
-		
-		/*canjoy_recieve();
-		P_controller_actuate_slider(motor_encoder_read(), canjoy_slider_right());
-		
-		if(canjoy_button_right()){
-			solenoid_shoot();
-		}
-		*/
-		
-		
-		
-/*
-		canjoy_recieve();
-		speed = 2 * abs(canjoy_joystick_x() - 127);
-		
-		motor_speed(speed);
-		if(canjoy_joystick_x() > 128){
-			motor_direction(right);
-		}
-		else
-			motor_direction(left);
-		
-		printf("x: %d\tspeed: %d\n",canjoy_joystick_x(), speed);*/
-		
-		//can_test_recieve();
-		
-		/*printf("Node2 entering main while(1)\n");
-		canjoy_recieve();
-		pwm_joystick_pulse(canjoy_joystick_x());
-		
-		//motor_test();
 
 		
 		
-		//can_test_recieve();
+		//printf("Pos: %u\tRef: %u\toutput: %f\n", y, x, output);
 		
-		printf("x: %d\n",canjoy_joystick_x());
-		
-		if(canjoy_button_right()){
-			PORTH &= ~(1 << PH3);
-			_delay_ms(50);
-			printf("shoot\n");
-		}
-		else{
-			PORTH |= (1 << PH3);
-		}*/
-	
-		/*int adc = adc_read(PF1);
-		
-		if(adc > high)
-			high = adc;
-		if(adc < low)
-			low = adc;
-		printf("\nIR VALUE: %d\tHighest: %d\tLowest: %d\tUnblocked: %d\talt_blocked: %d\n", adc, high, low, ir_unblocked(), ir_alt_unblocked());*/
 		
 	}
 	

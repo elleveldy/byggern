@@ -22,6 +22,8 @@ PI_controller.c
 
 pwm.c
 
+servo.c
+
 solenoid.c
 
 spi.c

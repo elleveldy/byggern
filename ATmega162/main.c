@@ -66,10 +66,7 @@ int main(void){
 	
 	
 	buttons_init(); // useless thus far
-	/*oled_init();	
-	oled_clear_screen();	
-	oled_home();*/
-	
+
 	
 	Menuitem* menu = create_menu();
 	menu_selector = menu;
@@ -78,42 +75,21 @@ int main(void){
 	can_init(MODE_NORMAL);
 	
 	
-	/*can_message joy;
-	joy.id = 3;
-	joy.length = 2;*/
-	
-	/*while(1){
-		
-		/ *can_test_transmit();
-		printf("\nin main while\n");* /
-		
-		
-		
-		printf("X: %d\n", joystick_read_x());
-		canjoy_transmit();
-		
-	}*/
-	
 	oled_alt_init();
 	
-	//gui_print_menu(menu);
-	//oled_store_string("Testing2", 0 , 0);
-	
-	//gui_print_menu(menu);
+
 	
 	
 	while(1){
-		//printf("entering main while\n");
-		//can_test_transmit();
-		
 
-		//gui_alt_run();
+
+		/*gui_alt_run();
 		
-		//oled_write_screen();
-			
+		oled_write_screen();*/
+		
 		canjoy_transmit();
 		
-		//printf("menu_line_nr: %d\n", menu_line_nr);
+
 		
 	}
 	
