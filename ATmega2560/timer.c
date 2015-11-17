@@ -15,7 +15,7 @@ int time_tick = 0;
 int time_tick_max = 0;
 void timer_init() {
 	
-	//timer 1
+	//timer 4
 	//Normal mode, zero prescaler
 	TCCR4A = 0;
 	TCCR4B = 0;
@@ -24,7 +24,7 @@ void timer_init() {
 	TCCR4B |=  (1<<CS42) | (1<<CS40);
 	TCCR4B &= ~(1<<CS41);
 	
-	//timer 2
+	//timer 5
 	TCCR5A = 0;
 	TCCR5B = 0;
 	
@@ -45,7 +45,7 @@ void timer_init() {
 
 
 
-uint16_t timer5_read(uint8_t timer){
+uint16_t timer_read(uint8_t timer){
 	if(timer == 1)
 		return TCNT1;
 	else if(timer == 3)
@@ -55,7 +55,8 @@ uint16_t timer5_read(uint8_t timer){
 	else if(timer == 5)
 		return TCNT5;
 }
-void timer5_reset(uint8_t timer){
+
+void timer_reset(uint8_t timer){
 	if(timer == 1)
 		TCNT1 = 0;
 	else if(timer == 3)
@@ -66,9 +67,10 @@ void timer5_reset(uint8_t timer){
 		TCNT5 = 0;
 }
 
+/*
 uint16_t timer_read(){
 	return TCNT4;
-}
+}*/
 
 void timer_reset(){
 	TCNT4 = 0;

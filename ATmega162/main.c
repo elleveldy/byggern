@@ -30,6 +30,8 @@
 #include "canjoy.h"
 #include "sram.h"
 
+#include "timer.h"
+
 /*
 FIX BEFORE EVALUATION
 check if header files are included in their respective c files, and if they should be
@@ -79,15 +81,18 @@ int main(void){
 	
 
 	
-	
 	while(1){
 
-
-		/*gui_alt_run();
+		gui_alt_run();
+		//oled_invert_line(2);
 		
-		oled_write_screen();*/
+		//oled_write_screen();
 		
-		canjoy_transmit();
+		oled_refresh_60Hz();
+		
+	
+		
+		//canjoy_transmit();
 		
 
 		

@@ -31,7 +31,7 @@ void canjoy_transmit(){
 
 
 //must be run in while(1)
-can_message canjoy_recieve(){
+can_message canjoy_update(){
 	
 	can_message joy = can_recieve();
 	

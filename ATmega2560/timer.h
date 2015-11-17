@@ -15,11 +15,12 @@ void timer_init();
 
 void timer_start();
 
-uint16_t timer_read();
-void timer_reset();
+uint16_t timer_read(uint8_t timer);
+void timer_reset(uint8_t timer);
 
+/*
 uint16_t timer5_read(uint8_t timer);
-void timer5_reset(uint8_t timer_nr);
+void timer5_reset(uint8_t timer_nr);*/
 
 int timer_done();
 

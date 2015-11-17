@@ -40,22 +40,12 @@ make functions static, if they shouldn't be called outside the .c file
 
 int main(void){
 	
-	/*DDRB = 0xff;
-	while(1){
-		PORTB = 0xff;
-		_delay_ms(500);
-		PORTB = 0;
-		_delay_ms(500);
-	}*/
-	
-	
+
 	MCUCR |= (1 << SRE);
 	uart_Init(MYUBRR);
 	//
 	
-	
 	can_init(MODE_NORMAL);
-	servo_init();
 	adc_init();
 	
 	DDRE |= (1 << 3); //studass PWM bandaid that can be removed? 
@@ -81,14 +71,14 @@ int main(void){
 
 
 		
-		canjoy_recieve();
+		canjoy_update();
 		
 		x = abs(canjoy_joystick_x() - 255) * (float)(max_left) / 255.0;		
 		y = motor_encoder_read();
 		
 		
 		
-		output = -PI_controller_set_output(sliders, x, y);
+		output = -PI_controller_output(sliders, x, y);
 		
 		if(y > max_left | y < 0){
 			output = 0;

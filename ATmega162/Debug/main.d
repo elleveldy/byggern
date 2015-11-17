@@ -19,7 +19,7 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdarg.h \
  .././uart.h .././joystick.h .././oled_alt.h .././gui_alt.h .././menu.h \
  .././mcp2515.h .././SPI.h .././snake.h .././mcp2515_define.h .././can.h \
- .././canjoy.h .././sram.h
+ .././canjoy.h .././sram.h .././timer.h
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -80,3 +80,5 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 .././canjoy.h:
 
 .././sram.h:
+
+.././timer.h:

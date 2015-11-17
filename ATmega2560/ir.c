@@ -12,6 +12,10 @@
 
 uint8_t ir_score = 0;
 
+void ir_init(){
+	adc_init();
+}
+
 //
 int ir_alt_unblocked(){
 	

@@ -136,7 +136,7 @@ void motor_test(){
 	int16_t speed;
 	
 	while(1){
-		canjoy_recieve();
+		canjoy_update();
 		speed = 2 * abs(canjoy_joystick_x() - 127);
 		
 		motor_speed(speed);
@@ -164,7 +164,7 @@ void motor_solenoid_test(){
 	uint8_t ir;
 	while(1){
 		
-		canjoy_recieve();
+		canjoy_update();
 		speed = 2 * abs(canjoy_joystick_x() - 127);
 			
 		motor_speed(speed);
@@ -360,9 +360,6 @@ uint16_t motor_encoder_read(){
 	motor_encoder_select_byte(1);
 	_delay_us(20);
 	lsb = reverse_bits(motor_encoder_byte_read());
-	
-	//motor_encoder_reset(); 
-	//NO?
 	
 	//disable output
 	motor_encoder_output_enable(0);

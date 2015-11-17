@@ -18,6 +18,7 @@ struct can_message{
 };
 */
 
+void ir_init();
 
 int ir_unblocked();
 int ir_blocked();

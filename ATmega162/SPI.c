@@ -27,7 +27,8 @@ char spi_read(){
 	return SPDR;
 }
 
+/*
 int spi_transmit(char data){
 	//SPDR = data;
 	//while(!(SPSR & (1<<SPIF)));
-}
+}*/

@@ -6,7 +6,7 @@ typedef struct PI_controller PI_controller;
 
 PI_controller* PI_controller_new(float kp, float ki);
 
-int16_t PI_controller_set_output(PI_controller* ctrl, uint16_t position, uint16_t reference);
+int16_t PI_controller_output(PI_controller* ctrl, uint16_t position, uint16_t reference);
 
 void P_controller_init(float kp_in);
 //sets motor speed and direction based on position, and reference

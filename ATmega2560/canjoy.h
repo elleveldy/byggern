@@ -1,7 +1,7 @@
 #include "can.h"
 
 int canjoy_transmit();
-can_message canjoy_recieve();
+can_message canjoy_update();
 
 int canjoy_joystick_x();
 int canjoy_joystick_y();

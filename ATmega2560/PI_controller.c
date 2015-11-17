@@ -52,9 +52,9 @@ PI_controller* PI_controller_new(float kp, float ki){
 	return this;
 }
 
-int16_t PI_controller_set_output(PI_controller* ctrl, uint16_t position, uint16_t reference){
+int16_t PI_controller_output(PI_controller* ctrl, uint16_t position, uint16_t reference){
 	//copy pasta ish
-	float dt = (float)(timer_read() * prescaler / fcpu);	
+	float dt = (float)(timer_read(4) * prescaler / fcpu);	
 	timer_reset();
 	
 	int16_t error			= reference - position;

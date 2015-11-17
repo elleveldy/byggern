@@ -1,4 +1,6 @@
-#define F_CPU 4915200
+
+
+//#define F_CPU 4915200
 
 #include <string.h> //for strcmp( str1, str2)
 #include <stdlib.h>
@@ -80,9 +82,10 @@ void gui_alt_print_indicator(Menuitem* m){
 	//oled_alt_clear_col_line_interval(0, 1, 7);
 	
 	//oled_clear_col(0);
-	int number = menu_submenu_number(m);
-
-	oled_store_string("-", 0, number);
+	//int line = menu_submenu_number(m);
+	uint8_t line = menu_submenu_number(m);
+	oled_invert_line(line);
+	//oled_store_string("-", 0, number);
 	
 }
 

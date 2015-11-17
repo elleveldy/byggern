@@ -11,12 +11,13 @@ Put some of the functions in menu.c to other more suitable files
 #include "joystick.h"
 #include "menu.h"
 #include "sram.h"
+#include "snake.h"
 //#include "canjoy.h"
 
 Menuitem* new_Menuitem(
-char* name,
-void (*fn)(void),
-uint8_t num_submenus
+char* name,				
+void (*fn)(void),		//pointer to function
+uint8_t num_submenus	
 ){
 	Menuitem* this = malloc(sizeof(Menuitem));
 	this->name = name;
@@ -46,7 +47,7 @@ Menuitem* create_menu(){
 	
 	//for some reason, MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat in sub menus, so wtf
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
-	base->submenus[0] = new_Menuitem("Snake", menu_snake_fn, 0);
+	base->submenus[0] = new_Menuitem("Snake", snake_run, 0);
 	
 	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
 		base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_alt_change_contrast, 0);
@@ -155,13 +156,7 @@ void menu_snake_fn(){
 
 
 
-void menu_change_contrast(){
-	
-}
+
 
 //volatile char *oled_data = (char *) 0x1200; //dirty fix
 
-
-void menu_toggle_negative(){
-	
-}
