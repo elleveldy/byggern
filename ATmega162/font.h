@@ -8,5 +8,9 @@
 
 const unsigned char PROGMEM font[95][8];
 
+const unsigned char full_square[8];
+const unsigned char empty_square[8];
+
+
 
 #endif

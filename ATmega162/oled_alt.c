@@ -239,3 +239,5 @@ void oled_alt_change_contrast(){
 
 }
 
+//special characters
+/*void oled_store*/

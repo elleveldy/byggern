@@ -2,8 +2,10 @@
 
 #include "oled.h"
 #include "joystick.h"
-#include <stdlib.h>
+#include "font.h"
+#include <stdlib.h> //abs
 #include <stdio.h> //uint
+
 
 #include <util/delay.h>
 
@@ -51,12 +53,12 @@ void snake_init(int snake[][3]){
 	snake[0][pos_x] = 5;
 	snake[0][pos_y] = 5;
 	
-	/*snake[1][pos_x] = 1;
+	snake[1][pos_x] = 1;
 	snake[1][pos_y] = 2;
 	
 	snake[2][pos_x] = 2;
 	snake[2][pos_y] = 2;
-*/
+
 
 }
 
@@ -64,14 +66,20 @@ void snake_run(int snake[][3]){
 
 
 	snake_init(snake);
+	
 	while (1){
 		snake_print(snake);
+		
+		oled_alt_clear_screen();
+		
+		//oled_store((char[2]){full_square}, (int[2]){0,2*8});
+		
 		oled_refresh_60Hz();
 		
-		if(joystick_x_value() > 70)
+	/*	if(joystick_x_value() > 70)
 			snake_move(snake, right);
 		_delay_ms(400);
-		
+		*/
 		
 		if(button_left_read()){
 			return;
@@ -83,16 +91,22 @@ void snake_run(int snake[][3]){
 
 
 
+/*
+void snake_print_part(){
 
+	
+}
+
+*/
 
 void snake_print(int snake[MAX_LENGTH][3]){
 
 	oled_alt_clear_screen();
 	
-	
+
 	
 	for (uint8_t i = 0; i < slength; i++){
-		oled_store((char[2]){"O"}, (int[2]){snake[i][2], snake[i][0]*8});
+		oled_store((char[2]){"O"}, (int[2]){abs(snake[i][2] - 8), snake[i][0]*8});
 
 	}
 
