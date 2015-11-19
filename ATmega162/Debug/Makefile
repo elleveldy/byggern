@@ -37,19 +37,17 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../ADC.c \
 ../ByggernGruppe48H2015.c \
 ../can.c \
 ../canjoy.c \
+../eeprom.c \
 ../font.c \
 ../game.c \
-../gui.c \
 ../gui_alt.c \
 ../joystick.c \
 ../main.c \
 ../mcp2515.c \
 ../menu.c \
-../oled.c \
 ../oled_alt.c \
 ../snake.c \
 ../SPI.c \
@@ -65,19 +63,17 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-ADC.o \
 ByggernGruppe48H2015.o \
 can.o \
 canjoy.o \
+eeprom.o \
 font.o \
 game.o \
-gui.o \
 gui_alt.o \
 joystick.o \
 main.o \
 mcp2515.o \
 menu.o \
-oled.o \
 oled_alt.o \
 snake.o \
 SPI.o \
@@ -86,19 +82,17 @@ timer.o \
 uart.o
 
 OBJS_AS_ARGS +=  \
-ADC.o \
 ByggernGruppe48H2015.o \
 can.o \
 canjoy.o \
+eeprom.o \
 font.o \
 game.o \
-gui.o \
 gui_alt.o \
 joystick.o \
 main.o \
 mcp2515.o \
 menu.o \
-oled.o \
 oled_alt.o \
 snake.o \
 SPI.o \
@@ -107,19 +101,17 @@ timer.o \
 uart.o
 
 C_DEPS +=  \
-ADC.d \
 ByggernGruppe48H2015.d \
 can.d \
 canjoy.d \
+eeprom.d \
 font.d \
 game.d \
-gui.d \
 gui_alt.d \
 joystick.d \
 main.d \
 mcp2515.d \
 menu.d \
-oled.d \
 oled_alt.d \
 snake.d \
 SPI.d \
@@ -128,19 +120,17 @@ timer.d \
 uart.d
 
 C_DEPS_AS_ARGS +=  \
-ADC.d \
 ByggernGruppe48H2015.d \
 can.d \
 canjoy.d \
+eeprom.d \
 font.d \
 game.d \
-gui.d \
 gui_alt.d \
 joystick.d \
 main.d \
 mcp2515.d \
 menu.d \
-oled.d \
 oled_alt.d \
 snake.d \
 SPI.d \
@@ -162,10 +152,6 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-
-
-
-
 
 
 

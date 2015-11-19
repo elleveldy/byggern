@@ -7,14 +7,14 @@
 
 
 
-can_message canjoy_msg;
+can_message input_msg;
 
 
 //Not needed in node 2
 /*
-void canjoy_transmit(){
+void input_transmit(){
 	can_message joy;
-	joy.id = CANJOY_ID;
+	joy.id = input_ID;
 	joy.length = 7;
 	
 	joy.data[0] = joystick_read_x();
@@ -31,13 +31,13 @@ void canjoy_transmit(){
 
 
 //must be run in while(1)
-can_message canjoy_update(){
+can_message input_update(){
 	
 	can_message joy = can_recieve();
 	
 	if(joy.id == GAME_ID){
 		//printf("CORRECT ID\n");		
-		canjoy_msg = joy;
+		input_msg = joy;
 		return joy;
 	}
 	printf("WRONG ID\n");
@@ -55,30 +55,30 @@ can_message canjoy_update(){
 	return joy;
 }
 
-int canjoy_joystick_x(){
-	return canjoy_msg.data[0];
+int input_joystick_x(){
+	return input_msg.data[0];
 }
-int canjoy_joystick_y(){
-	return canjoy_msg.data[1];
+int input_joystick_y(){
+	return input_msg.data[1];
 }
-int canjoy_joystick_button(){
-	return canjoy_msg.data[2];
+int input_joystick_button(){
+	return input_msg.data[2];
 }
-int canjoy_slider_left(){
-	return canjoy_msg.data[3];
+int input_slider_left(){
+	return input_msg.data[3];
 }
-int canjoy_slider_right(){
-	return canjoy_msg.data[4];
+int input_slider_right(){
+	return input_msg.data[4];
 }
-int canjoy_button_left(){
-	return canjoy_msg.data[5];
+int input_button_left(){
+	return input_msg.data[5];
 }
-int canjoy_button_right(){
-	return canjoy_msg.data[6];
+int input_button_right(){
+	return input_msg.data[6];
 }
 
 /*
-void canjoy_test(){
+void input_test(){
 	can_init(MODE_NORMAL);
 	
 	

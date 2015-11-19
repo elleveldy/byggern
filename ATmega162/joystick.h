@@ -13,13 +13,13 @@ void JOY_calibrate();
 
 
 //0 to 255
-uint8_t joystick_read_x(); 
-uint8_t joystick_read_y();	
+uint16_t joystick_read_x(); 
+uint16_t joystick_read_y();	
 
 
 // -127 to + 127
-int8_t joystick_y_value();
-int8_t joystick_x_value();
+int16_t joystick_y_value();
+int16_t joystick_x_value();
 
 
 uint8_t joystick_button_read();

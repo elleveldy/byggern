@@ -1,7 +1,7 @@
-#ifndef CANJOY_H_
-#define CANJOY_H_
-#include "can.h"
+#pragma once
 
+#include "can.h"
+#include <stdint.h>
 #define GAME_ID 7
 
 can_message canjoy_msg;
@@ -16,6 +16,3 @@ uint8_t canjoy_slider_left();
 uint8_t canjoy_slider_right();
 uint8_t canjoy_button_left();
 uint8_t canjoy_button_right();
-
-
-#endif /* CANJOY_H_ */

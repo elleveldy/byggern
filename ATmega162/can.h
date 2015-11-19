@@ -7,6 +7,9 @@
 #define CAN_TEST_TRANSMIT 301
 #define CAN_TEST_RECIEVE 302
 
+#define CAN_GAME_STATE_OVER 400
+#define CAN_GAME_STATE_RUNNING 401
+
 
 typedef struct can_message can_message;
 struct can_message{

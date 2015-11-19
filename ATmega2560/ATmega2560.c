@@ -69,27 +69,25 @@ int main(void){
 	float output;
 	
 	motor_controller_calibrate_by_reset();
-	//_delay_ms(3000);
-	//can_message message_node1 = can_recieve();
 
-	reference = 4500;
 	
 	can_message game_status;
 	while(1){
 		
 		/*switch(message_node1.id){
 			case(GAME_ID):*/
-				canjoy_update();
+				input_update();
 				
-				printf("stuff: %u\n", canjoy_joystick_x());
+				//printf("stuff: %u\n", input_joystick_x());
 				
 				//inverts and multiplies 8 bit input to board game domain
-				reference = abs(canjoy_joystick_x() - 255) * (float)(max_left) / 255.0;
+				reference = abs(input_joystick_x() - 255) * (float)(max_left) / 255.0;
 				
 				position = motor_encoder_read();
 				output =  PI_controller_output(sliders, position, reference);
 				motor_speed_direction(output);
 				
+				printf("Output: %d\n", abs(output));
 				
 				//clockblock spinning at either wall
 				if((position > max_left) && (reference < 127)){
@@ -100,44 +98,54 @@ int main(void){
 				}
 				
 				//allows shooting solonoid, with 50ms pulse, without "burst mode"
-				if(canjoy_button_right() && solenoid_is_shooting_allowed()){
+				if(input_button_right() && solenoid_is_shooting_allowed()){
 					solenoid_shoot();
 					solenoid_disallow_shooting();
 				}
-				else if(canjoy_button_right()){}
+				else if(input_button_right()){}
 				else{
 					solenoid_allow_shooting();
 				}
 				
 				//controll servo
-				servo_set_pulse_by_input(canjoy_slider_right());
+				servo_set_pulse_by_input(input_slider_right());
 				
-				if(timer5_read() > 16000){
+
+				
+				printf("score: %u\n",game_score);
+				
+				//use timer for this, to avoid spamming?
+				if(timer5_read() > 100){//somewhat arbitrary time
 					game_score++;
+					game_status.id = CAN_GAME_STATE_RUNNING;
+					game_status.data[0] = 0; // game over
+
+					if(ir_alt_blocked()){
+						game_status.id = CAN_GAME_STATE_OVER;
+
+					}
+					else{
+						game_status.id = CAN_GAME_STATE_RUNNING; // game over
+
+					}
+					can_transmit(&game_status, 0x30);
 					timer5_reset();
 				}
 				
-				//use timer for this, to avoid spamming?
-				if(ir_blocked()){
+
+				/*else{
 					game_status.id = CAN_GAME_STATE;
-					game_status.id = 2;
-					game_status.data[0] = 0; // game over
-					game_status.data[1] = game_score;
-					can_transmit(&game_status, 0x30);
-				}
-				else{
-					game_status.id = CAN_GAME_STATE;
-					game_status.id = 2;
+					game_status.length = 2;
 					game_status.data[0] = 1; // game running
 					game_status.data[1] = game_score;
 					can_transmit(&game_status, 0x30);
 					
-				}
+				}*/
 				
 				
 				
 				
-				//printf("input: %u\n", canjoy_slider_right());
+				//printf("input: %u\n", input_slider_right());
 				
 				//printf("Pos: %u\tRef: %u\toutput: %f\n", position, reference, output);
 				

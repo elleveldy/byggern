@@ -10,7 +10,7 @@
 
 
 
-uint8_t joystick_read_x(){
+uint16_t joystick_read_x(){
 	
 	volatile char *ext_joy = (char *) 0x1400;
 	ext_joy[0] = 0x04;
@@ -20,7 +20,7 @@ uint8_t joystick_read_x(){
 }
 
 
-uint8_t joystick_read_y(){
+uint16_t joystick_read_y(){
 	
 	volatile char *ext_joy = (char *) 0x1400;
 	ext_joy[0] = 0x05;
@@ -29,11 +29,11 @@ uint8_t joystick_read_y(){
 	
 }
 
-int8_t joystick_x_value(){
+int16_t joystick_x_value(){
 	return (joystick_read_x() - 127);
 }
 
-int8_t joystick_y_value(){
+int16_t joystick_y_value(){
 	return (joystick_read_y() - 127);
 }
 

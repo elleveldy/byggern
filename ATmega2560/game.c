@@ -39,11 +39,11 @@ void game_single_player(){
 	
 	while(1){
 		//updates input from joystick/slider/buttons
-		canjoy_update();
+		input_update();
 		
 		
 		//leave game
-		if(canjoy_button_left()){
+		if(input_button_left()){
 			return;
 		}
 
@@ -53,7 +53,7 @@ void game_single_player(){
 			score ++;
 		}
 		
-		ref_position = abs(canjoy_joystick_x() - 255) * (float)(max_left) / 255.0;
+		ref_position = abs(input_joystick_x() - 255) * (float)(max_left) / 255.0;
 		
 		//apparently needs minus?
 		output = -PI_controller_output(controller, motor_encoder_read(), ref_position);
@@ -62,16 +62,16 @@ void game_single_player(){
 		
 		//solenoid shooting with 50 ms pulse, button needs to be
 		//released to allow shooting again
-		if(canjoy_button_right() && solenoid_is_shooting_allowed()){
+		if(input_button_right() && solenoid_is_shooting_allowed()){
 			solenoid_shoot();
 			solenoid_disallow_shooting();
 		}
-		else if(canjoy_button_right()){}
+		else if(input_button_right()){}
 		else{
 			solenoid_allow_shooting();
 		}
 		
-		servo_set_pulse_by_input(canjoy_slider_left());
+		servo_set_pulse_by_input(input_slider_left());
 		
 	}
 }

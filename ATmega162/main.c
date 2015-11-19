@@ -86,26 +86,27 @@ int main(void){
 	
 	//consider putting this elsewhere, to
 	//allow selection of can tests in runtime
-	can_init(MODE_NORMAL);
+	//can_init(MODE_NORMAL);
 	
 	timer_init();	
-	oled_alt_init();
+	oled_init();
 	
 
 	
 	while(1){
 
 
-		gui_alt_run();
+		gui_run();
 
 		oled_refresh_60Hz();
 		
-	
+		//joystick_print_input();
+
 		
 		/*canjoy_transmit();*/
 		
 
-
+		//can_test_transmit();
 		
 	}
 	

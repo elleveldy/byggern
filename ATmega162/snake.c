@@ -1,6 +1,6 @@
 
 
-#include "oled.h"
+#include "oled_alt.h"
 #include "joystick.h"
 #include "font.h"
 #include <stdlib.h> //abs
@@ -70,7 +70,7 @@ void snake_run(int snake[][3]){
 	while (1){
 		snake_print(snake);
 		
-		oled_alt_clear_screen();
+		oled_clear_screen();
 		
 		//oled_store((char[2]){full_square}, (int[2]){0,2*8});
 		
@@ -101,7 +101,7 @@ void snake_print_part(){
 
 void snake_print(int snake[MAX_LENGTH][3]){
 
-	oled_alt_clear_screen();
+	oled_clear_screen();
 	
 
 	

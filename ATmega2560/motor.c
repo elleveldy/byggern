@@ -123,7 +123,7 @@ void motor_speed_direction_cap(int16_t speed, uint8_t cap){
 
 uint8_t motor_speed_controller(uint8_t speed){
 	
-	uint8_t tilt = abs(canjoy_joystick_x() - 127);
+	uint8_t tilt = abs(input_joystick_x() - 127);
 	
 	if((tilt < 70) && tilt > 30){
 		motor_speed(90);
@@ -135,7 +135,7 @@ uint8_t motor_speed_controller(uint8_t speed){
 		motor_speed(0);
 	}
 	
-	if(canjoy_joystick_x() > 127){
+	if(input_joystick_x() > 127){
 		motor_speed(right);
 	}
 	else{
@@ -234,6 +234,13 @@ void motor_controller_calibrate_by_reset(){
 	
 	max_left = position;
 	motor_speed(0);
+	
+	motor_speed(speed);
+	motor_direction(right);
+	_delay_ms(100);
+	while(motor_encoder_read() > 4500){
+		_delay_ms(100);
+	}
 }
 
 

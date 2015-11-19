@@ -34,11 +34,11 @@ void adc_init(){
 	
 }
 
-uint16_t adc_read(uint8_t ch){ //IR set to ADC0 = PF0
+uint16_t adc_read(uint8_t ch){
 	ADMUX |= (ch & 0x03);
 	ADCSRA |= (1 << ADSC);
 	
 	while((ADCSRA & (1 << ADSC))){}
 
-	return ADC; //sexy premade code
+	return ADC; 
 }

@@ -57,8 +57,8 @@ base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 0);
 		base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 0);
 	
 	base->submenus[1] = new_Menuitem("Settings", NULL, 3);
-		base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_alt_change_contrast, 0);
-		base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_alt_toggle_negative, 0);
+		base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_change_contrast, 0);
+		base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_toggle_negative, 0);
 		base->submenus[1]->submenus[2] = new_Menuitem("Seizure", oled_epleptic_seizure, 0);
 		
 		
@@ -153,7 +153,7 @@ void menu_snake_fn(){
 		printf("X: %d\n", joystick_read_x());
 		canjoy_transmit();
 */		
-		oled_alt_clear_screen();
+		oled_clear_screen();
 		oled_store_string("no snake yet", 1*8, 3);
 		oled_store_string("return", 0, 7);
 		oled_write_screen();

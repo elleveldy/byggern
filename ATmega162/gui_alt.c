@@ -12,23 +12,24 @@
 #include "gui_alt.h"
 
 
-void gui_alt_run()
+void gui_run()
 {
-	gui_alt_print_menu(menu_selector);
+	gui_print_menu(menu_selector);
 	
-	gui_alt_navigate();
+	gui_navigate();
 	
-
 	oled_invert_line(menu_submenu_number(menu_selector));
 
 }
 
 
 //Prints the menu you're in and it's submenues
-void gui_alt_print_menu(Menuitem* menu){
+void gui_print_menu(Menuitem* menu){
+	
 	Menuitem* parent = menu_parent(menu);
 	
-	oled_alt_clear_screen();
+	
+	oled_clear_screen();
 	oled_store_string(menu_name(parent), 0, 0);
 	//oled_store((char[sizeof(menu_name(parent)) + 1]){menu_name(parent)}, (int[2]){0,0});
 	
@@ -46,7 +47,7 @@ void gui_alt_print_menu(Menuitem* menu){
 //uses global variable menu_selector and changes 
 //what submenu it points to according to joystick movement.
 //Must be run in a while loop
-void gui_alt_navigate(){
+void gui_navigate(){
 	
 	
 	//If we're pointing at Main menu, point to first submenu instead
@@ -79,7 +80,7 @@ void gui_alt_navigate(){
 			_delay_ms(200);
 		}
 	}
-	else if(joystick_button_read()){
+	else if(button_right_read()){
 		if(menu_selector->fn != NULL ){	//if the function pointer points to a function, call it
 			menu_selector->fn();
 			_delay_ms(200);
@@ -90,15 +91,4 @@ void gui_alt_navigate(){
 	
 }
 
-void gui_alt_print_indicator(Menuitem* m){
-	
-	//oled_alt_clear_col_line_interval(0, 1, 7);
-	
-	//oled_clear_col(0);
-	//int line = menu_submenu_number(m);
-	uint8_t line = menu_submenu_number(m);
-	oled_invert_line(line);
-	//oled_store_string("-", 0, number);
-	
-}
 

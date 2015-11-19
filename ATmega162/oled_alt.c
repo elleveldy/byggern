@@ -14,6 +14,7 @@ If oled fucks up, use conservative oled_store() function
 #include "timer.h"	//to achieve 60Hz refresh rate
 #include "joystick.h" //for oled_contrast_change
 #include "util/delay.h"
+#include <stdarg.h>
 
 #define OLED_DATA_ADRESS (volatile char*)0x1200
 #define OLED_COMMAND_ADRESS (volatile char*)0x1000
@@ -41,8 +42,7 @@ static inline void oled_data_write(char data){
 
 
 
-
-void oled_alt_init()
+void oled_init()
 {
 	
 	oled_command_write(0xae);    // display off
@@ -148,7 +148,7 @@ void oled_invert_line(uint8_t line){
 
 }
 
-void oled_alt_clear_line(int line){
+void oled_clear_line(int line){
 	
 	for(int col = 0; col < NR_COL; col += 8){
 		oled_store((char[2]){" "}, (int[2]){line, col});
@@ -156,7 +156,7 @@ void oled_alt_clear_line(int line){
 	
 }
 
-void oled_alt_clear_col_line_interval(int col, int line_a, int line_b){
+void oled_clear_col_line_interval(int col, int line_a, int line_b){
 	
 	for(int line = line_a; line < line_b; ++line){
 		oled_store_string(" \n", col, line);
@@ -166,9 +166,9 @@ void oled_alt_clear_col_line_interval(int col, int line_a, int line_b){
 
 
 
-void oled_alt_clear_screen(){
+void oled_clear_screen(){
 	for(int line = 0; line < NR_LINES; ++line){
-		oled_alt_clear_line(line);
+		oled_clear_line(line);
 	}
 }
 
@@ -177,62 +177,52 @@ void oled_alt_clear_screen(){
 
 
 
-void oled_alt_mode_negative(){
+void oled_mode_negative(){
 	oled_command_write(0xa7);
 }
 
-void oled_alt_mode_normal(){
+void oled_mode_normal(){
 	oled_command_write(0xa6);
 }
 
 
 uint8_t screen_negative = 0;
 
-void oled_alt_toggle_negative(){
+void oled_toggle_negative(){
 	if(screen_negative){
-		oled_alt_mode_normal();
+		oled_mode_normal();
 		screen_negative = 0;
 	}
 	else{
-		oled_alt_mode_negative();
+		oled_mode_negative();
 		screen_negative = 1;
 	}
 }
 
 
-void oled_alt_change_contrast(){
+void oled_change_contrast(){
 	
 	uint8_t contrast;
 	
-	//print usefull information
-	
-	
 	while(1){
-		//oled_alt_clear_screen();
 		
-		oled_alt_clear_screen();
+		oled_clear_screen();
 		
 		oled_store((char[9]){"Contrast"}, (int[2]){0, 0});
 		oled_store((char[12]){"left slider"}, (int[2]){4, 3*8});
 		oled_store((char[7]){"Return"}, (int[2]){7, 0});
-		//oled_store((char[4]){"Max"}, (int[2]){7, 12*8});
-		oled_store_string((char[4]){"Max"}, 12*8, 7);
+
 			
 			
 		
 		oled_write_screen();
 		
-		contrast = slider_left_read() - 2;
+		contrast = slider_left_read();
 		oled_command_write(0x81);    //contrast control
 		oled_command_write(contrast);  
 		
 		
 		if(button_left_read()){
-			return;
-		}
-		if(button_right_read()){
-			oled_command_write(0x81);    //contrast control
-			oled_command_write(0xff);
 			return;
 		}
 	}	
@@ -242,13 +232,34 @@ void oled_alt_change_contrast(){
 
 void oled_epleptic_seizure(){
 	while(1){
-		oled_alt_toggle_negative();
+		oled_toggle_negative();
 		_delay_ms(70);
-	}
-	if(button_left_read()){
-		return;
+		
+		if(button_left_read()){
+			return;
+		}
 	}
 }
 
-//special characters
-/*void oled_store*/
+
+//Last minute function to allow printing numbers
+void oled_put_string(uint8_t col,uint8_t page, char * string, ...){
+	char buffer[17];
+	va_list v;
+	va_start(v,string);
+	vsprintf(buffer, string, v);
+	va_end(v);
+	
+	
+	uint16_t start_position = page * 128 + col;
+	for(uint8_t i = 0; buffer[i] != '\0'; ++i){
+		//j goes through each col n of the char in font
+		for(uint8_t j = 0; j < FONT_SIZE; ++j){
+			//font[char index in font][column of char]
+			*(SRAM_ADRESS + start_position + i * FONT_SIZE + j) = pgm_read_byte(&font[(int)buffer[i] - 32][j]);
+		}
+	}
+
+}
+
+

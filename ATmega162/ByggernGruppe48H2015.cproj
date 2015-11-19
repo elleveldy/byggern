@@ -110,12 +110,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ADC.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ADC.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="ByggernGruppe48H2015.c">
       <SubType>compile</SubType>
     </Compile>
@@ -131,6 +125,12 @@
     <Compile Include="canjoy.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="eeprom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="eeprom.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="font.c">
       <SubType>compile</SubType>
     </Compile>
@@ -141,12 +141,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="game.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="gui.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="gui.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="gui_alt.c">
@@ -180,12 +174,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="menu.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="oled.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="oled.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="oled_alt.c">
