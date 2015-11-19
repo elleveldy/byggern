@@ -10,6 +10,8 @@ can.c
 
 canjoy.c
 
+game.c
+
 ir.c
 
 max520.c

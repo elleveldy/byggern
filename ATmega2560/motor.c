@@ -18,9 +18,9 @@
 
 
 static uint16_t max_right = 0;
-
-
 static uint16_t position_offset = 0;
+
+
 
 
 void motor_init(){
@@ -71,16 +71,6 @@ void motor_encoder_output_enable(uint8_t enable){
 
 
 
-/*
-void motor_enable(uint8_t enable){
-	if(enable){
-		MOTOR_PORT |= (1 << MOTOR_EN);
-	}
-	else{
-		MOTOR_PORT &= ~(1 << MOTOR_EN);
-	}
-}*/
-
 void motor_direction(motor_dir direction){
 	
 	//not sure what pin value gives left/right direction
@@ -130,71 +120,29 @@ void motor_speed_direction_cap(int16_t speed, uint8_t cap){
 	
 }
 
-void motor_test(){
-	motor_init();
+
+uint8_t motor_speed_controller(uint8_t speed){
 	
-	int16_t speed;
+	uint8_t tilt = abs(canjoy_joystick_x() - 127);
 	
-	while(1){
-		canjoy_update();
-		speed = 2 * abs(canjoy_joystick_x() - 127);
-		
-		motor_speed(speed);
-		if(canjoy_joystick_x() > 128){
-			motor_direction(right);
-		}
-		else
-			motor_direction(left);
-			
-		pwm_alt_joystick_pulse(canjoy_joystick_x());
-		
-		
+	if((tilt < 70) && tilt > 30){
+		motor_speed(90);
 	}
-
-}
-
-
-void motor_solenoid_test(){
-	servo_init(); //for servo
-	solenoid_init();
-	//motor_init();
-	
-
-	int16_t speed;
-	uint8_t ir;
-	while(1){
-		
-		canjoy_update();
-		speed = 2 * abs(canjoy_joystick_x() - 127);
-			
-		motor_speed(speed);
-		
-		if(canjoy_joystick_x() > 128){
-			motor_direction(right);}
-		else{
-			motor_direction(left);}
-		
-		if(canjoy_button_right()){
-			solenoid_extend();
-		}
-		/*if(canjoy_button_left()){
-			motor_encoder_reset();
-		}*/
-		
-		else{
-			solenoid_retract();
-		}
-		
-		pwm_alt_joystick_pulse(canjoy_joystick_x());
-		
-		ir = ir_alt_blocked();
-		
-		printf("Ir blocked: %d\t\tEncoder: %d\n", ir, motor_encoder_read());
-		
-		
+	else if(tilt >= 70){
+		motor_speed(130);
 	}
+	else{
+		motor_speed(0);
+	}
+	
+	if(canjoy_joystick_x() > 127){
+		motor_speed(right);
+	}
+	else{
+		motor_speed(left);
+	}
+	
 }
-
 
 //0 is to the right, and position increases leftward
 void motor_crude_controller(uint16_t current_position, uint16_t reference){
@@ -204,7 +152,6 @@ void motor_crude_controller(uint16_t current_position, uint16_t reference){
 	if(reference > max_left){
 		motor_crude_controller(max_left, reference);
 	}
-	
 	
 	//if we're close to ref
 	if(abs(current_position - reference) < 300){
@@ -238,19 +185,20 @@ void motor_crude_controller_slider(uint16_t current_position, uint8_t reference)
 }
 
 
-
+//MOTOR SPEED NEEDS TO BE TUNED FOR INDIVIDUAL GAME BOARD
 void motor_controller_calibrate_by_reset(){
-	printf("start calibration\n");
+	
+	uint8_t speed = 65;
 	
 	motor_init();
-	
 	
 	uint16_t position;
 	uint16_t prev_position;
 	
-	motor_speed(100);
+	motor_speed(speed);
 	motor_direction(right);
 	_delay_ms(150);
+	
 	position =  motor_encoder_read();
 	
 	//go right until stopped, then set encoder to zero
@@ -261,13 +209,13 @@ void motor_controller_calibrate_by_reset(){
 		_delay_ms(100);
 		prev_position = position;
 		position = motor_encoder_read();
-		printf("position: %d\n", position);
+		printf("position: %u\tPrev: %u\n", position, prev_position);
 
 		
 	}
 	motor_encoder_reset();
 	
-	motor_speed(100);
+	motor_speed(speed);
 	motor_direction(left);
 	_delay_ms(150);
 	
@@ -283,39 +231,11 @@ void motor_controller_calibrate_by_reset(){
 		
 		
 	} while(position != prev_position);
+	
 	max_left = position;
 	motor_speed(0);
-
-
-	printf("end calibration\n");
-	
 }
 
-void motor_controller_calibrate_by_offset(){
-	uint16_t position;
-	uint16_t prev_position;
-	
-	motor_speed(100);
-	
-	motor_direction(right);
-	position =  motor_encoder_read();
-	
-	//go right until stopped
-	while(position != prev_position){
-		
-		
-		motor_direction(right);
-		position =  motor_encoder_read();
-		_delay_ms(100);
-		prev_position = position;
-		position = motor_encoder_read();
-
-		
-	}
-	motor_speed(0);
-	position_offset = position;	
-	
-}
 
 
 void motor_encoder_reset(){
@@ -334,10 +254,7 @@ void motor_encoder_init(){
 uint8_t motor_encoder_byte_read(){
 	uint8_t byte = PINK;
 	return byte;
-	
-	
-	
-	//reverse stuff
+
 }
 
 
@@ -373,7 +290,7 @@ uint16_t motor_encoder_read(){
 }
 
 
-static uint8_t reverse_bits(uint8_t byte){
+uint8_t reverse_bits(uint8_t byte){
 	byte = ((byte & 0b01010101) << 1) | ((byte & 0b10101010) >> 1);
 	byte = ((byte & 0b00110011) << 2) | ((byte & 0b11001100) >> 2);
 	byte = ((byte & 0b00001111) << 4) | ((byte & 0b11110000) >> 4);

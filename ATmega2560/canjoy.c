@@ -1,12 +1,12 @@
 
 #include <stdio.h>
 #include "can.h"
+#include "canjoy.h"
 //#include "joystick.h"
 
 
 
 
-uint16_t CANJOY_ID = 7;
 can_message canjoy_msg;
 
 
@@ -35,7 +35,7 @@ can_message canjoy_update(){
 	
 	can_message joy = can_recieve();
 	
-	if(joy.id == CANJOY_ID){
+	if(joy.id == GAME_ID){
 		//printf("CORRECT ID\n");		
 		canjoy_msg = joy;
 		return joy;

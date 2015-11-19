@@ -10,15 +10,7 @@
 
 
 
-
-//void joystick_initialize(){
-	//volatile char *ext_joy = (char *) 0x1400;
-	//ext_joy[0] = 0x04;
-	//_delay_us(40);
-	//joystick_initial_x_value = (uint8_t)ext_joy[0];
-//}
-
-unsigned int joystick_read_x(){
+uint8_t joystick_read_x(){
 	
 	volatile char *ext_joy = (char *) 0x1400;
 	ext_joy[0] = 0x04;
@@ -28,7 +20,7 @@ unsigned int joystick_read_x(){
 }
 
 
-unsigned int joystick_read_y(){
+uint8_t joystick_read_y(){
 	
 	volatile char *ext_joy = (char *) 0x1400;
 	ext_joy[0] = 0x05;
@@ -37,11 +29,11 @@ unsigned int joystick_read_y(){
 	
 }
 
-int joystick_x_value(){
+int8_t joystick_x_value(){
 	return (joystick_read_x() - 127);
 }
 
-int joystick_y_value(){
+int8_t joystick_y_value(){
 	return (joystick_read_y() - 127);
 }
 
@@ -61,11 +53,11 @@ uint8_t slider_right_read(){
 	return (uint8_t)ext_slide[0];
 }
 
-signed int slider_left_value(){
+int8_t slider_left_value(){
 	return (slider_left_read() - 127);
 }
 
-signed int slider_right_value(){
+int8_t slider_right_value(){
 	return (slider_right_read() - 127);	
 }
 
@@ -81,7 +73,7 @@ void buttons_init(){
 	PORTB |= (1 << PINB2);
 }
 
-int joystick_button_read(){
+uint8_t joystick_button_read(){
 	int button = (PINB & (1 << PINB3));
 	if (button > 0){
 		return 0;
@@ -93,7 +85,7 @@ int joystick_button_read(){
 	
 }
 
-int button_left_read(){
+uint8_t button_left_read(){
 	int button = (PINB & (1 << PINB1));
 	if (button > 0){
 		return 1;
@@ -103,7 +95,7 @@ int button_left_read(){
 	}
 }
 
-int button_right_read(){
+uint8_t button_right_read(){
 	int button = (PINB & (1 << PINB0));
 	if (button > 0){
 		return 1;
@@ -115,7 +107,7 @@ int button_right_read(){
 }
 
 
-int joystick_is_moved(){
+uint8_t joystick_is_moved(){
 	int threshold = 10;
 	
 	if(abs(joystick_read_x()) > threshold)

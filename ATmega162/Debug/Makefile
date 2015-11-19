@@ -42,6 +42,7 @@ C_SRCS +=  \
 ../can.c \
 ../canjoy.c \
 ../font.c \
+../game.c \
 ../gui.c \
 ../gui_alt.c \
 ../joystick.c \
@@ -69,6 +70,7 @@ ByggernGruppe48H2015.o \
 can.o \
 canjoy.o \
 font.o \
+game.o \
 gui.o \
 gui_alt.o \
 joystick.o \
@@ -89,6 +91,7 @@ ByggernGruppe48H2015.o \
 can.o \
 canjoy.o \
 font.o \
+game.o \
 gui.o \
 gui_alt.o \
 joystick.o \
@@ -109,6 +112,7 @@ ByggernGruppe48H2015.d \
 can.d \
 canjoy.d \
 font.d \
+game.d \
 gui.d \
 gui_alt.d \
 joystick.d \
@@ -129,6 +133,7 @@ ByggernGruppe48H2015.d \
 can.d \
 canjoy.d \
 font.d \
+game.d \
 gui.d \
 gui_alt.d \
 joystick.d \
@@ -157,6 +162,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

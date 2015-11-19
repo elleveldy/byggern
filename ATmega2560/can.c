@@ -105,7 +105,7 @@ void can_test_loopback(){
 	can_init(MODE_LOOPBACK);
 	
 	can_message msg;
-	msg.id = 10;
+	msg.id = CAN_TEST_LOOPBACK;
 	msg.length = 1;
 	msg.data[0] = 'T';
 	
@@ -114,7 +114,8 @@ void can_test_loopback(){
 	can_message recieved;
 	can_message done = can_recieve(&recieved);
 	
-	printf("\n\nSend ID = 10\tRecieved ID = %d\nSend Length = 1\tRecieved Length = %d\nSend Data = 'T'\tRecieved Data = %c\n\n", done.id, done.length, done.data[0]);
+	printf("\n\nSend ID = 300\tRecieved ID = %d\nSend Length = 1\tRecieved Length = %d\nSend Data = 'T'\tRecieved Data = %c\n\n", 
+	done.id, done.length, done.data[0]);
 	
 }
 
@@ -124,7 +125,7 @@ void can_test_transmit(){
 		_delay_ms(100);
 	
 		can_message msg;
-		msg.id = 10;
+		msg.id = CAN_TEST_TRANSMIT;
 		msg.length = 1;
 		msg.data[0] = 'T';
 	

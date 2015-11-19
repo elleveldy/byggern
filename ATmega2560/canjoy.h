@@ -1,4 +1,9 @@
+#pragma once
+
 #include "can.h"
+
+#define GAME_ID 7
+
 
 int canjoy_transmit();
 can_message canjoy_update();

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <stdint.h>
 
 int joystick_initial_x_value;
 int joystick_initial_y_value;
@@ -11,23 +11,32 @@ void JOY_calibrate();
 //JOY_position_t YOU_getPosition();
 //JOY_direction_t JOY_getDirection();
 
-unsigned int joystick_read_x(); //unsinged, wtf?
-unsigned int joystick_read_y();	//unsinged, wtf?
-signed int joystick_y_value();
-signed int joystick_x_value();
-int joystick_button_read();
-int joystick_is_moved();
+
+//0 to 255
+uint8_t joystick_read_x(); 
+uint8_t joystick_read_y();	
 
 
+// -127 to + 127
+int8_t joystick_y_value();
+int8_t joystick_x_value();
 
-int slider_left_read();
-int slider_right_read();
-signed int slider_left_value();
-signed int slider_right_value();
+
+uint8_t joystick_button_read();
+uint8_t joystick_is_moved();
+
+
+//0 to 255
+uint8_t slider_left_read();
+uint8_t slider_right_read();
+
+// -127 to + 127
+int8_t slider_left_value();
+int8_t slider_right_value();
 
 void buttons_init();
-int button_left_read();
-int button_right_read();
+uint8_t button_left_read();
+uint8_t button_right_read();
 
 void joystick_print_input();
 

@@ -40,3 +40,5 @@ void oled_alt_mode_normal();
 void oled_alt_toggle_negative();
 
 void oled_alt_change_contrast();
+
+void oled_epleptic_seizure();

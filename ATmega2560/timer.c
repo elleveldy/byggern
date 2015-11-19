@@ -11,11 +11,11 @@
 //time[sec] = 65535  / 16Mhz = 0.0040959375
 
 
-int time_tick = 0;
-int time_tick_max = 0;
 void timer_init() {
 	
+	//**********************
 	//timer 4
+	//**********************
 	//Normal mode, zero prescaler
 	TCCR4A = 0;
 	TCCR4B = 0;
@@ -24,13 +24,17 @@ void timer_init() {
 	TCCR4B |=  (1<<CS42) | (1<<CS40);
 	TCCR4B &= ~(1<<CS41);
 	
+	
+	//**********************
 	//timer 5
+	//**********************
+	//Normal mode, zero prescaler	
 	TCCR5A = 0;
 	TCCR5B = 0;
 	
 	//CS5{2:0}   = 001  prescaler set to 1
-	TCCR5B |= (1<<CS50);
-	TCCR5B &= ~(1<<CS51) | (1<<CS52);
+	TCCR5B |= (1<<CS52) | (1<<CS50);
+	TCCR5B &= ~(1<<CS51);
 	
 	//0100 -> Mode CTC -> TOP = OCRnA
 /*
@@ -56,6 +60,20 @@ uint16_t timer_read(uint8_t timer){
 		return TCNT5;
 }
 
+uint16_t timer1_read(){
+	return TCNT1;
+}
+uint16_t timer3_read(){
+	return TCNT3;
+}
+uint16_t timer4_read(){
+	return TCNT4;
+}
+uint16_t timer5_read(){
+	return TCNT5;
+}
+
+
 void timer_reset(uint8_t timer){
 	if(timer == 1)
 		TCNT1 = 0;
@@ -67,75 +85,17 @@ void timer_reset(uint8_t timer){
 		TCNT5 = 0;
 }
 
-/*
-uint16_t timer_read(){
-	return TCNT4;
-}*/
-
-void timer_reset(){
+void timer1_reset(){
+	TCNT1 = 0;
+}
+void timer3_reset(){
+	TCNT3 = 0;
+}
+void timer4_reset(){
 	TCNT4 = 0;
 }
-
-void timer_start(){
-	OCR4A = COUNT;
-	TCNT4 = 0;
+void timer5_reset(){
+	TCNT5 = 0;
 }
-
-
-int timer_done(){
-	if(TCNT4 >= COUNT){
-		return 1;
-	}
-	else{
-		return 0;
-	}
-}
-
-int timer_cycle_start(int time_max){
-	
-	time_tick = 0;
-	timer_start();
-	
-}
-
-//Needs to be called in while loop to increase time_tick
-void timer_tick_iterate(){
-	if(timer_done()){
-		time_tick++;
-	}
-}
-
-int timer_cycle_done(){
-	if(time_tick >= time_tick_max){
-		time_tick = 0;
-		return 1;
-	}
-	else{
-		return 0;
-	}
-}
-
-int time_ms_start(int ms_time){
-	
-	time_tick_max = (ms_time * 16000000.0)/COUNT;
-	
-}
-
-
-
-
-/*
-ISR(TIMER4_COMPA_vect){
-	//printf("read: %d\n",adc_read(0));
-	//printf("edge: %d\n\n",ir_edge_detected());
-
-	if(ir_edge_detected()){
-		can_ir_transmit();
-		
-	}
-	
-	can_handle_message();
-}
-*/
 
 

@@ -52,44 +52,18 @@ PI_controller* PI_controller_new(float kp, float ki){
 	return this;
 }
 
-int16_t PI_controller_output(PI_controller* ctrl, uint16_t position, uint16_t reference){
-	//copy pasta ish
-	float dt = (float)(timer_read(4) * prescaler / fcpu);	
-	timer_reset();
+int16_t PI_controller_output(PI_controller* ctrl, uint16_t y, uint16_t x){
+
+
+	float dt = (float)(timer_read(4) * prescaler / fcpu);	// dt time [seconds]
+	timer_reset(4);
 	
-	int16_t error			= reference - position;
-	ctrl->integral		+= error * dt;
+	int16_t error = x - y;
+	ctrl->integral += error * dt;
 	
-	return		ctrl->Kp * error +
-				ctrl->Ki * ctrl->integral;
+	return ctrl->Kp * error + ctrl->Ki * ctrl->integral;
 				
-	/*
-	uint16_t time = timer_read();
-	float dt;
-	
-	
-	//Set dt
-	if(ctrl->prev_time > time){
-		dt = (time - ctrl->prev_time + MAX_TIME) * PRESCALER / F_CPU; 
-	}
-	else{
-		dt = (time - ctrl->prev_time) * PRESCALER / F_CPU;
-	}
-	ctrl->prev_time = time;
-	
-	//calculate error
-	ctrl->error = reference - position; 
-	
-	//add to integral
-	ctrl->integral += ctrl->error * dt;
-	
-	float output = ctrl->Kp * ctrl->error + ctrl->integral * ctrl->Ki;
-	
-	//printf("dt: %f\terror: %f\toutput: %f\n", dt, ctrl->error, output);
-	
-	return output;
-	*/
-	
+
 }
 
 

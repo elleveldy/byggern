@@ -13,6 +13,8 @@ struct Menuitem {
 	void (*fn)(void);
 };
 
+
+
 Menuitem* menu_selector;
 int menu_line_nr;
 

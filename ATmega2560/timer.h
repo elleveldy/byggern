@@ -11,25 +11,24 @@
 
 //time[sec] = 65535  / 16Mhz = 0.0040959375
 
+typedef enum {TIMER_1, TIMER_2, TIMER_3}timer;
+
+
 void timer_init();
 
-void timer_start();
 
 uint16_t timer_read(uint8_t timer);
+uint16_t timer1_read();
+uint16_t timer3_read();
+uint16_t timer4_read();
+uint16_t timer5_read();
+
+
 void timer_reset(uint8_t timer);
-
-/*
-uint16_t timer5_read(uint8_t timer);
-void timer5_reset(uint8_t timer_nr);*/
-
-int timer_done();
-
-void timer_simple_test();
+void timer1_reset();
+void timer3_reset();
+void timer4_reset();
+void timer5_reset();
 
 
-int timer_cycle_start(int time_max);
 
-//Needs to be called in while loop to increase time_tick
-void timer_tick_iterate();
-int timer_cycle_done();
-int time_ms_start(int ms_time);

@@ -103,11 +103,22 @@ uint8_t can_poll_interrupt(){
 	return -1;
 }
 
+
+
+/*****************************************************
+System specific test functions
+Node 2 and Node 1 should perform loopback simultaneously
+But will perform the opposite recieve/transmit test of one another
+
+In other words, Node 2 is told to test the can driver
+by a can message. Yes, CAN see the irony.
+**********************************************************/
+
 void can_test_loopback(){
 	can_init(MODE_LOOPBACK);
 	
 	can_message msg;
-	msg.id = 10;
+	msg.id = CAN_TEST_LOOPBACK;
 	msg.length = 1;
 	msg.data[0] = 'T';
 	
@@ -122,7 +133,7 @@ void can_test_loopback(){
 }
 
 void can_test_transmit(){
-	printf("entering test\n");
+	//printf("entering test\n");
 	can_init(MODE_NORMAL);
 	can_message msg;
 	
@@ -130,7 +141,7 @@ void can_test_transmit(){
 		_delay_ms(100);
 		
 		
-		msg.id = 10;
+		msg.id = CAN_TEST_TRANSMIT;
 		msg.length = 1;
 		msg.data[0] = 'T';
 	

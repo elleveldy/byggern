@@ -59,6 +59,15 @@ Add drawing functions?
 
 
 
+/*
+Node 2 runs by a switch case, controlled
+by the recieved can message ID.
+
+
+
+*/
+
+
 int main(void){
 	fdevopen(uart_Transmit, uart_Receive);
 	
@@ -72,28 +81,30 @@ int main(void){
 	
 	Menuitem* menu = create_menu();
 	menu_selector = menu;
-	menu_line_nr = 0; 
+	//menu_line_nr = 0; 
 	
+	
+	//consider putting this elsewhere, to
+	//allow selection of can tests in runtime
 	can_init(MODE_NORMAL);
 	
-	
+	timer_init();	
 	oled_alt_init();
 	
 
 	
 	while(1){
 
+
 		gui_alt_run();
-		//oled_invert_line(2);
-		
-		//oled_write_screen();
-		
+
 		oled_refresh_60Hz();
 		
 	
 		
-		//canjoy_transmit();
+		/*canjoy_transmit();*/
 		
+
 
 		
 	}

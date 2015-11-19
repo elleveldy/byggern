@@ -1,10 +1,10 @@
 #include <avr/io.h>
 #include <stdio.h>
+#include "timer.h"
+//timer 1 and 3 are 16 bit timers
 
-
-
-//timer to be used for Oled_refresh at 60 Hz
 void timer_init(){
+	//timer1 to be used for Oled_refresh at 60 Hz
 	
 	TCCR1A = 0;
 	TCCR1B = 0;
@@ -29,14 +29,35 @@ void timer_init(){
 	TCCR1B &= ~(1<<WGM13);
 	
 	
+	//timer 3 to avoid can message spam
+	//same mode and prescalre as timer 1
+	TCCR3A = 0;
+	TCCR3B = 0;
 	
+	TCCR3B |= (1<<CS32) | (1<<CS30);
+	TCCR3B &= ~(1<<CS31);
+	
+	TCCR3A &= ~(1<<WGM10);
+	TCCR3A &= ~(1<<WGM11);
+	TCCR3B &= ~(1<<WGM12);
+	TCCR3B &= ~(1<<WGM13);
 }
 
-uint16_t timer_read(){
-	return TCNT1;
+uint16_t timer_read(timer nr){
+	if(nr == TIMER_1)
+		return TCNT1;
+	else if(nr == TIMER_2)
+		return TCNT2;
+	else if(nr == TIMER_3)
+		return TCNT3;
 }
 
-void timer_reset(){
-	TCNT1 = 0;
+void timer_reset(timer nr){
+	if(nr == TIMER_1)
+		TCNT1 = 0;
+	else if(nr == TIMER_2)
+		TCNT2 = 0;
+	else if(nr == TIMER_3)
+		TCNT3 = 0;
 }
 

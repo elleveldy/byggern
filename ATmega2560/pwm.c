@@ -12,10 +12,7 @@
 
 
 //P for pulse
-#define P_MAX 525
-#define P_MIN 225
-#define P_MID (P_MAX + P_MIN)/2 //( = 375)
-#define P_RESOLUTION P_MAX - P_MIN // = 300
+
 
 
 

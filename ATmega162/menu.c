@@ -13,6 +13,8 @@ Put some of the functions in menu.c to other more suitable files
 #include "sram.h"
 #include "snake.h"
 //#include "canjoy.h"
+#include "game.h"
+#include "can.h"
 
 Menuitem* new_Menuitem(
 char* name,				
@@ -42,21 +44,30 @@ void assign_parents(Menuitem* menu){
 
 Menuitem* create_menu(){
 	
-	//Store these strings in progmem maybe naaah
-	
-	
-	//for some reason, MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat in sub menus, so wtf
+/*
+base->submenus[1] = new_Menuitem("Games", NULL, 2);
+base->submenus[0]->submenus[0] = new_Menuitem("Ping Pong", NULL, 0);
+base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 0);
+*/
+
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
-	base->submenus[0] = new_Menuitem("Snake", snake_run, 0);
 	
-	base->submenus[1] = new_Menuitem("Settings", NULL, 2);
+	base->submenus[0] = new_Menuitem("Games", NULL, 2);
+		base->submenus[0]->submenus[0] = new_Menuitem("Game", game_play, 0);
+		base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 0);
+	
+	base->submenus[1] = new_Menuitem("Settings", NULL, 3);
 		base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_alt_change_contrast, 0);
 		base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_alt_toggle_negative, 0);
+		base->submenus[1]->submenus[2] = new_Menuitem("Seizure", oled_epleptic_seizure, 0);
+		
 		
 	base->submenus[2] = new_Menuitem("Tests", NULL, 2);
-		base->submenus[2]->submenus[0] = new_Menuitem("Can", NULL, 2);
-			base->submenus[2]->submenus[0]->submenus[0] = new_Menuitem("Loopback", NULL, 0);
-			base->submenus[2]->submenus[0]->submenus[1] = new_Menuitem("Node1 to Node2", NULL, 0);
+		base->submenus[2]->submenus[0] = new_Menuitem("Can", NULL, 1);
+			base->submenus[2]->submenus[0]->submenus[0] = new_Menuitem("Loopback", can_test_loopback, 0);
+			//base->submenus[2]->submenus[0]->submenus[1] = new_Menuitem("Node1 to Node2", can_test_transmit, 0);
+			//base->submenus[2]->submenus[0]->submenus[2] = new_Menuitem("Node2 to Node1", can_test_recieve, 0);
+			
 		base->submenus[2]->submenus[1] = new_Menuitem("SRAM", SRAM_test, 0);
 		
 		

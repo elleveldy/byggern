@@ -13,6 +13,7 @@ If oled fucks up, use conservative oled_store() function
 #include "font.h"
 #include "timer.h"	//to achieve 60Hz refresh rate
 #include "joystick.h" //for oled_contrast_change
+#include "util/delay.h"
 
 #define OLED_DATA_ADRESS (volatile char*)0x1200
 #define OLED_COMMAND_ADRESS (volatile char*)0x1000
@@ -82,7 +83,6 @@ void oled_alt_init()
 	//oled_home();
 	
 	//to allow 60Hz refresh rate	
-	timer_init();
 	
 }
 
@@ -124,15 +124,14 @@ void oled_write_screen(){
 
 
 
-//Seems to actually work at 60Hz
-//printing to oled has yet to be tested
+//Seems work at 60Hz
 void oled_refresh_60Hz(){
 	
 	//F_CPU = 4.9152MHz, prescaler = 1024
 	//F_CPU / prescaler = 4800Hz = 60Hz * 80
-	if(timer_read() > 80){
+	if(timer_read(TIMER_1) > 80){
 		oled_write_screen();
-		timer_reset();
+		timer_reset(TIMER_1);
 	}
 }
 
@@ -207,10 +206,11 @@ void oled_alt_change_contrast(){
 	
 	//print usefull information
 	
-	oled_alt_clear_screen();
 	
 	while(1){
 		//oled_alt_clear_screen();
+		
+		oled_alt_clear_screen();
 		
 		oled_store((char[9]){"Contrast"}, (int[2]){0, 0});
 		oled_store((char[12]){"left slider"}, (int[2]){4, 3*8});
@@ -237,6 +237,17 @@ void oled_alt_change_contrast(){
 		}
 	}	
 
+}
+
+
+void oled_epleptic_seizure(){
+	while(1){
+		oled_alt_toggle_negative();
+		_delay_ms(70);
+	}
+	if(button_left_read()){
+		return;
+	}
 }
 
 //special characters

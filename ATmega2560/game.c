@@ -25,7 +25,7 @@ static unsigned int score = 0;
 void game_single_player(){
 	
 	
-	ir_init
+	ir_init();
 	servo_init();
 	motor_init();
 	

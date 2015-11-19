@@ -1,7 +1,8 @@
 #pragma once
-
-
 #include "menu.h"
+
+
+//typedef enum{ left, right, down, up, click }gui_input;
 
 
 int gui_line_nr;

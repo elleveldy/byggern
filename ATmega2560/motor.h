@@ -23,13 +23,12 @@ void motor_init();
 void motor_encoder_reset();
 void motor_encoder_select_byte(uint8_t val);
 void motor_encoder_output_enable(uint8_t enable);
-static uint8_t reverse_bits(uint8_t byte);//remove static fn from .h file?
 
 
 
 void motor_encoder_init();
 
-
+uint8_t reverse_bits(uint8_t byte);
 uint8_t motor_encoder_byte_read();
 uint16_t motor_encoder_read();
 
@@ -55,6 +54,7 @@ void motor_controller_calibrate_by_offset();
 void motor_crude_controller(uint16_t current_position, uint16_t reference);
 //converts slider: 0-255 to 9100 - 0
 void motor_crude_controller_slider(uint16_t current_position, uint8_t reference);
+uint8_t motor_speed_controller(uint8_t speed);
 
 
 /*

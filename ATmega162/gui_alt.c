@@ -15,8 +15,12 @@
 void gui_alt_run()
 {
 	gui_alt_print_menu(menu_selector);
+	
 	gui_alt_navigate();
-	gui_alt_print_indicator(menu_selector);
+	
+
+	oled_invert_line(menu_submenu_number(menu_selector));
+
 }
 
 
@@ -26,23 +30,32 @@ void gui_alt_print_menu(Menuitem* menu){
 	
 	oled_alt_clear_screen();
 	oled_store_string(menu_name(parent), 0, 0);
+	//oled_store((char[sizeof(menu_name(parent)) + 1]){menu_name(parent)}, (int[2]){0,0});
 	
 	for(int n = 0; n < parent->num_submenus; n++){
 		oled_store_string(menu_name(parent->submenus[n] ), 8, n+1);
+		//oled_store((char[sizeof(menu_name(parent->submenus[n])) + 1]){menu_name(parent->submenus[n])}, (int[2]){0,0});
+		
 	}
 }
 
-//uses menu_selector and changes it according to joystick movement
 
+
+
+
+//uses global variable menu_selector and changes 
+//what submenu it points to according to joystick movement.
+//Must be run in a while loop
 void gui_alt_navigate(){
 	
-
+	
 	//If we're pointing at Main menu, point to first submenu instead
 	if(strcmp(menu_selector->name, "Main") == 0){
 		menu_selector = menu_submenu(menu_selector);
 	}
 
 	int threshold = 70;
+	
 	
 	if(joystick_x_value() > threshold){
 		menu_selector = menu_submenu(menu_selector);

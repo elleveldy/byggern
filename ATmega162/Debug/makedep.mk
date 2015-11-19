@@ -12,6 +12,8 @@ canjoy.c
 
 font.c
 
+game.c
+
 gui.c
 
 gui_alt.c

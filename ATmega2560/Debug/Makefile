@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../ATmega2560.c \
 ../can.c \
 ../canjoy.c \
+../game.c \
 ../ir.c \
 ../max520.c \
 ../mcp2515.c \
@@ -66,6 +67,7 @@ adc.o \
 ATmega2560.o \
 can.o \
 canjoy.o \
+game.o \
 ir.o \
 max520.o \
 mcp2515.o \
@@ -84,6 +86,7 @@ adc.o \
 ATmega2560.o \
 can.o \
 canjoy.o \
+game.o \
 ir.o \
 max520.o \
 mcp2515.o \
@@ -102,6 +105,7 @@ adc.d \
 ATmega2560.d \
 can.d \
 canjoy.d \
+game.d \
 ir.d \
 max520.d \
 mcp2515.d \
@@ -120,6 +124,7 @@ adc.d \
 ATmega2560.d \
 can.d \
 canjoy.d \
+game.d \
 ir.d \
 max520.d \
 mcp2515.d \
@@ -147,6 +152,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

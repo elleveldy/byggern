@@ -1,7 +1,10 @@
 
 
+#define GAME_OVER 0
+#define GAME_RUNNING 1
 
-#define SCORE_TIMER 5
 
-unsigned int player_1_score = 0;
+uint8_t game_score = 0;
+
+
 

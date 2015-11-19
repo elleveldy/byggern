@@ -22,6 +22,7 @@
 #include "motor.h"
 #include "PI_controller.h"
 #include "servo.h"
+#include "game.h"
 /*
 check if header files are included in their respective c files, and if they should be
 to avoid "implicit declaration of function
@@ -46,7 +47,9 @@ int main(void){
 	//
 	
 	can_init(MODE_NORMAL);
-	adc_init();
+	/*adc_init();*/
+	ir_init();
+	
 	
 	DDRE |= (1 << 3); //studass PWM bandaid that can be removed? 
 
@@ -56,57 +59,99 @@ int main(void){
 	
 	solenoid_init();
 	motor_init();
+	pwm_init(SERVO_PERIOD, P_MID);
 	
 
 	PI_controller* sliders = PI_controller_new(0.02, 0.05);
 	
-	uint16_t y;
-	uint16_t x;
+	uint16_t position;
+	uint16_t reference;
 	float output;
 	
 	motor_controller_calibrate_by_reset();
+	//_delay_ms(3000);
+	//can_message message_node1 = can_recieve();
 
+	reference = 4500;
 	
+	can_message game_status;
 	while(1){
+		
+		/*switch(message_node1.id){
+			case(GAME_ID):*/
+				canjoy_update();
+				
+				printf("stuff: %u\n", canjoy_joystick_x());
+				
+				//inverts and multiplies 8 bit input to board game domain
+				reference = abs(canjoy_joystick_x() - 255) * (float)(max_left) / 255.0;
+				
+				position = motor_encoder_read();
+				output =  PI_controller_output(sliders, position, reference);
+				motor_speed_direction(output);
+				
+				
+				//clockblock spinning at either wall
+				if((position > max_left) && (reference < 127)){
+					output = 0;
+				}//if negative overflow
+				else if(position > 60000){
+					motor_encoder_reset();
+				}
+				
+				//allows shooting solonoid, with 50ms pulse, without "burst mode"
+				if(canjoy_button_right() && solenoid_is_shooting_allowed()){
+					solenoid_shoot();
+					solenoid_disallow_shooting();
+				}
+				else if(canjoy_button_right()){}
+				else{
+					solenoid_allow_shooting();
+				}
+				
+				//controll servo
+				servo_set_pulse_by_input(canjoy_slider_right());
+				
+				if(timer5_read() > 16000){
+					game_score++;
+					timer5_reset();
+				}
+				
+				//use timer for this, to avoid spamming?
+				if(ir_blocked()){
+					game_status.id = CAN_GAME_STATE;
+					game_status.id = 2;
+					game_status.data[0] = 0; // game over
+					game_status.data[1] = game_score;
+					can_transmit(&game_status, 0x30);
+				}
+				else{
+					game_status.id = CAN_GAME_STATE;
+					game_status.id = 2;
+					game_status.data[0] = 1; // game running
+					game_status.data[1] = game_score;
+					can_transmit(&game_status, 0x30);
+					
+				}
+				
+				
+				
+				
+				//printf("input: %u\n", canjoy_slider_right());
+				
+				//printf("Pos: %u\tRef: %u\toutput: %f\n", position, reference, output);
+				
+			/*case(CAN_TEST_LOOPBACK):
+				can_test_loopback();
+			case(CAN_TEST_TRANSMIT):
+				can_test_transmit();
+			case(CAN_TEST_RECIEVE):
+				can_test_recieve();
+		}
 
-
-		
-		canjoy_update();
-		
-		x = abs(canjoy_joystick_x() - 255) * (float)(max_left) / 255.0;		
-		y = motor_encoder_read();
-		
-		
-		
-		output = -PI_controller_output(sliders, x, y);
-		
-		if(y > max_left | y < 0){
-			output = 0;
-		}
-		if(y > 65000){
-			motor_encoder_reset();
-		}
-		
-		
-		//allows shooting solonoid, with 50ms pulse, without "burst mode"
-		if(canjoy_button_right() && solenoid_is_shooting_allowed()){
-			solenoid_shoot();
-			solenoid_disallow_shooting();
-		}
-		else if(canjoy_button_right()){}
-		else{
-			solenoid_allow_shooting();			
-		}
-		
-		servo_set_pulse_by_input(canjoy_slider_right());
-		
-		//motor_speed_direction_cap(output, 150);
-		motor_speed_direction(output);
-
-		
-		
-		//printf("Pos: %u\tRef: %u\toutput: %f\n", y, x, output);
-		
+		*/
+			
+		//message_node1 = can_recieve();
 		
 	}
 	

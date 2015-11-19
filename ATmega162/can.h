@@ -3,6 +3,11 @@
 #include <stdint.h>
 
 
+#define CAN_TEST_LOOPBACK 300
+#define CAN_TEST_TRANSMIT 301
+#define CAN_TEST_RECIEVE 302
+
+
 typedef struct can_message can_message;
 struct can_message{
 	uint16_t id; //16bit 
