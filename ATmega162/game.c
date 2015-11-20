@@ -22,7 +22,7 @@
 //transmitts input through can bus
 //Allows you to leave game by button pressing
 
-uint16_t global_score = 0;
+uint8_t global_score = 0;
 #define THRESHOLD 70
 
 void game_play(){
