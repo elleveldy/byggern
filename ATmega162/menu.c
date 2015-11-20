@@ -6,15 +6,14 @@ Put some of the functions in menu.c to other more suitable files
 
 #include <stdint.h>
 #include <stdlib.h>
-//#include "oled.h"
-#include "oled_alt.h"
-#include "joystick.h"
+
+#include "Display/oled.h"
+#include "input.h"
 #include "menu.h"
 #include "sram.h"
 #include "snake.h"
-//#include "canjoy.h"
 #include "game.h"
-#include "can.h"
+#include "Communication/can.h"
 
 Menuitem* new_Menuitem(
 char* name,				
@@ -44,18 +43,16 @@ void assign_parents(Menuitem* menu){
 
 Menuitem* create_menu(){
 	
-/*
-base->submenus[1] = new_Menuitem("Games", NULL, 2);
-base->submenus[0]->submenus[0] = new_Menuitem("Ping Pong", NULL, 0);
-base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 0);
-*/
 
 	Menuitem* base = new_Menuitem("Main", NULL, 3);
 	
 	base->submenus[0] = new_Menuitem("Games", NULL, 2);
 		base->submenus[0]->submenus[0] = new_Menuitem("Game", game_play, 0);
-		base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 0);
-	
+		base->submenus[0]->submenus[1] = new_Menuitem("Snake", NULL, 2);
+			base->submenus[0]->submenus[1]->submenus[0] = new_Menuitem("Play", snake_run, 0);
+			base->submenus[0]->submenus[1]->submenus[1] = new_Menuitem("Difficulty", snake_settings, 0);
+			
+
 	base->submenus[1] = new_Menuitem("Settings", NULL, 3);
 		base->submenus[1]->submenus[0] = new_Menuitem("Contrast", oled_change_contrast, 0);
 		base->submenus[1]->submenus[1] = new_Menuitem("Toggle negative", oled_toggle_negative, 0);
@@ -124,7 +121,7 @@ Menuitem* menu_prev(Menuitem* m){
 
 //works
 int menu_submenu_number(Menuitem* m){
-	//oled_goto_pos(0,5); removed in conjunction with oled_alt/gui_alt
+	//oled_goto_pos(0,5); removed in conjunction with oled/gui
 	Menuitem* parent = menu_parent(m);
 	for(int i = 0; i < parent->num_submenus; i++){
 		if(parent->submenus[i] == m)
@@ -143,31 +140,8 @@ char* menu_name(Menuitem* m){
 }
 
 
-void menu_snake_fn(){
-	
-	//printf("Entered menu_snake_fn\n");
-	
-	while(1){
-	
-/*		
-		printf("X: %d\n", joystick_read_x());
-		canjoy_transmit();
-*/		
-		oled_clear_screen();
-		oled_store_string("no snake yet", 1*8, 3);
-		oled_store_string("return", 0, 7);
-		oled_write_screen();
-		
-		if(button_left_read()){
-			return;
-		}
-	}
-	
-}
 
 
 
 
-
-//volatile char *oled_data = (char *) 0x1200; //dirty fix
 

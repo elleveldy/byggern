@@ -7,9 +7,9 @@
 #include <stdlib.h> //for abs()
 #include "motor.h"
 #include "ir.h"
-#include "canjoy.h"
-#include "max520.h"
-#include "pwm.h"
+#include "Communication/canjoy.h"
+#include "Drivers/max520.h"
+#include "Drivers/pwm.h"
 #include "solenoid.h"
 
 

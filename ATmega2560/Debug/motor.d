@@ -19,8 +19,8 @@ motor.d motor.o: .././motor.c \
  .././motor.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdarg.h \
- .././ir.h .././canjoy.h .././can.h .././max520.h .././pwm.h \
- .././solenoid.h
+ .././ir.h .././Communication/canjoy.h .././Communication/can.h \
+ .././Drivers/max520.h .././Drivers/pwm.h .././solenoid.h
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\util\delay.h:
 
@@ -64,12 +64,12 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 
 .././ir.h:
 
-.././canjoy.h:
+.././Communication/canjoy.h:
 
-.././can.h:
+.././Communication/can.h:
 
-.././max520.h:
+.././Drivers/max520.h:
 
-.././pwm.h:
+.././Drivers/pwm.h:
 
 .././solenoid.h:

@@ -17,9 +17,8 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdarg.h \
- .././uart.h .././joystick.h .././oled_alt.h .././gui_alt.h .././menu.h \
- .././mcp2515.h .././SPI.h .././snake.h .././mcp2515_define.h .././can.h \
- .././canjoy.h .././sram.h .././timer.h
+ .././Communication/uart.h .././input.h .././Display/oled.h \
+ .././Display/gui.h .././Display/../menu.h .././snake.h .././timer.h
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -57,28 +56,16 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdarg.h:
 
-.././uart.h:
+.././Communication/uart.h:
 
-.././joystick.h:
+.././input.h:
 
-.././oled_alt.h:
+.././Display/oled.h:
 
-.././gui_alt.h:
+.././Display/gui.h:
 
-.././menu.h:
-
-.././mcp2515.h:
-
-.././SPI.h:
+.././Display/../menu.h:
 
 .././snake.h:
-
-.././mcp2515_define.h:
-
-.././can.h:
-
-.././canjoy.h:
-
-.././sram.h:
 
 .././timer.h:

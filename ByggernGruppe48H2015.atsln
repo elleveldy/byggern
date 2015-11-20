@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ByggernGruppe48H2015", "ByggernGruppe48H2015\ByggernGruppe48H2015.cproj", "{D8EC31A9-697F-4679-8988-00386C032023}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega2560", "ATmega2560\ATmega2560.cproj", "{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Atmega2560", "ATmega2560\Atmega2560.cproj", "{0C82B7B3-8E5F-48C7-9574-D2E96BC007C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

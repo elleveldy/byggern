@@ -1,7 +1,7 @@
 
 #include "motor.h"
 #include "PI_controller.h"
-#include "timer.h"
+#include "Drivers/timer.h"
 
 #include <avr/io.h>
 #include <stdio.h>

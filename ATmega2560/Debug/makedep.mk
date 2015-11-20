@@ -2,37 +2,37 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-adc.c
+Communication\can.c
 
-ATmega2560.c
+Communication\canjoy.c
 
-can.c
+Communication\mcp2515.c
 
-canjoy.c
+Communication\spi.c
+
+Communication\TWI_Master.c
+
+Communication\uart.c
+
+Drivers\adc.c
+
+Drivers\max520.c
+
+Drivers\pwm.c
+
+Drivers\timer.c
+
+main.c
 
 game.c
 
 ir.c
 
-max520.c
-
-mcp2515.c
-
 motor.c
 
 PI_controller.c
 
-pwm.c
-
 servo.c
 
 solenoid.c
-
-spi.c
-
-timer.c
-
-TWI_Master.c
-
-uart.c
 

@@ -9,26 +9,19 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include <stdlib.h>
+#include <stdlib.h>//allows ranint
 #include "stdio.h" //for fdevopen
 
-#include "uart.h"
-#include "joystick.h"
+#include "Communication/uart.h"
+#include "input.h"
 
-//#include "oled.h"		FIX
-#include "oled_alt.h"
-
-//#include "gui.h"
-#include "gui_alt.h"
+#include "Display/oled.h"
+#include "Display/gui.h"
 
 #include "menu.h"
-#include "mcp2515.h"
-#include "SPI.h"
 #include "snake.h"
-#include "mcp2515_define.h"
-#include "can.h"
-#include "canjoy.h"
-#include "sram.h"
+
+
 
 #include "timer.h"
 
@@ -38,7 +31,7 @@ check if header files are included in their respective c files, and if they shou
 to avoid "implicit declaration of function
 
 If oled writing fucks up, check if you need to:
-		oled_store_string((char[5]){"dick"}, (int[2]){0, 0});
+oled_store_string((char[5]){"dick"}, (int[2]){0, 0});
 
 MENU/GUI instantly goes into first submenu in main, but this pattern doesn't repeat
 	in sub menus, so wtf
@@ -68,6 +61,7 @@ by the recieved can message ID.
 */
 
 
+
 int main(void){
 	fdevopen(uart_Transmit, uart_Receive);
 	
@@ -76,17 +70,14 @@ int main(void){
 	uart_Init(MYUBRR);
 	
 	
-	buttons_init(); // useless thus far
+	buttons_init(); 
 
 	
 	Menuitem* menu = create_menu();
 	menu_selector = menu;
-	//menu_line_nr = 0; 
+
 	
-	
-	//consider putting this elsewhere, to
-	//allow selection of can tests in runtime
-	//can_init(MODE_NORMAL);
+
 	
 	timer_init();	
 	oled_init();
@@ -99,15 +90,7 @@ int main(void){
 		gui_run();
 
 		oled_refresh_60Hz();
-		
-		//joystick_print_input();
 
-		
-		/*canjoy_transmit();*/
-		
-
-		//can_test_transmit();
-		
 	}
 	
 	

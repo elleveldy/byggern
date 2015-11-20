@@ -32,28 +32,29 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
-SUBDIRS := 
+SUBDIRS :=  \
+../Display \
+../Communication
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../ByggernGruppe48H2015.c \
-../can.c \
-../canjoy.c \
+../Communication/can.c \
+../Communication/canjoy.c \
+../Communication/mcp2515.c \
+../Communication/SPI.c \
+../Communication/uart.c \
+../Display/font.c \
+../Display/gui.c \
+../Display/oled.c \
 ../eeprom.c \
-../font.c \
 ../game.c \
-../gui_alt.c \
-../joystick.c \
+../input.c \
 ../main.c \
-../mcp2515.c \
 ../menu.c \
-../oled_alt.c \
 ../snake.c \
-../SPI.c \
 ../sram.c \
-../timer.c \
-../uart.c
+../timer.c
 
 
 PREPROCESSING_SRCS += 
@@ -63,80 +64,76 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-ByggernGruppe48H2015.o \
-can.o \
-canjoy.o \
+Communication/can.o \
+Communication/canjoy.o \
+Communication/mcp2515.o \
+Communication/SPI.o \
+Communication/uart.o \
+Display/font.o \
+Display/gui.o \
+Display/oled.o \
 eeprom.o \
-font.o \
 game.o \
-gui_alt.o \
-joystick.o \
+input.o \
 main.o \
-mcp2515.o \
 menu.o \
-oled_alt.o \
 snake.o \
-SPI.o \
 sram.o \
-timer.o \
-uart.o
+timer.o
 
 OBJS_AS_ARGS +=  \
-ByggernGruppe48H2015.o \
-can.o \
-canjoy.o \
+Communication/can.o \
+Communication/canjoy.o \
+Communication/mcp2515.o \
+Communication/SPI.o \
+Communication/uart.o \
+Display/font.o \
+Display/gui.o \
+Display/oled.o \
 eeprom.o \
-font.o \
 game.o \
-gui_alt.o \
-joystick.o \
+input.o \
 main.o \
-mcp2515.o \
 menu.o \
-oled_alt.o \
 snake.o \
-SPI.o \
 sram.o \
-timer.o \
-uart.o
+timer.o
 
 C_DEPS +=  \
-ByggernGruppe48H2015.d \
-can.d \
-canjoy.d \
+Communication/can.d \
+Communication/canjoy.d \
+Communication/mcp2515.d \
+Communication/SPI.d \
+Communication/uart.d \
+Display/font.d \
+Display/gui.d \
+Display/oled.d \
 eeprom.d \
-font.d \
 game.d \
-gui_alt.d \
-joystick.d \
+input.d \
 main.d \
-mcp2515.d \
 menu.d \
-oled_alt.d \
 snake.d \
-SPI.d \
 sram.d \
-timer.d \
-uart.d
+timer.d
 
 C_DEPS_AS_ARGS +=  \
-ByggernGruppe48H2015.d \
-can.d \
-canjoy.d \
+Communication/can.d \
+Communication/canjoy.d \
+Communication/mcp2515.d \
+Communication/SPI.d \
+Communication/uart.d \
+Display/font.d \
+Display/gui.d \
+Display/oled.d \
 eeprom.d \
-font.d \
 game.d \
-gui_alt.d \
-joystick.d \
+input.d \
 main.d \
-mcp2515.d \
 menu.d \
-oled_alt.d \
 snake.d \
-SPI.d \
 sram.d \
-timer.d \
-uart.d
+timer.d
 
 OUTPUT_FILE_PATH +=ByggernGruppe48H2015.elf
 
@@ -185,7 +182,19 @@ LINKER_SCRIPT_DEP+=
 
 
 
+Communication/%.o: ../Communication/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=4915200  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
 
+Display/%.o: ../Display/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=4915200  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
 
 ./%.o: .././%.c
 	@echo Building file: $<

@@ -110,19 +110,55 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ByggernGruppe48H2015.c">
+    <Compile Include="Communication\can.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="can.c">
+    <Compile Include="Communication\can.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="can.h">
+    <Compile Include="Communication\canjoy.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="canjoy.c">
+    <Compile Include="Communication\canjoy.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="canjoy.h">
+    <Compile Include="Communication\mcp2515.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Communication\mcp2515.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Communication\mcp2515_define.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Communication\SPI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Communication\SPI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Communication\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Communication\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\font.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\gui.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\gui.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\oled.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Display\oled.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="eeprom.c">
@@ -131,43 +167,19 @@
     <Compile Include="eeprom.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="font.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="font.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="game.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="game.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gui_alt.c">
+    <Compile Include="input.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gui_alt.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="joystick.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="joystick.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="macros.h">
+    <Compile Include="input.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mcp2515.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mcp2515.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mcp2515_define.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="menu.c">
@@ -176,22 +188,10 @@
     <Compile Include="menu.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="oled_alt.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="oled_alt.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="snake.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="snake.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SPI.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SPI.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="sram.c">
@@ -206,12 +206,6 @@
     <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="uart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="uart.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
@@ -220,6 +214,10 @@
     <None Include="Readme.txt">
       <SubType>compile</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Display" />
+    <Folder Include="Communication" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
